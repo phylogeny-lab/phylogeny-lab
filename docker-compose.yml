@@ -1,0 +1,54 @@
+version: '3.9'
+services:
+
+  nextjs:
+    container_name: nextjs
+    build: 
+      context: phylogeny-lab
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - bridged_net_adapter
+
+  postgres:
+    container_name: postgresql
+    build: 
+      context: ./postgres
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/volume:/var/lib/postgresql/data
+    networks:
+      - bridged_net_adapter
+
+  blast_server:
+    container_name: blast_server
+    build:
+      context: ./blast_server
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    ports:
+      - "5000:5000"
+    environment:
+      - POSTGRES_URL=postgresql://admin:password@postgres/postgres
+      - BLAST_SAVE_DIR=/volume/blast_queries
+    depends_on:
+      - postgres
+    volumes:
+      - ./blast_server/volume/:/volume
+    networks:
+      - bridged_net_adapter
+
+networks:
+  bridged_net_adapter:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 192.168.50.0/24

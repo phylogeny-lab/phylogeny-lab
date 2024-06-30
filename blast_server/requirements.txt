@@ -1,0 +1,13 @@
+aiofiles
+fastapi[all]
+uvicorn[standard]
+psycopg2-binary
+sqlalchemy
+passlib[bcrypt]
+python-jose[cryptography]
+alembic
+python-multipart
+pymongo
+xmltodict
+ncbi-datasets-cli
+python-dotenv

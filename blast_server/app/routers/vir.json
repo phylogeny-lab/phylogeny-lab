@@ -1,0 +1,2603 @@
+{
+    "reports": [
+        {
+            "accession": "GCF_000849665.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2016-03-28",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 8,
+                        "total": 8
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj14593",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000849665.1",
+                    "annotation_name": "Annotation submitted by Liu B., Division of Cell and Molecular Medicine, University of Southampton, South Academic Block, Southampton General Hospital, Tremona Road, Southampton, Hampshire, SO16 6YD, UNITED KINGDOM",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01",
+                "submitter": "Liu B., Division of Cell and Molecular Medicine, University of Southampton, South Academic Block, Southampton General Hospital, Tremona Road, Southampton, Hampshire, SO16 6YD, UNITED KINGDOM"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 4563,
+                "gc_count": "1868",
+                "gc_percent": 41,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 4563,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "4563",
+                "total_ungapped_length": "4563"
+            },
+            "current_accession": "GCF_000849665.1",
+            "organism": {
+                "organism_name": "Chlamydia phage 2",
+                "tax_id": 105154
+            },
+            "paired_accession": "GCA_000849665.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000836805.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2016-01-30",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 9,
+                        "total": 9
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj14012",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000836805.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01",
+                "submitter": "Ru-ching Hsia, Microbiology & Immunology, University of Rochester, 601 Elmwood Avenue, Box 672, Rochester, NY 14642, USA"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 4529,
+                "gc_count": "1856",
+                "gc_percent": 41,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 4529,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "4529",
+                "total_ungapped_length": "4529"
+            },
+            "current_accession": "GCF_000836805.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "PhiCPG1"
+                },
+                "organism_name": "Chlamydia phage CPG1",
+                "tax_id": 90963
+            },
+            "paired_accession": "GCA_000836805.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000898155.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2012-06-12",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 2,
+                        "total": 2
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj167578",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000898155.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2012-05-29",
+                "submitter": "Plant Virus Group, WA State Agricultural Biotechnology Centre, Murdoch University"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 9908,
+                "gc_count": "4140",
+                "gc_percent": 42,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 9908,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "9908",
+                "total_ungapped_length": "9908"
+            },
+            "current_accession": "GCF_000898155.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "Marijiniup 7"
+                },
+                "organism_name": "Cyrtanthus elatus virus A",
+                "tax_id": 861561
+            },
+            "paired_accession": "GCA_000898155.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000871845.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2019-07-11",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj20183",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000871845.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2007-11-01",
+                "submitter": "Division of Vector-Borne Infectious Diseases, National Center for Infectious Diseases, Centers for Disease Control and Prevention, Public Health Service, U.S. Department of Health and Human Services"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 10723,
+                "gc_count": "4913",
+                "gc_percent": 46,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 10723,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "10723",
+                "total_ungapped_length": "10723"
+            },
+            "current_accession": "GCF_000871845.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "16681"
+                },
+                "organism_name": "dengue virus type 2",
+                "tax_id": 11060
+            },
+            "paired_accession": "GCA_000871845.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000844925.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2021-10-11",
+                "stats": {
+                    "gene_counts": {
+                        "non_coding": 3,
+                        "protein_coding": 83,
+                        "total": 86
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj14480",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000844925.1",
+                    "annotation_name": "Annotation submitted by Contact:Hiroshi Miyamoto Kinki university, Faculty of Biology-oriented Science and Technology; 930 Nishimitani, Kinokawa, Wakayama 649-6493, Japan",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01",
+                "submitter": "Contact:Hiroshi Miyamoto Kinki university, Faculty of Biology-oriented Science and Technology; 930 Nishimitani, Kinokawa, Wakayama 649-6493, Japan"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 60942,
+                "gc_count": "30418",
+                "gc_percent": 50,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 60942,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "60942",
+                "total_ungapped_length": "60942"
+            },
+            "current_accession": "GCF_000844925.1",
+            "organism": {
+                "organism_name": "Enterobacteria phage VT2-Sakai",
+                "tax_id": 97081
+            },
+            "paired_accession": "GCA_000844925.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000861165.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15288",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000861165.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2001-01-24"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 7440,
+                "gc_count": "3448",
+                "gc_percent": 46.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 7440,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "7440",
+                "total_ungapped_length": "7440"
+            },
+            "current_accession": "GCF_000861165.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "Human poliovirus 1 Mahoney"
+                },
+                "organism_name": "Enterovirus C",
+                "tax_id": 138950
+            },
+            "paired_accession": "GCA_000861165.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000860865.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 9,
+                        "total": 9
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15383",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000860865.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2001-07-02",
+                "submitter": "E.J. Snijder, Department of Virology, Leiden University Medical center LUMC P4-26, PO Box 9600, 2300 RC Leiden, The Netherlands"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 12704,
+                "gc_count": "6563",
+                "gc_percent": 51.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 12704,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "12704",
+                "total_ungapped_length": "12704"
+            },
+            "current_accession": "GCF_000860865.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "Bucyrus"
+                },
+                "organism_name": "Equine arteritis virus",
+                "tax_id": 11047
+            },
+            "paired_accession": "GCA_000860865.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000846145.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 10,
+                        "total": 10
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj14570",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000846145.1",
+                    "annotation_name": "Annotation submitted by K.I. Kodaira, Dept of Cell Technology, Chemical and Biochemical Engineering, Faculty of Engineering, Toyama Univ, 3190 Gofuku, Toyama, Toyama 930, JAPAN",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01",
+                "submitter": "K.I. Kodaira, Dept of Cell Technology, Chemical and Biochemical Engineering, Faculty of Engineering, Toyama Univ, 3190 Gofuku, Toyama, Toyama 930, JAPAN"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 6087,
+                "gc_count": "2750",
+                "gc_percent": 45,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 6087,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "6087",
+                "total_ungapped_length": "6087"
+            },
+            "current_accession": "GCF_000846145.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "wildtype"
+                },
+                "organism_name": "Escherichia phage alpha3",
+                "tax_id": 10849
+            },
+            "paired_accession": "GCA_000846145.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000836945.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2021-10-11",
+                "stats": {
+                    "gene_counts": {
+                        "non_coding": 10,
+                        "protein_coding": 278,
+                        "total": 288
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj14044",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000836945.1",
+                    "annotation_name": "Annotation submitted by Department of Microbiology, North Carolina State University",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2003-03-29",
+                "submitter": "Department of Microbiology, North Carolina State University"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 168903,
+                "gc_count": "59619",
+                "gc_percent": 35.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 168903,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "168903",
+                "total_ungapped_length": "168903"
+            },
+            "current_accession": "GCF_000836945.1",
+            "organism": {
+                "organism_name": "Escherichia phage T4",
+                "tax_id": 2681598
+            },
+            "paired_accession": "GCA_000836945.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000862405.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2019-05-23",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15364",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000862405.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01",
+                "submitter": "Hepatitis Viruses Section, Laboratory of Infectious Diseases, National Institute of Allergy and Infectious Diseases, National Institutes of Health"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 9399,
+                "gc_count": "4756",
+                "gc_percent": 50.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 9399,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "9399",
+                "total_ungapped_length": "9399"
+            },
+            "current_accession": "GCF_000862405.1",
+            "organism": {
+                "organism_name": "GB virus-B",
+                "tax_id": 2847087
+            },
+            "paired_accession": "GCA_000862405.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000861845.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2019-07-11",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15432",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000861845.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2002-08-07",
+                "submitter": "Molecular Microbiology, Washington University School of Medicine"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 9646,
+                "gc_count": "5617",
+                "gc_percent": 58,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 9646,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "9646",
+                "total_ungapped_length": "9646"
+            },
+            "current_accession": "GCF_000861845.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "H77"
+                },
+                "organism_name": "Hepatitis C virus genotype 1",
+                "tax_id": 41856
+            },
+            "paired_accession": "GCA_000861845.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_001712785.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2019-05-28",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj339556",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_001712785.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2016-08-19",
+                "submitter": "Biologie Moleculaire, Laboratoire de Sante Publique du Quebec, Institut National de Sante Publique du Quebec"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 9443,
+                "gc_count": "5358",
+                "gc_percent": 57,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 9443,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "9443",
+                "total_ungapped_length": "9443"
+            },
+            "current_accession": "GCF_001712785.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "QC69"
+                },
+                "organism_name": "Hepatitis C virus genotype 7",
+                "tax_id": 1544901
+            },
+            "paired_accession": "GCA_001712785.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV additional isolate",
+                "type_label": "TYPE_ICTV_ADDITIONAL"
+            }
+        },
+        {
+            "accession": "GCF_000894695.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2012-06-12",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 2,
+                        "total": 2
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj167580",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000894695.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2012-05-29",
+                "submitter": "Plant Virus Group, WA State Agricultural Biotechnology Centre, Murdoch University"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 9660,
+                "gc_count": "4150",
+                "gc_percent": 43,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 9660,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "9660",
+                "total_ungapped_length": "9660"
+            },
+            "current_accession": "GCF_000894695.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "Marijiniup 1"
+                },
+                "organism_name": "Hippeastrum mosaic virus",
+                "tax_id": 421010
+            },
+            "paired_accession": "GCA_000894695.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000864765.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 10,
+                        "total": 10
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15476",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000864765.1",
+                    "annotation_name": "Annotation submitted by NIH, NLM",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01",
+                "submitter": "NIH, NLM"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 9181,
+                "gc_count": "3867",
+                "gc_percent": 42,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 9181,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "9181",
+                "total_ungapped_length": "9181"
+            },
+            "current_accession": "GCF_000864765.1",
+            "organism": {
+                "organism_name": "Human immunodeficiency virus 1",
+                "tax_id": 11676
+            },
+            "paired_accession": "GCA_000864765.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000846805.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2020-12-20",
+                "stats": {
+                    "gene_counts": {
+                        "non_coding": 1,
+                        "other": 1,
+                        "protein_coding": 14,
+                        "total": 16
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj14517",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000846805.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01",
+                "submitter": "J. Sprengel, Institute of Genetics/Dept. Virology, Weyertal 121, 50931 Cologne 41, FRG"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 34125,
+                "gc_count": "15876",
+                "gc_percent": 46.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 34125,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "34125",
+                "total_ungapped_length": "34125"
+            },
+            "current_accession": "GCF_000846805.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "Huie"
+                },
+                "organism_name": "Human mastadenovirus A",
+                "tax_id": 129875
+            },
+            "paired_accession": "GCA_000846805.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000857085.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2015-05-12",
+                "stats": {
+                    "gene_counts": {
+                        "non_coding": 1,
+                        "other": 1,
+                        "protein_coding": 14,
+                        "total": 16
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15150",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000857085.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2008-09-04",
+                "submitter": "Division of Medical Genetics, University of Washington"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 34794,
+                "gc_count": "17008",
+                "gc_percent": 49,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 34794,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "34794",
+                "total_ungapped_length": "34794"
+            },
+            "current_accession": "GCF_000857085.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "Slobitski"
+                },
+                "organism_name": "Human mastadenovirus B",
+                "tax_id": 108098
+            },
+            "paired_accession": "GCA_000857085.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV additional isolate",
+                "type_label": "TYPE_ICTV_ADDITIONAL"
+            }
+        },
+        {
+            "accession": "GCF_000880515.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2015-05-11",
+                "stats": {
+                    "gene_counts": {
+                        "non_coding": 2,
+                        "other": 1,
+                        "protein_coding": 14,
+                        "total": 17
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj31177",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000880515.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2008-09-04",
+                "submitter": "Institute of Molecular Biology, University of Zurich"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 35343,
+                "gc_count": "18043",
+                "gc_percent": 51,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 35343,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "35343",
+                "total_ungapped_length": "35343"
+            },
+            "current_accession": "GCF_000880515.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "GB"
+                },
+                "organism_name": "Human mastadenovirus B",
+                "tax_id": 108098
+            },
+            "paired_accession": "GCA_000880515.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_001343785.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2015-02-23",
+                "stats": {
+                    "gene_counts": {
+                        "other": 1,
+                        "protein_coding": 11,
+                        "total": 12
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralMultiSegProj274766",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "bioproject_accession": "PRJNA37813",
+                "bioproject_lineage": [
+                    {
+                        "bioprojects": [
+                            {
+                                "accession": "PRJNA37813",
+                                "title": "2009 H1N1 Flu Outbreak"
+                            }
+                        ]
+                    }
+                ],
+                "paired_assembly": {
+                    "accession": "GCA_001343785.1",
+                    "annotation_name": "Annotation submitted by WHO Collaborating Center for Surveillance, Epidemiology and Control of Influenza, Influenza Division, Centers for Disease Control and Prevention, Atlanta",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2015-02-23",
+                "submitter": "WHO Collaborating Center for Surveillance, Epidemiology and Control of Influenza, Influenza Division, Centers for Disease Control and Prevention, Atlanta"
+            },
+            "assembly_stats": {
+                "contig_l50": 3,
+                "contig_n50": 2151,
+                "gc_count": "5746",
+                "gc_percent": 43.5,
+                "number_of_component_sequences": 8,
+                "number_of_contigs": 8,
+                "number_of_scaffolds": 8,
+                "scaffold_l50": 3,
+                "scaffold_n50": 2151,
+                "total_number_of_chromosomes": 8,
+                "total_sequence_length": "13158",
+                "total_ungapped_length": "13158"
+            },
+            "current_accession": "GCF_001343785.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "A/California/07/2009"
+                },
+                "organism_name": "Influenza A virus (A/California/07/2009(H1N1))",
+                "tax_id": 641809
+            },
+            "paired_accession": "GCA_001343785.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000866645.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2015-02-06",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 12,
+                        "total": 12
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralMultiSegProj15620",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000866645.1",
+                    "annotation_name": "Annotation submitted by INSDC submitter",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2005-08-30"
+            },
+            "assembly_stats": {
+                "contig_l50": 3,
+                "contig_n50": 2233,
+                "gc_count": "5839",
+                "gc_percent": 43.5,
+                "number_of_component_sequences": 8,
+                "number_of_contigs": 8,
+                "number_of_scaffolds": 8,
+                "scaffold_l50": 3,
+                "scaffold_n50": 2233,
+                "total_number_of_chromosomes": 8,
+                "total_sequence_length": "13460",
+                "total_ungapped_length": "13460"
+            },
+            "current_accession": "GCF_000866645.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "A/Korea/426/1968"
+                },
+                "organism_name": "Influenza A virus (A/Korea/426/1968(H2N2))",
+                "tax_id": 488241
+            },
+            "paired_accession": "GCA_000866645.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000865085.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2015-02-06",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 12,
+                        "total": 12
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralMultiSegProj15622",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000865085.1",
+                    "annotation_name": "Annotation submitted by on behalf of TIGR/Wadsworth-NYSDOH/NCBI, National Center for Biotechnology Information, NIH",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2005-08-30",
+                "submitter": "on behalf of TIGR/Wadsworth-NYSDOH/NCBI, National Center for Biotechnology Information, NIH"
+            },
+            "assembly_stats": {
+                "contig_l50": 3,
+                "contig_n50": 2233,
+                "gc_count": "5850",
+                "gc_percent": 43,
+                "number_of_component_sequences": 8,
+                "number_of_contigs": 8,
+                "number_of_scaffolds": 8,
+                "scaffold_l50": 3,
+                "scaffold_n50": 2233,
+                "total_number_of_chromosomes": 8,
+                "total_sequence_length": "13627",
+                "total_ungapped_length": "13627"
+            },
+            "current_accession": "GCF_000865085.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "A/New York/392/2004"
+                },
+                "organism_name": "Influenza A virus (A/New York/392/2004(H3N2))",
+                "tax_id": 335341
+            },
+            "paired_accession": "GCA_000865085.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000928555.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2015-02-04",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 12,
+                        "total": 12
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_method": "Lasergene v. 8.0",
+                "assembly_name": "ViralMultiSegProj274585",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000928555.1",
+                    "annotation_name": "Annotation submitted by Centre of Influenza Research, School of Public Health, The University of Hong Kong",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2015-02-04",
+                "sequencing_tech": "454",
+                "submitter": "Centre of Influenza Research, School of Public Health, The University of Hong Kong"
+            },
+            "assembly_stats": {
+                "contig_l50": 3,
+                "contig_n50": 2176,
+                "gc_count": "5848",
+                "gc_percent": 44.5,
+                "number_of_component_sequences": 8,
+                "number_of_contigs": 8,
+                "number_of_scaffolds": 8,
+                "scaffold_l50": 3,
+                "scaffold_n50": 2176,
+                "total_number_of_chromosomes": 8,
+                "total_sequence_length": "13191",
+                "total_ungapped_length": "13191"
+            },
+            "current_accession": "GCF_000928555.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "A/Shanghai/02/2013"
+                },
+                "organism_name": "Influenza A virus (A/Shanghai/02/2013(H7N9))",
+                "tax_id": 1332244
+            },
+            "paired_accession": "GCA_000928555.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000856665.10",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2017-10-04",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 9,
+                        "total": 9
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralMultiSegProj15055",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000856665.2",
+                    "annotation_name": "Annotation submitted by Contact:Yasushi Muraki Department of Microbiology, Kanazawa Medical University School of Medicine; Uchinada, Ishikawa 920-0293, Japan",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2017-10-04",
+                "submitter": "Contact:Yasushi Muraki Department of Microbiology, Kanazawa Medical University School of Medicine; Uchinada, Ishikawa 920-0293, Japan"
+            },
+            "assembly_stats": {
+                "contig_l50": 3,
+                "contig_n50": 2183,
+                "gc_count": "4814",
+                "gc_percent": 37.5,
+                "number_of_component_sequences": 7,
+                "number_of_contigs": 7,
+                "number_of_scaffolds": 7,
+                "scaffold_l50": 3,
+                "scaffold_n50": 2183,
+                "total_number_of_chromosomes": 7,
+                "total_sequence_length": "12906",
+                "total_ungapped_length": "12906"
+            },
+            "current_accession": "GCF_000856665.10",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "C/Ann Arbor/1/50"
+                },
+                "organism_name": "Influenza C virus (C/Ann Arbor/1/50)",
+                "tax_id": 11553
+            },
+            "paired_accession": "GCA_000856665.2",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000862145.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2019-05-24",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 2,
+                        "total": 2
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15310",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000862145.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 10976,
+                "gc_count": "5644",
+                "gc_percent": 51.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 10976,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "10976",
+                "total_ungapped_length": "10976"
+            },
+            "current_accession": "GCF_000862145.1",
+            "organism": {
+                "organism_name": "Japanese encephalitis virus",
+                "tax_id": 11072
+            },
+            "paired_accession": "GCA_000862145.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCA_000857325.3",
+            "annotation_info": {
+                "name": "Annotation submitted by Department of Virology, Philipps University Marburg",
+                "provider": "Department of Virology, Philipps University Marburg",
+                "release_date": "2024-01-11",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 7,
+                        "total": 7
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15199",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "refseq_category": "reference genome",
+                "release_date": "2024-01-11",
+                "submitter": "Department of Virology, Philipps University Marburg"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 19112,
+                "gc_count": "7317",
+                "gc_percent": 38.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 19112,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "19112",
+                "total_ungapped_length": "19112"
+            },
+            "current_accession": "GCA_000857325.3",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "Musoke"
+                },
+                "organism_name": "Marburg virus - Musoke, Kenya, 1980",
+                "tax_id": 33727
+            },
+            "source_database": "SOURCE_DATABASE_GENBANK",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000854845.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 6,
+                        "total": 6
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15025",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000854845.1",
+                    "annotation_name": "Annotation submitted by Kaoru Takeuchi, National Institute of Infectious Diseases, Viral Disease and Vaccine Contorol; 4-7-1 Gakuen, Musashi-murayama, Tokyo 208-0011, Japan",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01",
+                "submitter": "Kaoru Takeuchi, National Institute of Infectious Diseases, Viral Disease and Vaccine Contorol; 4-7-1 Gakuen, Musashi-murayama, Tokyo 208-0011, Japan"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 15894,
+                "gc_count": "7538",
+                "gc_percent": 47.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 15894,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "15894",
+                "total_ungapped_length": "15894"
+            },
+            "current_accession": "GCF_000854845.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "Ichinose-B95a"
+                },
+                "organism_name": "Measles morbillivirus",
+                "tax_id": 11234
+            },
+            "paired_accession": "GCA_000854845.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000901155.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2020-08-08",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 10,
+                        "total": 10
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_method": "CLC Genomics Workbench v. 5.5.1",
+                "assembly_name": "ViralProj183710",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000901155.1",
+                    "annotation_name": "Annotation submitted by Viroscience Lab, Erasmus MC",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2014-07-23",
+                "sequencing_tech": "454; Sanger dideoxy sequencing",
+                "submitter": "Viroscience Lab, Erasmus MC"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 30119,
+                "gc_count": "12420",
+                "gc_percent": 41,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 30119,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "30119",
+                "total_ungapped_length": "30119"
+            },
+            "current_accession": "GCF_000901155.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "HCoV-EMC/2012",
+                    "strain": "HCoV-EMC"
+                },
+                "organism_name": "Middle East respiratory syndrome-related coronavirus",
+                "tax_id": 1335626
+            },
+            "paired_accession": "GCA_000901155.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000863565.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2019-05-23",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 2,
+                        "total": 2
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15430",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000863565.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01",
+                "submitter": "Microbiology, University of Western Australia"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 11014,
+                "gc_count": "5365",
+                "gc_percent": 48.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 11014,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "11014",
+                "total_ungapped_length": "11014"
+            },
+            "current_accession": "GCF_000863565.1",
+            "organism": {
+                "organism_name": "Murray Valley encephalitis virus",
+                "tax_id": 11079
+            },
+            "paired_accession": "GCA_000863565.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000864005.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 3,
+                        "total": 3
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15520",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000864005.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2006-06-01",
+                "submitter": "Department of Molecular Virology and Microbiology, Baylor College of Medicine"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 7654,
+                "gc_count": "3675",
+                "gc_percent": 48,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 7654,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "7654",
+                "total_ungapped_length": "7654"
+            },
+            "current_accession": "GCF_000864005.1",
+            "organism": {
+                "organism_name": "Norovirus GI",
+                "tax_id": 122928
+            },
+            "paired_accession": "GCA_000864005.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000868425.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 4,
+                        "total": 4
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj17577",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000868425.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2006-08-30",
+                "submitter": "Pathology and Immunology, Washington University School of Medicine"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 7382,
+                "gc_count": "4186",
+                "gc_percent": 56.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 7382,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "7382",
+                "total_ungapped_length": "7382"
+            },
+            "current_accession": "GCF_000868425.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "Mu/NoV/GV/MNV1/2002/USA"
+                },
+                "organism_name": "Norovirus GV",
+                "tax_id": 1246677
+            },
+            "paired_accession": "GCA_000868425.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000874105.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2009-03-19",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj20323",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000874105.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2007-08-06",
+                "submitter": "Department of Plant Pathology, University of California, Davis"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 1346,
+                "gc_count": "515",
+                "gc_percent": 38,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 1346,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "1346",
+                "total_ungapped_length": "1346"
+            },
+            "current_accession": "GCF_000874105.1",
+            "organism": {
+                "organism_name": "Okra leaf curl Mali virus satellite DNA beta",
+                "tax_id": 454128
+            },
+            "paired_accession": "GCA_000874105.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000857325.2",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 7,
+                        "total": 7
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15199",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000857325.2",
+                    "annotation_name": "Annotation submitted by Department of Virology, Philipps University Marburg",
+                    "status": "previous"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2007-10-23",
+                "submitter": "Department of Virology, Philipps University Marburg"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 19111,
+                "gc_count": "7318",
+                "gc_percent": 38.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 19111,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "19111",
+                "total_ungapped_length": "19111"
+            },
+            "current_accession": "GCF_000857325.2",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "Marburg virus/H.sapiens-tc/KEN/1980/Mt. Elgon-Musoke"
+                },
+                "organism_name": "Orthomarburgvirus marburgense",
+                "tax_id": 3052505
+            },
+            "paired_accession": "GCA_000857325.2",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000851485.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 2,
+                        "total": 2
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj14816",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000851485.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2002-05-16"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 826,
+                "gc_count": "479",
+                "gc_percent": 58,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 826,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "826",
+                "total_ungapped_length": "826"
+            },
+            "current_accession": "GCF_000851485.1",
+            "organism": {
+                "organism_name": "Panicum mosaic satellite virus",
+                "tax_id": 154834
+            },
+            "paired_accession": "GCA_000851485.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000847425.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj14647",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000847425.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01",
+                "submitter": "Dept. 90D, Bldg. L3, Abbott Laboratories, 1401 Sheridan Road, North Chicago, IL 60064, USA"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 9550,
+                "gc_count": "5519",
+                "gc_percent": 58,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 9550,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "9550",
+                "total_ungapped_length": "9550"
+            },
+            "current_accession": "GCF_000847425.1",
+            "organism": {
+                "organism_name": "Pegivirus platyrrhini",
+                "tax_id": 3052610
+            },
+            "paired_accession": "GCA_000847425.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV additional isolate",
+                "type_label": "TYPE_ICTV_ADDITIONAL"
+            }
+        },
+        {
+            "accession": "GCF_000863085.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 5,
+                        "total": 5
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15327",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000863085.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2013-02-11",
+                "submitter": "Fargette D., Dgpc, Ird, BP 64501, 34394 Montpellier cedex 5, FRANCE"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 4449,
+                "gc_count": "2452",
+                "gc_percent": 55,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 4449,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "4449",
+                "total_ungapped_length": "4449"
+            },
+            "current_accession": "GCF_000863085.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "CI4"
+                },
+                "organism_name": "Rice yellow mottle virus",
+                "tax_id": 31744
+            },
+            "paired_accession": "GCA_000863085.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000839085.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "non_coding": 1,
+                        "protein_coding": 1,
+                        "total": 2
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj14152",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000839085.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2002-01-31",
+                "submitter": "Botany, Univ. of Toronto"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 220,
+                "gc_count": "140",
+                "gc_percent": 63.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 220,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "220",
+                "total_ungapped_length": "220"
+            },
+            "current_accession": "GCF_000839085.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "RYMV-I; RYMV-K"
+                },
+                "organism_name": "Rice yellow mottle virus satellite",
+                "tax_id": 195056
+            },
+            "paired_accession": "GCA_000839085.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000907255.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_method": "Seqeuncher v. 5.0",
+                "assembly_name": "ViralProj198868",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000907255.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2013-05-01",
+                "sequencing_tech": "Sanger dideoxy sequencing",
+                "submitter": "Columbia University"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 11279,
+                "gc_count": "6881",
+                "gc_percent": 61,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 11279,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "11279",
+                "total_ungapped_length": "11279"
+            },
+            "current_accession": "GCF_000907255.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "CC61"
+                },
+                "organism_name": "Rodent pegivirus",
+                "tax_id": 1321391
+            },
+            "paired_accession": "GCA_000907255.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000864885.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2020-11-20",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 13,
+                        "total": 13
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15500",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000864885.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2003-05-01",
+                "submitter": "Genome Sciences Centre, British Columbia Cancer Research Centre"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 29751,
+                "gc_count": "12127",
+                "gc_percent": 41,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 29751,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "29751",
+                "total_ungapped_length": "29751"
+            },
+            "current_accession": "GCF_000864885.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "Tor2"
+                },
+                "organism_name": "SARS coronavirus Tor2",
+                "tax_id": 227984
+            },
+            "paired_accession": "GCA_000864885.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000862445.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 5,
+                        "total": 5
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15372",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000862445.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2007-05-04",
+                "submitter": "Department of Biochemistry, Indian Institute of Science"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 4148,
+                "gc_count": "2081",
+                "gc_percent": 50,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 4148,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "4148",
+                "total_ungapped_length": "4148"
+            },
+            "current_accession": "GCF_000862445.1",
+            "organism": {
+                "organism_name": "Sesbania mosaic virus",
+                "tax_id": 12558
+            },
+            "paired_accession": "GCA_000862445.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_009858895.2",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2020-07-18",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 11,
+                        "total": 11
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_method": "Megahit v. V1.1.3",
+                "assembly_name": "ASM985889v3",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_009858895.3",
+                    "annotation_name": "Annotation submitted by Shanghai Public Health Clinical Center & School of Public Health, Fudan University",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2020-01-17",
+                "sequencing_tech": "Illumina",
+                "submitter": "Shanghai Public Health Clinical Center & School of Public Health, Fudan University"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 29903,
+                "gc_count": "11355",
+                "gc_percent": 38,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 29903,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "29903",
+                "total_ungapped_length": "29903"
+            },
+            "current_accession": "GCF_009858895.2",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "Wuhan-Hu-1"
+                },
+                "organism_name": "Severe acute respiratory syndrome coronavirus 2",
+                "tax_id": 2697049
+            },
+            "paired_accession": "GCA_009858895.3",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV additional isolate",
+                "type_label": "TYPE_ICTV_ADDITIONAL"
+            }
+        },
+        {
+            "accession": "GCF_000863925.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 5,
+                        "pseudogene": 2,
+                        "total": 7
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15501",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000863925.1",
+                    "annotation_name": "Annotation submitted by INSDC submitter",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-08-01"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 9623,
+                "gc_count": "4277",
+                "gc_percent": 44.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 9623,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "9623",
+                "total_ungapped_length": "9623"
+            },
+            "current_accession": "GCF_000863925.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "677"
+                },
+                "organism_name": "Simian immunodeficiency virus",
+                "tax_id": 11723
+            },
+            "paired_accession": "GCA_000863925.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_001610725.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2019-08-01",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj311759",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_001610725.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2016-02-05",
+                "submitter": "Unite des Virus Emergents"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 10290,
+                "gc_count": "5378",
+                "gc_percent": 52.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 10290,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "10290",
+                "total_ungapped_length": "10290"
+            },
+            "current_accession": "GCF_001610725.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "SM-6 V-1"
+                },
+                "organism_name": "Spondweni virus",
+                "tax_id": 64318
+            },
+            "paired_accession": "GCA_001610725.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000855585.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 7,
+                        "total": 7
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15012",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000855585.1",
+                    "annotation_name": "Annotation submitted by National Center for Infectious Diseases, Division of Viral and Rickettsial Diseases, Special Pathogens Branch, Centers for Disease Control & Prevention",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2004-11-15",
+                "submitter": "National Center for Infectious Diseases, Division of Viral and Rickettsial Diseases, Special Pathogens Branch, Centers for Disease Control & Prevention"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 18875,
+                "gc_count": "7803",
+                "gc_percent": 41.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 18875,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "18875",
+                "total_ungapped_length": "18875"
+            },
+            "current_accession": "GCF_000855585.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "Sudan virus/H.sapiens-tc/UGA/2000/Gulu-808892"
+                },
+                "organism_name": "Sudan ebolavirus",
+                "tax_id": 186540
+            },
+            "paired_accession": "GCA_000855585.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000896295.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2012-06-12",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 2,
+                        "total": 2
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj167581",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000896295.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2012-05-29",
+                "submitter": "National Germplasm Resources Laboratory, USDA-ARS"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 10731,
+                "gc_count": "4392",
+                "gc_percent": 41,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 10731,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "10731",
+                "total_ungapped_length": "10731"
+            },
+            "current_accession": "GCF_000896295.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "GWB-2"
+                },
+                "organism_name": "Sweet potato virus 2",
+                "tax_id": 453050
+            },
+            "paired_accession": "GCA_000896295.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000888475.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2018-08-13",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 7,
+                        "total": 7
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj51257",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000888475.1",
+                    "annotation_name": "Annotation submitted by Special Pathogens Branch, Centers for Disease Control and Prevention",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2010-08-05",
+                "submitter": "Special Pathogens Branch, Centers for Disease Control and Prevention"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 18935,
+                "gc_count": "8001",
+                "gc_percent": 42.5,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 18935,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "18935",
+                "total_ungapped_length": "18935"
+            },
+            "current_accession": "GCF_000888475.1",
+            "organism": {
+                "infraspecific_names": {
+                    "isolate": "Tai Forest virus/H.sapiens-tc/CIV/1994/Pauleoula-CI"
+                },
+                "organism_name": "Tai Forest ebolavirus",
+                "tax_id": 186541
+            },
+            "paired_accession": "GCA_000888475.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000880355.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2008-08-05",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 6,
+                        "total": 6
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj30837",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000880355.1",
+                    "annotation_name": "Annotation submitted by Virology Unit, AVRDC-The World Vegetable Center",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2008-08-01",
+                "submitter": "Virology Unit, AVRDC-The World Vegetable Center"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 2794,
+                "gc_count": "1196",
+                "gc_percent": 43,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 2794,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "2794",
+                "total_ungapped_length": "2794"
+            },
+            "current_accession": "GCF_000880355.1",
+            "organism": {
+                "organism_name": "Tomato leaf curl Kumasi virus",
+                "tax_id": 548915
+            },
+            "paired_accession": "GCA_000880355.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ"
+        },
+        {
+            "accession": "GCF_000861085.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2019-08-01",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj15431",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000861085.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2000-12-03",
+                "submitter": "University of Virginia Health Sciences Centre, Department of Internal Medicine/GI"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 10962,
+                "gc_count": "5597",
+                "gc_percent": 51,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 10962,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "10962",
+                "total_ungapped_length": "10962"
+            },
+            "current_accession": "GCF_000861085.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "956"
+                },
+                "organism_name": "West Nile virus",
+                "tax_id": 11082
+            },
+            "paired_accession": "GCA_000861085.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000853245.1",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2007-06-28",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 3,
+                        "total": 3
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralMultiSegProj14852",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000853245.1",
+                    "annotation_name": "Annotation submitted by Satoru Suzuki, Kochi University, Faculty of Agriculture; Monobe, Nankoku, Kochi 783, Japan",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2002-09-14",
+                "submitter": "Satoru Suzuki, Kochi University, Faculty of Agriculture; Monobe, Nankoku, Kochi 783, Japan"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 2976,
+                "gc_count": "3055",
+                "gc_percent": 53.5,
+                "number_of_component_sequences": 2,
+                "number_of_contigs": 2,
+                "number_of_scaffolds": 2,
+                "scaffold_l50": 1,
+                "scaffold_n50": 2976,
+                "total_number_of_chromosomes": 2,
+                "total_sequence_length": "5711",
+                "total_ungapped_length": "5711"
+            },
+            "current_accession": "GCF_000853245.1",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "Y-6"
+                },
+                "organism_name": "Yellowtail ascites virus",
+                "tax_id": 59816
+            },
+            "paired_accession": "GCA_000853245.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        },
+        {
+            "accession": "GCF_000882815.3",
+            "annotation_info": {
+                "name": "Annotation submitted by NCBI RefSeq",
+                "provider": "NCBI RefSeq",
+                "release_date": "2019-08-01",
+                "stats": {
+                    "gene_counts": {
+                        "protein_coding": 1,
+                        "total": 1
+                    }
+                }
+            },
+            "assembly_info": {
+                "assembly_level": "Complete Genome",
+                "assembly_name": "ViralProj36615",
+                "assembly_status": "current",
+                "assembly_type": "haploid",
+                "paired_assembly": {
+                    "accession": "GCA_000882815.1",
+                    "status": "current"
+                },
+                "refseq_category": "reference genome",
+                "release_date": "2009-04-06",
+                "submitter": "Division of Vector-Borne Infect. Dis., CDC"
+            },
+            "assembly_stats": {
+                "contig_l50": 1,
+                "contig_n50": 10794,
+                "gc_count": "5498",
+                "gc_percent": 51,
+                "number_of_component_sequences": 1,
+                "number_of_contigs": 1,
+                "number_of_scaffolds": 1,
+                "scaffold_l50": 1,
+                "scaffold_n50": 10794,
+                "total_number_of_chromosomes": 1,
+                "total_sequence_length": "10794",
+                "total_ungapped_length": "10794"
+            },
+            "current_accession": "GCF_000882815.3",
+            "organism": {
+                "infraspecific_names": {
+                    "strain": "MR 766"
+                },
+                "organism_name": "Zika virus",
+                "tax_id": 64320
+            },
+            "paired_accession": "GCA_000882815.1",
+            "source_database": "SOURCE_DATABASE_REFSEQ",
+            "type_material": {
+                "type_display_text": "ICTV species exemplar",
+                "type_label": "TYPE_ICTV"
+            }
+        }
+    ],
+    "total_count": 48
+}
+

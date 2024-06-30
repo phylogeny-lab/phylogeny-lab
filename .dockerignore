@@ -1,0 +1,8 @@
+docker-compose.dev.yml
+docker-compose.yml
+LICENSE
+.dockerignore
+.gitignore
+screenshots
+README.md
+genome-lab/README.md
