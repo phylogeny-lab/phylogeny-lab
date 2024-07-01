@@ -25,8 +25,13 @@ interface Props {
 function CustomDatabaseModalContent({ height, width, closeModal, children }: Props) {
 
     const validationSchema = yup.object({
-        sequenceFile: yup.object().required('Sequence file required'),
+        //sequenceFile: yup.object().required('Sequence file required'),
         dbname: yup.string().required('Database name required'),
+        chromosomes: yup.string().nullable().notRequired(),
+        taxid: yup.string().nullable().notRequired(),
+        databaseID: yup.string().nullable().notRequired(),
+        databaseSource: yup.string().nullable().notRequired(),
+        tags: yup.string().nullable().notRequired(),
     })
 
     const onSubmit = (async (data: any) => {

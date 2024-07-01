@@ -36,22 +36,22 @@ function DropDownButton({ children, startIcon }: Props) {
         <DropdownSection title="Create options">  
 
             <DropdownItem
-            key={"CustomCreate"}
+            key={"NCBICreate"}
             shortcut={'⌘C'}
             description={'Creates database from FASTA'}
             onClick={ncbiModal.onOpen}
             
             >
-            New NCBI Database
+            NCBI Database
             </DropdownItem>
 
             <DropdownItem
-              key={"NCBICreate"}
+              key={"CustomCreate"}
               shortcut={'⌘N'}
               description={'Creates database from accession or taxid'}
               onClick={customModal.onOpen}
             >
-            New Custom Database
+            Custom Database
             </DropdownItem>
             
           </DropdownSection>
@@ -59,7 +59,7 @@ function DropDownButton({ children, startIcon }: Props) {
       </Dropdown>
 
     <Modal isOpen={ncbiModal.isOpen} onOpenChange={ncbiModal.onOpenChange} className='dark'>
-    <NcbiDatabaseModalContent />
+    <NcbiDatabaseModalContent closeModal={ncbiModal.onClose} />
     </Modal>
 
     <Modal isOpen={customModal.isOpen} onOpenChange={customModal.onOpenChange} className='dark'>
