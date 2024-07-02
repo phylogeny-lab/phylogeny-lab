@@ -27,10 +27,10 @@ services:
     networks:
       - bridged_net_adapter
 
-  blast_server:
-    container_name: blast_server
+  fastapi:
+    container_name: fastapi
     build:
-      context: ./blast_server
+      context: ./Backend
       dockerfile: Dockerfile
     tty: true
     stdin_open: true
@@ -39,10 +39,36 @@ services:
     environment:
       - POSTGRES_URL=postgresql://admin:password@postgres/postgres
       - BLAST_SAVE_DIR=/volume/blast_queries
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
     depends_on:
       - postgres
+      - redis
     volumes:
-      - ./blast_server/volume/:/volume
+      - ./Backend/app/Blast_server/volume/:/volume
+    networks:
+      - bridged_net_adapter
+
+  blast_server:
+    container_name: blast_server
+    build:
+      context: ./Backend/app/Blast_server
+      dockerfile: Dockerfile
+    command: celery -A worker.celery worker --loglevel=info --logfile=logs/celery.log
+    volumes:
+      - ./Backend/app/Blast_server:/usr/src/app
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - fastapi
+      - redis
+    networks:
+      - bridged_net_adapter
+
+  redis:
+    container_name: redis
+    image: redis:7
     networks:
       - bridged_net_adapter
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react'
-import BlastResultsTable from "@/app/Components/BlastResultsTable/BlastResultsTable"
+import BlastResultsTable from '@/app/Components/Blast/BlastResults/BlastResultsTable/BlastResultsTable';
 import axios from 'axios';
 import { convertToHspTable } from '@/utils/ConvertHspTable';
 

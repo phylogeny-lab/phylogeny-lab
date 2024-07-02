@@ -1,6 +1,7 @@
 aiofiles
 alembic
 biopython
+celery[redis]
 clustalw
 fastapi[all]
 muscle
@@ -10,6 +11,7 @@ psycopg2-binary
 python-dotenv
 python-jose[cryptography]
 python-multipart
+redis-py
 sqlalchemy
 uvicorn[standard]
 xmltodict

@@ -8,7 +8,7 @@ import axios from 'axios';
 import * as yup from 'yup';
 import { BASE_URL } from '@/app/consts/consts';
 import { Form, Formik } from 'formik';
-import FormTextField from '../FormField/FormTextField';
+import FormTextField from '../../../FormField/FormTextField';
 import { ToastFail, ToastInfo, ToastSuccess } from '@/utils/Toast';
 
 interface Props {

@@ -1,3 +1,4 @@
-blast_server/volume
-blast_server/alembic/versions/*
+./Backend/volume/*
+Backend/alembic/versions/*
 postgres/volume
+./Backend/app/Blast_server/volume/*

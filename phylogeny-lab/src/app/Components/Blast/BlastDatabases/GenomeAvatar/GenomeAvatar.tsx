@@ -1,6 +1,6 @@
 "use client";
 
-import { genusIconMap, speciesIconMap } from '@/data/databasemock';
+import { genusIconMap, speciesIconMap } from '@/utils/DatabaseMaps';
 import { Avatar } from '@mui/material';
 import React from 'react'
 import { FaDatabase, FaVirusCovid } from 'react-icons/fa6';

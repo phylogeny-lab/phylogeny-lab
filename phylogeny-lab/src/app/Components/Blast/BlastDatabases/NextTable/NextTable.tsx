@@ -25,7 +25,7 @@ import {
   Pagination,
   NextUIProvider,
 } from "@nextui-org/react";
-import { columns, statusOptions, genusIconMap, speciesIconMap } from "@/data/databasemock";
+import { columns, statusOptions, genusIconMap, speciesIconMap } from "@/utils/DatabaseMaps";
 import { ThemeProvider } from "@emotion/react";
 import { PiDnaLight } from "react-icons/pi";
 import axios from "axios";
@@ -36,7 +36,7 @@ import InfoCard from "../InfoCard/InfoCard";
 import { bringToFrontByTaxIDS, convertNcbiToDatabaseTable, convertCustomToDatabaseTable, LoadDatabases } from "@/utils/BlastDatabases";
 import DropDownButton from "../DropDownButton/DropDownButton";
 
-const INITIAL_VISIBLE_COLUMNS: string[] = ["organism_name", "status", "assembly_name", "tax_id", "release_date", "total_sequence_length", "total_number_of_chromosomes", "more_info"];
+const INITIAL_VISIBLE_COLUMNS: string[] = ["organism_name", "status", "assembly_name", "tax_id", "release_date", "total_sequence_length", "total_number_of_chromosomes", "source_database", "more_info"];
 const BASE_URL = process.env.NEXT_PUBLIC_FASTAPI_ENDPOINT
 
 interface Props {
@@ -160,8 +160,9 @@ export default function NextTable({ title }: Props) {
 
   const renderCell = React.useCallback((database: DatabaseDisplayTable, columnKey: any) => {
 
-    const genus = database.organism_name.split(' ')[0].toLowerCase()
-    const species = database.organism_name.toLowerCase()
+    const genus = database.organism_name?.split(' ')[0].toLowerCase()
+    const species = database.organism_name?.toLowerCase()
+    const source_database = database.source_database?.toLocaleLowerCase()
 
     switch (columnKey) {
       case "organism_name":
@@ -186,8 +187,22 @@ export default function NextTable({ title }: Props) {
         );
       case "source_database":
         return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize cursor-text">{database.source_database}</p>
+          <div className="flex flex-col border-width">
+            {source_database && (
+              source_database?.toLowerCase().includes("refseq") ? 
+                <Chip variant="bordered" classNames={{
+                  base: "border-blue-600 border-1",
+                  content: "text-blue-600 text-center"
+                }}>Refseq</Chip> : 
+              source_database?.toLowerCase().includes("genbank") ? 
+                <Chip variant="bordered" classNames={{
+                  base: "border-purple-600 border-1",
+                  content: "text-purple-600 text-center"
+                }}>Genbank</Chip> : 
+              <Chip classNames={{
+                base: "border-indigo-600 border-1",
+                content: "text-indigo-600 text-center"
+              }} variant="bordered">{source_database?.toLowerCase().split('_').slice(-1).pop()}</Chip>)}
           </div>
         );
       case "tax_id":

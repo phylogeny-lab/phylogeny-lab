@@ -4,7 +4,7 @@ import React from 'react'
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 import { Avatar, Button, CircularProgress } from "@mui/material";
 import { FaDatabase, FaInfo, FaVirusCovid } from 'react-icons/fa6';
-import { genusIconMap, speciesIconMap } from '@/data/databasemock';
+import { genusIconMap, speciesIconMap } from '@/utils/DatabaseMaps';
 import {Accordion, AccordionItem} from "@nextui-org/react";
 import {Divider} from "@nextui-org/react";
 import Link from 'next/link';

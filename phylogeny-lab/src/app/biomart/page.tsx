@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react'
-import MultiStepForm, { FormStep } from '../Components/MultiStepForm/MultiStepForm';
+import MultiStepForm, { FormStep } from '../Components/Blast/BlastQuery/MultiStepForm/MultiStepForm';
 import FormCheckboxField from '../Components/FormField/FormCheckboxField';
 import FormTextField from '../Components/FormField/FormTextField';
 import FormDiscreteSliderField from '../Components/FormField/FormDiscreteSliderField';

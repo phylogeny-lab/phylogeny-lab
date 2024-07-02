@@ -7,9 +7,9 @@ import axios from "axios";
 import { BASE_URL } from "@/app/consts/consts";
 import Card from "@/app/Components/Card/Card";
 import { convertToHspTable } from "@/utils/ConvertHspTable";
-import BlastHitLocationDiagram from "@/app/Components/BlastHitLocationDiagram/BlastHitLocationDiagram";
+import BlastHitLocationDiagram from "@/app/Components/Blast/BlastHits/BlastHitLocationDiagram/BlastHitLocationDiagram";
 import { Chip, Input, Pagination } from "@nextui-org/react";
-import NucleotideLetter from "@/app/Components/NucleotideLetter/NucleotideLetter";
+import NucleotideLetter from "@/app/Components/Blast/BlastHits/NucleotideLetter/NucleotideLetter";
 import Search from "@mui/icons-material/Search";
 
 

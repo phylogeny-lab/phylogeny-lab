@@ -1,9 +1,9 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import { AnimatedListItem } from '../Components/AnimatedListItem/AnimatedListItem'
-import BlastQueries from '../Components/BlastQueries/BlastQueries'
-import NextTable from '../Components/NextTable/NextTable'
+import { AnimatedListItem } from '../Components/Blast/BlastTable/AnimatedListItem/AnimatedListItem'
+import BlastQueries from '../Components/Blast/BlastTable/BlastQueries/BlastQueries'
+import NextTable from '../Components/Blast/BlastDatabases/NextTable/NextTable'
 import axios from 'axios'
 import { DatabaseStatus } from "@/enums/DatabaseTableStatus"
 

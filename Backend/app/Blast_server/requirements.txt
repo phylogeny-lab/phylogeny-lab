@@ -1,0 +1,7 @@
+biopython
+celery[redis]
+flower
+python-dotenv
+python-multipart
+redis-py
+xmltodict

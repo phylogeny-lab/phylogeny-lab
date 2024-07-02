@@ -5,12 +5,8 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { List } from 'postcss/lib/list';
-import FileUpload from '@/app/Components/FileUpload/FileUpload';
-import {Input} from "@nextui-org/react";
 
 const steps = ['Query sequence', 'Search set', 'Refine algorithm parameters'];
-
 
 
 export default function HorizontalStepper() {

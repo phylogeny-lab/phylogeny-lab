@@ -6,9 +6,9 @@ import { Avatar, Button, CircularProgress, IconButton, Tooltip } from "@mui/mate
 import { FaInfoCircle } from 'react-icons/fa';
 import { Formik, useFormik, Form } from 'formik';
 import { TextField } from "@mui/material";
-import FormFileUpload from '../FormField/FormFileUpload';
+import FormFileUpload from '../../../FormField/FormFileUpload';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import FormTextField from '../FormField/FormTextField';
+import FormTextField from '../../../FormField/FormTextField';
 import axios, { AxiosError } from 'axios';
 import * as yup from 'yup';
 import { BASE_URL } from '@/app/consts/consts';

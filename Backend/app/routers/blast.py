@@ -8,8 +8,6 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 from pathlib import Path
 from pydantic import BaseModel
-from app.blast_python.src.blast_python.Blastn import Blastn, OutFmt
-from app.blast_python.src.blast_python.utils import get_db_metadata
 from typing import List, Optional
 from ..helper.utils import save_file
 from ..models.BlastParams import BlastParams
@@ -24,7 +22,8 @@ import json
 import datetime
 import xmltodict
 from fastapi.responses import JSONResponse
-
+from ..Blast_server.worker import run_blastn
+from celery.result import AsyncResult
 
 router = APIRouter(
     prefix="/api/blast",
@@ -39,6 +38,11 @@ async def blastn(
     queryFile: Union[UploadFile, None] = None, 
     db: Session = Depends(get_db)
     ):
+        
+        print("Running task")
+        task = threading.Thread(target=run_blastn.delay, daemon=True)
+        task.start()
+        
         
         model_dict = json.loads(data)
         blast_params =  BlastParams.model_validate(model_dict)
@@ -86,62 +90,22 @@ async def blastn(
         # locate database
         # TODO
         
-        def run_blast():
-            try:
-                results_file_xml = os.path.join(save_dir, blast_id, "results", "results.xml")
-                results_file_json = os.path.join(save_dir, blast_id, "results", "results.json")
+        
 
-                (return_code, _) = Blastn(
-                    db=blast_params.db,
-                    subject=blast_params.subjectSequence or subjectFile,
-                    entrez_query=blast_params.entrezQuery,
-                    query=blast_params.querySequence or queryFile,
-                    reward=blast_params.reward,
-                    penalty=blast_params.penalty,
-                    gapextend=blast_params.gapextend,
-                    gapopen=blast_params.gapopen,
-                    outfmt=OutFmt.XML.value,
-                    word_size=blast_params.word_size,
-                    out=results_file_xml,
-                    ungapped=blast_params.ungapped
-                ).run(verbose=True)
-
-                if return_code == 0: # success
-
-                    # save file in json format
-
-                    with open(results_file_xml) as fd:
-                        json_parse = xmltodict.parse(fd.read())
-
-                        with open(results_file_json, "w") as f:
-                            f.write(json.dumps(json_parse, indent=2))
-
-                    db.query(schemas.BlastQueries) \
-                    .filter(schemas.BlastQueries.id == blast_id) \
-                    .update({'status': BlastQueryStatus.COMPLETED.value})
-
-                else:
-                    db.query(schemas.BlastQueries) \
-                    .filter(schemas.BlastQueries.id == blast_id) \
-                    .update({'status': BlastQueryStatus.FAILED.value})
-                
-                db.commit()
-
-            except Exception as e:
-
-                print(e)
-
-
-
-        # We run the blast search in a different thread so that queries which take a long
-        # time doesn't leave the client hanging. The client can poll the server for updates
-        x = threading.Thread(target=run_blast, daemon=True)
-        x.start()
 
         db.commit()
 
         return Response(content="success", media_type="application/json", status_code=200)
 
+@router.get("/tasks/{task_id}")
+def get_status(task_id):
+    task_result = AsyncResult(task_id)
+    result = {
+        "task_id": task_id,
+        "task_status": task_result.status,
+        "task_result": task_result.result
+    }
+    return JSONResponse(result)
 
 @router.post("/rerun/{id}")
 async def rerun(id: int, db: Session = Depends(get_db)):

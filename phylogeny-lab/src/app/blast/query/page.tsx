@@ -1,35 +1,17 @@
 "use client";
 
-import FileUpload from '@/app/Components/FileUpload/FileUpload';
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Button as NextuiButton } from "@nextui-org/react";
-import HorizontalStepper from '@/app/Components/Stepper/Stepper';
-import { Field, Form, Formik, FormikProps } from 'formik';
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import StorageIcon from '@mui/icons-material/Storage';
-import { duration, easing, TextField } from '@mui/material';
-import { ThemeProvider } from '@mui/system';
-import muiTheme from "@/app/theme"
 import * as yup from 'yup';
 import FormTextField from '@/app/Components/FormField/FormTextField';
-import MultiStepForm, { FormStep } from '@/app/Components/MultiStepForm/MultiStepForm';
-import { Textarea } from "@nextui-org/react";
+import MultiStepForm, { FormStep } from '@/app/Components/Blast/BlastQuery/MultiStepForm/MultiStepForm';
 import FormSelectField from '@/app/Components/FormField/FormSelectField';
-import FormComboboxField from '@/app/Components/FormField/FormComboboxField';
-import { organisms } from "@/data/organisms"
 import FormRadioField from '@/app/Components/FormField/FormRadioField';
 import FormDiscreteSliderField from '@/app/Components/FormField/FormDiscreteSliderField';
 import FormFileUpload from '@/app/Components/FormField/FormFileUpload';
 import { useRouter } from 'next/navigation';
 import FormCheckboxField from '@/app/Components/FormField/FormCheckboxField';
-import env from "react-dotenv";
-import type { InferGetStaticPropsType, GetStaticProps } from 'next'
-
-
-
 
 function BlastQuery() {
 
@@ -63,12 +45,12 @@ function BlastQuery() {
 
     useEffect(() => {
 
-        axios.get(BASE_URL + '/ncbidb/local')
-            .then(((response: any) => { 
-                const res = response.data
-                setInstalledDatabases(res.map((item: any) => { return item.dbname }))
-            }))
-            .catch((err: any) => { console.error(err) })
+        // axios.get(BASE_URL + '/ncbidb/local')
+        //     .then(((response: any) => { 
+        //         const res = response.data
+        //         setInstalledDatabases(res.map((item: any) => { return item.dbname }))
+        //     }))
+        //     .catch((err: any) => { console.error(err) })
 
     }, []);
 
@@ -83,6 +65,8 @@ function BlastQuery() {
         formData.append('subjectFile', subjectFile)
         formData.append('queryFile', queryFile)
 
+        alert("Submitting")
+
         axios.post(BASE_URL + `/blast/${data.algorithm}`, formData,
             {
                 headers: {
@@ -92,7 +76,7 @@ function BlastQuery() {
             .then((response) => {
                 console.log(response);
 
-
+                alert(response.data.task_id)
                 router.push('/blast')
 
             })
@@ -124,7 +108,7 @@ function BlastQuery() {
                     evalue: 0.05,
                     word_size: 7,
                     ungapped: false,
-                    organism: organisms[0].label,
+                    organism: '',
                 }}
                 onSubmit={values => {
                     SubmitQuery(values)
@@ -227,7 +211,10 @@ function BlastQuery() {
 
                             <h1 className='mb-2 mt-6 font-bold'>Organism</h1>
                             <div className='flex'>
-                                <FormComboboxField id='combo_box_organism' name='organism' value={['homo sapiens', 'pan trog']} />
+                                <FormTextField
+                                    name="organism"
+                                    label="Organism (optional)"
+                                />
 
                             </div>
 

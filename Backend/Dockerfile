@@ -11,12 +11,6 @@ COPY ./requirements.txt /code/requirements.txt
 RUN conda install -y --file /code/requirements.txt -c bioconda -c conda-forge
 # create volume
 ENV NCBI_DATABASE_DIR=/volume/ncbi_databases
-# install blast+
-ENV BLAST_VERSION=2.15.0
-COPY ncbi_blast.download.sh .
-RUN bash ncbi_blast.download.sh $BLAST_VERSION && rm ncbi_blast.download.sh
-ENV PATH=/ncbi-blast-$BLAST_VERSION+/bin:$PATH
-ENV BLASTDB=blastdb
 # copy scripts
 COPY ./app/scripts /scripts
 RUN chmod +x /scripts/*.sh

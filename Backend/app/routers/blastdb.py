@@ -3,15 +3,13 @@ import subprocess
 import threading
 import uuid
 import os
-from fastapi import FastAPI, File, Query, Request, Response, UploadFile, status, HTTPException, Depends, APIRouter, Form
+from fastapi import FastAPI, File, Query, Request, Response, UploadFile, status, HTTPException, Depends, APIRouter, Form, BackgroundTasks
 from typing import Annotated, Union
 from fastapi.responses import FileResponse
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 from pathlib import Path
 from pydantic import BaseModel
-from app.blast_python.src.blast_python.Blastn import Blastn, OutFmt
-from app.blast_python.src.blast_python.utils import get_db_metadata
 from typing import List, Optional
 import random
 
@@ -33,40 +31,40 @@ router = APIRouter(
 )
 
 # Get local blast database information from the metadata command
-@router.get("/metadata")
-async def ncbidb(req: Request) -> list[Database]:
+# @router.get("/metadata")
+# async def ncbidb(req: Request) -> list[Database]:
      
-    db_name = req.query_params.get('db_name')
-    blast_db_location = os.path.join('/', os.environ['BLASTDB'])
-    metadata_list: list[Database] = []
+#     db_name = req.query_params.get('db_name')
+#     blast_db_location = os.path.join('/', os.environ['BLASTDB'])
+#     metadata_list: list[Database] = []
 
-    if db_name:
-        path = os.path.join(blast_db_location, db_name)
-        if os.path.exists(path):
-            metadata = get_db_metadata(db_path=path, verbose=False)
-            metadata_list.append(Database(name=db_name, metadata=json.dumps(metadata)))
-        else:
-            return Response(content="Internal server error", status_code=500) 
-    else:
+#     if db_name:
+#         path = os.path.join(blast_db_location, db_name)
+#         if os.path.exists(path):
+#             metadata = get_db_metadata(db_path=path, verbose=False)
+#             metadata_list.append(Database(name=db_name, metadata=json.dumps(metadata)))
+#         else:
+#             return Response(content="Internal server error", status_code=500) 
+#     else:
 
-        db_files = [name for name in os.listdir(blast_db_location) if os.path.isdir(os.path.join(blast_db_location, name))]
-        if len(db_files) == 0:
-            return Response(content="Internal server error", status_code=500) 
-        for db_name in db_files:
-            # db file names may differ from parent directory name, so we need to get the base 
-            cmd = ["blastdbcmd", "-list", f"{blast_db_location}/{db_name}"]
-            (stdout, stderr) = Popen(cmd, stdout=PIPE, stderr=PIPE).communicate()
-            if stdout:
-                base_prefix = stdout.decode().split(" ")[0]
+#         db_files = [name for name in os.listdir(blast_db_location) if os.path.isdir(os.path.join(blast_db_location, name))]
+#         if len(db_files) == 0:
+#             return Response(content="Internal server error", status_code=500) 
+#         for db_name in db_files:
+#             # db file names may differ from parent directory name, so we need to get the base 
+#             cmd = ["blastdbcmd", "-list", f"{blast_db_location}/{db_name}"]
+#             (stdout, stderr) = Popen(cmd, stdout=PIPE, stderr=PIPE).communicate()
+#             if stdout:
+#                 base_prefix = stdout.decode().split(" ")[0]
 
-            if stderr:
-                print(stderr.decode())
-                return Response(content="Internal server error", status_code=500) 
+#             if stderr:
+#                 print(stderr.decode())
+#                 return Response(content="Internal server error", status_code=500) 
 
-            metadata = get_db_metadata(db_path=base_prefix, verbose=False)
-            metadata_list.append(Database(name=db_name, metadata=json.dumps(metadata)))
+#             metadata = get_db_metadata(db_path=base_prefix, verbose=False)
+#             metadata_list.append(Database(name=db_name, metadata=json.dumps(metadata)))
     
-    return metadata_list
+#     return metadata_list
 
 
 @router.post("/custom")
@@ -112,7 +110,7 @@ async def customdb(
 
 # Download a db
 @router.post("/ncbi")
-async def ncbidb(req: Request, db: Session = Depends(get_db)):
+async def ncbidb(req: Request, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
 
     try:
 
@@ -128,8 +126,7 @@ async def ncbidb(req: Request, db: Session = Depends(get_db)):
 
 
         
-        x = threading.Thread(target=install_databases, args=(databases, db), daemon=True)
-        x.start()
+        background_tasks.add_task(install_databases, databases, db)
 
         for database in databases:
             new_db = schemas.BlastDB(
