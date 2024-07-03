@@ -21,5 +21,5 @@ RUN bash ncbi_blast.download.sh $BLAST_VERSION && rm ncbi_blast.download.sh
 ENV PATH=/ncbi-blast-$BLAST_VERSION+/bin:$PATH
 ENV BLASTDB=blastdb
 # setup app & run server
-WORKDIR /code/Blast_server
-COPY . /code/Blast_server
+WORKDIR /code/app/Blast_server
+COPY . /code/app/Blast_server

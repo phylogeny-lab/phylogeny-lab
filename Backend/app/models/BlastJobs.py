@@ -5,7 +5,7 @@ from datetime import datetime
 from .BlastParams import BlastParams
 
 class BlastJobs(BlastParams):
-    id: int
+    id: str
     status: str
     jobTitle: str
     algorithm: str 

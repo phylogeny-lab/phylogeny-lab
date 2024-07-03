@@ -24,6 +24,8 @@ import xmltodict
 from fastapi.responses import JSONResponse
 from ..Blast_server.worker import run_blastn
 from celery.result import AsyncResult
+from celery import uuid
+
 
 router = APIRouter(
     prefix="/api/blast",
@@ -39,60 +41,30 @@ async def blastn(
     db: Session = Depends(get_db)
     ):
         
-        print("Running task")
-        task = threading.Thread(target=run_blastn.delay, daemon=True)
-        task.start()
-        
-        
         model_dict = json.loads(data)
         blast_params =  BlastParams.model_validate(model_dict)
 
         # create an id based on name and timestamp: id <- id(jobTitle + now())
         now = datetime.datetime.now()
-        blast_id = id(blast_params.jobTitle + str(now))
-        blast_id = str(blast_id) # must be str for os.path
+        blast_id = uuid()
         
         # set other metadata
         blast_params.id = blast_id
-
         blast_params.status = BlastQueryStatus.IN_PROGRESS.value
         blast_params.created_at = datetime.datetime.now()
-
-        # create root dir with id as filename
-        save_dir = os.getenv('BLAST_SAVE_DIR')
-        if not os.path.isdir(save_dir):
-             os.mkdir(save_dir)
-
-        # create sub directories
-        os.mkdir(os.path.join(save_dir, blast_id))
-        os.mkdir(os.path.join(save_dir, blast_id, "results"))
-        os.mkdir(os.path.join(save_dir, blast_id, "subject"))
-        os.mkdir(os.path.join(save_dir, blast_id, "query"))
-
-        # save files in chunked manner so as not to load entire file into memory
-        if subjectFile:
-            subjectFilepath = os.path.join(save_dir, blast_id, "subject", subjectFile.filename)
-            await save_file(file=subjectFile, out_file_path=subjectFilepath)
-            subjectFile = subjectFilepath
-
-        if queryFile:
-            queryFilepath = os.path.join(save_dir, blast_id, "query", queryFile.filename)
-            await save_file(file=queryFile, out_file_path=queryFilepath)
-            queryFile = queryFilepath
 
 
         new_query = schemas.BlastQueries(
             **blast_params.model_dump(exclude={'subjectSequence', 'querySequence'})
         )
 
-        db.add(new_query)
-
         # locate database
         # TODO
         
-        
+        print(blast_id)
+        run_blastn.apply_async((blast_params.model_dump(), blast_id, subjectFile, queryFile), task_id=blast_id)
 
-
+        db.add(new_query)
         db.commit()
 
         return Response(content="success", media_type="application/json", status_code=200)

@@ -1,5 +1,7 @@
+aiofiles
 biopython
 celery[redis]
+fastapi
 flower
 python-dotenv
 python-multipart

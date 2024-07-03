@@ -38,14 +38,12 @@ services:
       - "5000:5000"
     environment:
       - POSTGRES_URL=postgresql://admin:password@postgres/postgres
-      - BLAST_SAVE_DIR=/volume/blast_queries
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - PYTHONPATH=/code/app/Blast_server
     depends_on:
       - postgres
       - redis
-    volumes:
-      - ./Backend/app/Blast_server/volume/:/volume
     networks:
       - bridged_net_adapter
 
@@ -57,7 +55,10 @@ services:
     command: celery -A worker.celery worker --loglevel=info --logfile=logs/celery.log
     volumes:
       - ./Backend/app/Blast_server:/usr/src/app
+      - ./Backend/app/Blast_server/logs/celery.log:/code/Blast_server/logs/celery.log
+      - ./Backend/app/Blast_server/volume:/volume
     environment:
+      - BLAST_SAVE_DIR=/volume/blast_queries
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
     depends_on:

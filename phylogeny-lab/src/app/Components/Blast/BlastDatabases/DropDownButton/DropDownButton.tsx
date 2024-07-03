@@ -37,8 +37,8 @@ function DropDownButton({ children, startIcon }: Props) {
 
             <DropdownItem
             key={"NCBICreate"}
-            shortcut={'⌘C'}
-            description={'Creates database from FASTA'}
+            shortcut={'⌘N'}
+            description={'Creates database from accession or taxid'}
             onClick={ncbiModal.onOpen}
             
             >
@@ -47,8 +47,8 @@ function DropDownButton({ children, startIcon }: Props) {
 
             <DropdownItem
               key={"CustomCreate"}
-              shortcut={'⌘N'}
-              description={'Creates database from accession or taxid'}
+              shortcut={'⌘C'}
+              description={'Creates database from sequence file'}
               onClick={customModal.onOpen}
             >
             Custom Database

@@ -3,6 +3,7 @@ from typing import Annotated, Optional
 from fastapi import File
 from datetime import date
 
+# If you make changes to this model 
 class BlastParams(BaseModel):
     id: Optional[str] = None
     algorithm: str

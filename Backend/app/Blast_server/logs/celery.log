@@ -1,0 +1,269 @@
+[2024-07-03 12:10:21,098: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:10:21,102: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 12:10:21,103: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:10:21,104: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 12:10:22,112: INFO/MainProcess] mingle: all alone
+[2024-07-03 12:10:22,123: INFO/MainProcess] celery@b86b27121bdf ready.
+[2024-07-03 12:10:22,124: INFO/MainProcess] Task run_blastn[90839e55-595c-459b-aa98-03c213cbdffa] received
+[2024-07-03 12:10:22,125: INFO/MainProcess] Task run_blastn[a30af86b-ecd4-40ee-a5ac-7a2f74ba3890] received
+[2024-07-03 12:10:22,126: WARNING/ForkPoolWorker-15] <property object at 0x70dbb3ecacf0>
+[2024-07-03 12:10:22,126: WARNING/ForkPoolWorker-16] <property object at 0x70dbb3ecacf0>
+[2024-07-03 12:10:22,129: ERROR/ForkPoolWorker-16] Task run_blastn[a30af86b-ecd4-40ee-a5ac-7a2f74ba3890] raised unexpected: TypeError('mkdir: path should be string, bytes or os.PathLike, not property')
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.11/site-packages/celery/app/trace.py", line 477, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/celery/app/trace.py", line 760, in __protected_call__
+    return self.run(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/code/Blast_server/worker.py", line 21, in run_blastn
+    os.mkdir(celery.AsyncResult.task_id)
+TypeError: mkdir: path should be string, bytes or os.PathLike, not property
+[2024-07-03 12:10:22,129: ERROR/ForkPoolWorker-15] Task run_blastn[90839e55-595c-459b-aa98-03c213cbdffa] raised unexpected: TypeError('mkdir: path should be string, bytes or os.PathLike, not property')
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.11/site-packages/celery/app/trace.py", line 477, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/celery/app/trace.py", line 760, in __protected_call__
+    return self.run(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/code/Blast_server/worker.py", line 21, in run_blastn
+    os.mkdir(celery.AsyncResult.task_id)
+TypeError: mkdir: path should be string, bytes or os.PathLike, not property
+[2024-07-03 12:10:26,109: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 12:12:07,154: INFO/MainProcess] Task run_blastn[f3584818-b445-4960-b010-7552f34c7c88] received
+[2024-07-03 12:12:07,155: WARNING/ForkPoolWorker-15] <property object at 0x70dbb3ecacf0>
+[2024-07-03 12:12:07,156: ERROR/ForkPoolWorker-15] Task run_blastn[f3584818-b445-4960-b010-7552f34c7c88] raised unexpected: TypeError('mkdir: path should be string, bytes or os.PathLike, not property')
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.11/site-packages/celery/app/trace.py", line 477, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/celery/app/trace.py", line 760, in __protected_call__
+    return self.run(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/code/Blast_server/worker.py", line 21, in run_blastn
+    os.mkdir(celery.AsyncResult.task_id)
+TypeError: mkdir: path should be string, bytes or os.PathLike, not property
+[2024-07-03 12:13:37,728: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:13:37,732: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 12:13:37,732: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:13:37,734: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 12:13:38,740: INFO/MainProcess] mingle: all alone
+[2024-07-03 12:13:38,746: INFO/MainProcess] celery@3d185907754d ready.
+[2024-07-03 12:13:42,670: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 12:15:01,328: INFO/MainProcess] Task run_blastn[bf1982a4-f5b8-44fe-bc7b-c426aa771221] received
+[2024-07-03 12:15:01,330: WARNING/ForkPoolWorker-15] <property object at 0x7a7786a4e9d0>
+[2024-07-03 12:15:01,332: INFO/ForkPoolWorker-15] Task run_blastn[bf1982a4-f5b8-44fe-bc7b-c426aa771221] succeeded in 0.0021270930010359734s: True
+[2024-07-03 12:16:33,454: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:16:33,457: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 12:16:33,458: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:16:33,459: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 12:16:34,463: INFO/MainProcess] mingle: all alone
+[2024-07-03 12:16:34,471: INFO/MainProcess] celery@bfcc6e375aef ready.
+[2024-07-03 12:16:38,383: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 12:19:14,643: INFO/MainProcess] Task run_blastn[0f990e19-bb9c-43d4-a0f3-7ed06fef0a18] received
+[2024-07-03 12:19:14,644: WARNING/ForkPoolWorker-15] <property object at 0x73cddd1ea9d0>
+[2024-07-03 12:19:14,645: INFO/ForkPoolWorker-15] Task run_blastn[0f990e19-bb9c-43d4-a0f3-7ed06fef0a18] succeeded in 0.0016790110021247528s: True
+[2024-07-03 12:28:38,085: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:28:38,089: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 12:28:38,089: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:28:38,090: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 12:28:39,097: INFO/MainProcess] mingle: all alone
+[2024-07-03 12:28:39,105: INFO/MainProcess] celery@cf4ab9efc4e8 ready.
+[2024-07-03 12:28:43,000: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 12:28:59,826: INFO/MainProcess] Task run_blastn[deb2ad7d-5d5f-4633-9813-a8a1ad2880a8] received
+[2024-07-03 12:28:59,828: INFO/ForkPoolWorker-15] Task run_blastn[deb2ad7d-5d5f-4633-9813-a8a1ad2880a8] succeeded in 0.0013277390025905333s: True
+[2024-07-03 12:33:20,493: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:33:20,496: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 12:33:20,496: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:33:20,498: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 12:33:21,503: INFO/MainProcess] mingle: all alone
+[2024-07-03 12:33:21,512: INFO/MainProcess] celery@fa0b56cf3d7f ready.
+[2024-07-03 12:33:25,464: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 12:34:39,483: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:34:39,487: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 12:34:39,487: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:34:39,488: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 12:34:40,493: INFO/MainProcess] mingle: all alone
+[2024-07-03 12:34:40,500: INFO/MainProcess] celery@bb071e6b36e1 ready.
+[2024-07-03 12:34:44,558: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 12:35:21,343: INFO/MainProcess] Task run_blastn[25d93483-1e78-4b07-99f0-1917d3853724] received
+[2024-07-03 12:35:21,362: INFO/ForkPoolWorker-15] Task run_blastn[25d93483-1e78-4b07-99f0-1917d3853724] succeeded in 0.016588245998718776s: True
+[2024-07-03 12:36:35,682: INFO/MainProcess] Task run_blastn[4cdbc056-98ce-4a31-916f-e2da415eb239] received
+[2024-07-03 12:36:35,686: INFO/ForkPoolWorker-15] Task run_blastn[4cdbc056-98ce-4a31-916f-e2da415eb239] succeeded in 0.0013456140004564077s: True
+[2024-07-03 12:45:30,911: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:45:30,914: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 12:45:30,914: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:45:30,916: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 12:45:31,921: INFO/MainProcess] mingle: all alone
+[2024-07-03 12:45:31,932: INFO/MainProcess] celery@58be6b8e4c09 ready.
+[2024-07-03 12:45:35,863: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 12:46:07,828: INFO/MainProcess] Task run_blastn[fc02992c-5273-4585-9ca9-eb991ddaf3c3] received
+[2024-07-03 12:46:07,870: ERROR/ForkPoolWorker-15] Task run_blastn[fc02992c-5273-4585-9ca9-eb991ddaf3c3] raised unexpected: FileNotFoundError(2, 'No such file or directory')
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.11/site-packages/celery/app/trace.py", line 477, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/conda/lib/python3.11/site-packages/celery/app/trace.py", line 760, in __protected_call__
+    return self.run(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/code/Blast_server/worker.py", line 22, in run_blastn
+    os.mkdir(save_dir)
+FileNotFoundError: [Errno 2] No such file or directory: '/volume/blast_queries'
+[2024-07-03 12:49:06,171: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:49:06,175: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 12:49:06,175: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 12:49:06,176: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 12:49:07,182: INFO/MainProcess] mingle: all alone
+[2024-07-03 12:49:07,190: INFO/MainProcess] celery@5e2605baeb21 ready.
+[2024-07-03 12:49:11,129: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 15:02:18,128: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 15:02:18,132: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 15:02:18,133: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 15:02:18,134: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 15:02:19,139: INFO/MainProcess] mingle: all alone
+[2024-07-03 15:02:19,145: INFO/MainProcess] celery@03b8f5e340cc ready.
+[2024-07-03 15:02:23,076: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 15:09:30,762: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 15:09:30,766: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 15:09:30,766: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 15:09:30,767: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 15:09:31,773: INFO/MainProcess] mingle: all alone
+[2024-07-03 15:09:31,784: INFO/MainProcess] celery@6fb1458c7422 ready.
+[2024-07-03 15:09:35,716: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 15:10:17,719: INFO/MainProcess] Task run_blastn[9ea206c9-2005-413c-b35c-0edd7be15809] received
+[2024-07-03 15:10:17,722: INFO/ForkPoolWorker-15] Task run_blastn[9ea206c9-2005-413c-b35c-0edd7be15809] succeeded in 0.001702567002212163s: True
+[2024-07-03 15:37:49,971: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 15:37:49,974: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 15:37:49,975: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 15:37:49,976: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 15:37:50,981: INFO/MainProcess] mingle: all alone
+[2024-07-03 15:37:50,992: INFO/MainProcess] celery@9cf464935222 ready.
+[2024-07-03 15:37:54,302: INFO/MainProcess] Events of group {task} enabled by remote.
+[2024-07-03 15:39:45,893: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 15:39:45,898: INFO/MainProcess] Connected to redis://redis:6379/0
+[2024-07-03 15:39:45,898: WARNING/MainProcess] /opt/conda/lib/python3.11/site-packages/celery/worker/consumer/consumer.py:507: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2024-07-03 15:39:45,900: INFO/MainProcess] mingle: searching for neighbors
+[2024-07-03 15:39:46,906: INFO/MainProcess] mingle: all alone
+[2024-07-03 15:39:46,930: INFO/MainProcess] celery@2cbac18b37fb ready.
+[2024-07-03 15:39:50,389: INFO/MainProcess] Events of group {task} enabled by remote.
