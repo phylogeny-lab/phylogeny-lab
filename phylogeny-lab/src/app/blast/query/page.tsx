@@ -12,6 +12,7 @@ import FormDiscreteSliderField from '@/app/Components/FormField/FormDiscreteSlid
 import FormFileUpload from '@/app/Components/FormField/FormFileUpload';
 import { useRouter } from 'next/navigation';
 import FormCheckboxField from '@/app/Components/FormField/FormCheckboxField';
+import FormComboboxField from '@/app/Components/FormField/FormComboboxField';
 
 function BlastQuery() {
 
@@ -39,16 +40,17 @@ function BlastQuery() {
 
     const BASE_URL = process.env.NEXT_PUBLIC_FASTAPI_ENDPOINT
 
-    const [installedDatabases, setInstalledDatabases] = useState([])
+    const [installedDatabases, setInstalledDatabases] = useState<Set<string>>(new Set(["test"]))
 
     const router = useRouter();
 
     useEffect(() => {
 
-        // axios.get(BASE_URL + '/ncbidb/local')
+        // await axios.get(BASE_URL + '/blastdb/ncbi')
         //     .then(((response: any) => { 
         //         const res = response.data
-        //         setInstalledDatabases(res.map((item: any) => { return item.dbname }))
+        //         alert(JSON.stringify(Array.from(new Set(res.map((item: any) => (item.dbname))))))
+        //         setInstalledDatabases(new Set(res.map((item: any) => (item.dbname))))
         //     }))
         //     .catch((err: any) => { console.error(err) })
 
@@ -173,14 +175,15 @@ function BlastQuery() {
                             <div className='w-1/2 h-auto'>
                                 <div className='w-full'>
                                     <h1 className='mb-2 font-bold'>Database</h1>
-                                    <FormRadioField
-                                        label='Database'
+                                    {installedDatabases.size > 0 ? <FormComboboxField
                                         name='db'
+                                        fullWidth={true}
+                                        id='databases_combo'
                                         onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setDbInput(true) : setDbInput(false)}
-                                        row={true}
                                         disabled={subjectFileInput || subjectSequenceInput}
-                                        options={installedDatabases}
-                                    />
+                                        options={Array.from(installedDatabases)}
+                                    /> : <p>No databases found</p>}
+                                    
                                 </div>
 
                                 <div className='w-full h-full'>

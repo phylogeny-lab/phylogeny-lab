@@ -55,14 +55,36 @@ async def blastn(
 
 
         new_query = schemas.BlastQueries(
-            **blast_params.model_dump(exclude={'subjectSequence', 'querySequence'})
+            **blast_params.model_dump(exclude={'subject', 'query'})
         )
 
         # locate database
         # TODO
+
+        root_path = os.getenv('BLAST_SAVE_DIR')
+
+        if not os.path.isdir(root_path):
+            os.mkdir(root_path)
+
+        if not os.path.isdir(os.path.join(root_path, blast_id)):
+            os.mkdir(os.path.join(root_path, blast_id))
+            os.mkdir(os.path.join(root_path, blast_id, "query"))
+            os.mkdir(os.path.join(root_path, blast_id, "subject"))
+            os.mkdir(os.path.join(root_path, blast_id, "results"))
+        else: 
+            return Response("ID already exists", status_code=500)
+
+        if subjectFile:
+            subjectFilepath = os.path.join(root_path, blast_id, "subject", subjectFile.filename)
+            await save_file(subjectFile, subjectFilepath)
+            blast_params.subject = subjectFilepath
+        if queryFile:
+            queryFilepath = os.path.join(root_path, blast_id, "query", queryFile.filename)
+            await save_file(queryFile, queryFilepath)
+            blast_params.query = queryFilepath
         
         print(blast_id)
-        run_blastn.apply_async((blast_params.model_dump(), blast_id, subjectFile, queryFile), task_id=blast_id)
+        run_blastn.apply_async((blast_params.model_dump(), blast_id), task_id=blast_id)
 
         db.add(new_query)
         db.commit()

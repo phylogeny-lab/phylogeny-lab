@@ -17,9 +17,9 @@ class BlastParams(BaseModel):
     organism: Optional[str] = None
     penalty: Optional[int] = None
     perc_identity: Optional[float] = None
-    querySequence: Optional[str] = None
+    query: Optional[str] = None
     reward: Optional[int] = None
-    subjectSequence: Optional[str] = None
+    subject: Optional[str] = None
     taxids: Optional[str] = None
     ungapped: Optional[bool] = None
     word_size: Optional[int] = None

@@ -9,10 +9,8 @@ from fastapi import UploadFile
 import xmltodict
 import sys
 
-from blast_python.src.blast_python import Blastn
+from blast_python.src.blast_python.Blastn import Blastn
 from blast_python.src.blast_python.types import OutFmt
-
-from helper import create_job_files
 
 #from Backend.app.models.BlastParams import BlastParams
 
@@ -22,27 +20,26 @@ celery.conf.result_backend = os.environ.get("CELERY_RESULT_BACKEND", "redis://re
 
 
 @celery.task(name="run_blastn")
-async def run_blastn(params, id, subjectFile: UploadFile, queryFile: UploadFile):
+def run_blastn(params, id):
 
         save_dir = os.getenv('BLAST_SAVE_DIR')
-
-        (results_file_json, results_file_xml) = create_job_files(
-             job_id=id, save_dir=save_dir, subjectFile=subjectFile, queryFile=queryFile
-        )
+        results_file_xml = os.path.join(save_dir, id, "results", "results.xml")
+        results_file_json = os.path.join(save_dir, id, "results", "results.json")
+        
         
         (return_code, _) = Blastn(
-            db=params.db,
-            subject=params.subjectSequence or subjectFile,
-            entrez_query=params.entrezQuery,
-            query=params.querySequence or queryFile,
-            reward=params.reward,
-            penalty=params.penalty,
-            gapextend=params.gapextend,
-            gapopen=params.gapopen,
+            db=params['db'],
+            subject=params['subject'],
+            entrez_query=params['entrezQuery'],
+            query=params['query'],
+            reward=params['reward'],
+            penalty=params['penalty'],
+            gapextend=params['gapextend'],
+            gapopen=params['gapopen'],
             outfmt=OutFmt.XML.value,
-            word_size=params.word_size,
+            word_size=params['word_size'],
             out=results_file_xml,
-            ungapped=params.ungapped
+            ungapped=params['ungapped']
             ).run(verbose=True)
 
         if return_code == 0: # success
@@ -59,6 +56,6 @@ async def run_blastn(params, id, subjectFile: UploadFile, queryFile: UploadFile)
 
         else:
             return False
-        
+
 
 
