@@ -1,6 +1,6 @@
 from enum import Enum
 
-class BlastQueryStatus(Enum):
+class CeleryStatus(Enum):
     COMPLETED = "Completed"
-    IN_PROGRESS = "In progress"
+    STARTED = "Started"
     FAILED = "Failed"

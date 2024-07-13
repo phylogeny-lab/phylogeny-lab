@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import blast, blastdb
+from .routers import blast, blastdb, alignment
 from .schemas.schemas import Base
 from .config.database import engine
 
@@ -20,3 +20,4 @@ app.add_middleware(
 
 app.include_router(blast.router)
 app.include_router(blastdb.router)
+app.include_router(alignment.router)

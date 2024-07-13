@@ -15,14 +15,14 @@ from ..models.BlastJobs import BlastJobs
 from ..models.BlastResults import BlastOutput
 from ..config.database import get_db
 from ..schemas import schemas
-from ..enums.BlastQueryStatus import BlastQueryStatus
+from ..enums.enums import CeleryStatus
 from pathlib import Path
 from subprocess import Popen, PIPE
 import json
 import datetime
 import xmltodict
 from fastapi.responses import JSONResponse
-from ..Blast_server.worker import run_blastn
+from ..worker.worker import run_blastn
 from celery.result import AsyncResult
 from celery import uuid
 
@@ -50,7 +50,7 @@ async def blastn(
         
         # set other metadata
         blast_params.id = blast_id
-        blast_params.status = BlastQueryStatus.IN_PROGRESS.value
+        blast_params.status = CeleryStatus.STARTED.value
         blast_params.created_at = datetime.datetime.now()
 
 
@@ -136,6 +136,13 @@ async def blast(id: int, db: Session = Depends(get_db)):
     job = db.query(schemas.BlastQueries).filter(schemas.BlastQueries.id == id).first()
 
     return job
+
+
+@router.put("/{task_id}")
+def update_status(task_id: str, new_status: str, db: Session = Depends(get_db)):
+    db.query(schemas.BlastQueries).where(schemas.BlastQueries.id == task_id).update({'status': new_status})
+    db.commit()
+    return task_id
 
 
 # Fetch results for blast queries

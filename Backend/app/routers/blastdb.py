@@ -177,6 +177,18 @@ async def ncbidb(req: Request, db: Session = Depends(get_db)):
     return total
 
 
+@router.get("/installed")
+def get_installed_databases(db: Session = Depends(get_db)) -> List[Blastdb]:
+    installed_databases = db.query(schemas.BlastDB).where(schemas.BlastDB.status == "installed").all()
+    return [Blastdb(**item.__dict__) for item in installed_databases]
+
+@router.put("/installed/{database_id}")
+def update_status(database_id: str, new_status: str, db: Session = Depends(get_db)):
+    db.query(schemas.BlastDB).where(schemas.BlastDB.id == database_id).update({'status': new_status})
+    db.commit()
+    return database_id
+
+
 def install_databases(databases: List[str], db: Session):
     for database in databases:
         status_code = subprocess.call(shlex.split(f'/scripts/ncbi_database.install.sh {database}'))

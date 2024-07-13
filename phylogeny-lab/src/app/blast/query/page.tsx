@@ -24,6 +24,7 @@ function BlastQuery() {
     const [subjectFileInput, setSubjectFileInput] = useState(false)
 
     const [dbInput, setDbInput] = useState(false)
+    const [searchSensitivity, setSearchSensitivity] = useState("Normal")
 
     const validationSchema = yup.object({
         jobTitle: yup.string().required('Job title is required'),
@@ -34,7 +35,7 @@ function BlastQuery() {
 
     const validationSchema2 = yup.object({
         subjectSequence: yup.string().when('subjectFile', ([], schema) => {
-                return subjectFileInput ? schema.notRequired() : schema.required("Either subject or database required.")
+            return subjectFileInput ? schema.notRequired() : schema.required("Either subject or database required.")
         })
     })
 
@@ -46,13 +47,12 @@ function BlastQuery() {
 
     useEffect(() => {
 
-        // await axios.get(BASE_URL + '/blastdb/ncbi')
-        //     .then(((response: any) => { 
-        //         const res = response.data
-        //         alert(JSON.stringify(Array.from(new Set(res.map((item: any) => (item.dbname))))))
-        //         setInstalledDatabases(new Set(res.map((item: any) => (item.dbname))))
-        //     }))
-        //     .catch((err: any) => { console.error(err) })
+        axios.get(BASE_URL + '/blastdb/installed')
+            .then(((response: any) => { 
+                const res = response.data
+                setInstalledDatabases(new Set(res.map((item: any) => (item.dbname))))
+            }))
+            .catch((err: any) => { console.error(err) })
 
     }, []);
 
@@ -67,8 +67,6 @@ function BlastQuery() {
         formData.append('subjectFile', subjectFile)
         formData.append('queryFile', queryFile)
 
-        alert("Submitting")
-
         axios.post(BASE_URL + `/blast/${data.algorithm}`, formData,
             {
                 headers: {
@@ -78,7 +76,6 @@ function BlastQuery() {
             .then((response) => {
                 console.log(response);
 
-                alert(response.data.task_id)
                 router.push('/blast')
 
             })
@@ -95,19 +92,20 @@ function BlastQuery() {
                     algorithm: 'blastn',
                     db: '',
                     taxids: '',
-                    perc_identity: 70,
+                    perc_id: 70,
                     max_hsps: 1,
                     querySequence: '',
                     queryFile: '',
                     entrezQuery: '',
                     subjectSequence: '',
                     subjectFile: '',
+                    description: '',
                     reward: 1,
                     penalty: -1,
                     gapopen: 3,
                     gapextend: 2,
                     dbFile: '',
-                    evalue: 0.05,
+                    evalue: 10,
                     word_size: 7,
                     ungapped: false,
                     organism: '',
@@ -123,32 +121,32 @@ function BlastQuery() {
                     validationSchema={validationSchema}
                 >
                     {/* FIRST PAGE - Query Sequence */}
-                    <div className='mt-6 p-4'>
-                        <h1 className='mt-6 font-bold'>Algorithm</h1>
+                    <div className='mt-16 p-4'>
+                        <h1 className='mt-6 font-semibold text-gray-400 '>New BLAST job</h1>
                         <div className='mt-6 flex gap-2 items-top content-top align-top'>
 
                             <div>
-                                <FormSelectField name='algorithm' label=" " options={['blastn', 'blastp', 'blastx']}/>
+                                <FormSelectField name='algorithm' options={['blastn', 'blastp', 'blastx']} />
                             </div>
 
-                            <div className='w-3/4'>
-                                <FormTextField name="jobTitle" label="Job title"/>
+                            <div className='w-full'>
+                                <FormTextField name="jobTitle" label="Job title" />
                             </div>
                         </div>
 
                         <div className='mt-8'>
-                            <h1 className=' font-bold mb-2'>Enter FASTA sequence(s)</h1>
+                            <h1 className='font-semibold text-gray-400  mb-2'>Enter FASTA sequence(s), or NCBI accession</h1>
                             <FormTextField
                                 label="FASTA file"
                                 name="querySequence"
                                 multiline={true}
-                                rows={6}
+                                rows={10}
                                 onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setQuerySequenceInput(true) : setQuerySequenceInput(false)}
                             />
                         </div>
 
                         <div className='mt-6'>
-                            <h1 className=' font-bold mb-2'>Or upload a file</h1>
+                            <h1 className='font-semibold text-gray-400  mb-2'>Or upload a file</h1>
                             <FormFileUpload
                                 disabled={querySequenceInput}
                                 onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setQueryFileInput(true) : setQueryFileInput(false)}
@@ -156,8 +154,8 @@ function BlastQuery() {
                                 name='queryFile'
                                 setInput={setQueryFileInput}
                                 icon={<CloudUploadIcon />}>
-                                    Upload Sequence
-                                </FormFileUpload>
+                                Upload Sequence
+                            </FormFileUpload>
                         </div>
                     </div>
 
@@ -169,12 +167,12 @@ function BlastQuery() {
                     validationSchema={validationSchema2}
                 >
                     {/* SECOND PAGE - Search set */}
-                    <div className='mt-6 p-4'>
+                    <div className='mt-16 p-4'>
                         <div className='flex gap-8'>
 
                             <div className='w-1/2 h-auto'>
                                 <div className='w-full'>
-                                    <h1 className='mb-2 font-bold'>Database</h1>
+                                    <h1 className='mb-2 font-semibold text-gray-400 mt-6'>Choose Database</h1>
                                     {installedDatabases.size > 0 ? <FormComboboxField
                                         name='db'
                                         fullWidth={true}
@@ -183,20 +181,20 @@ function BlastQuery() {
                                         disabled={subjectFileInput || subjectSequenceInput}
                                         options={Array.from(installedDatabases)}
                                     /> : <p>No databases found</p>}
-                                    
+
                                 </div>
 
-                                <div className='w-full h-full'>
-                                    <h1 className=' font-bold mb-2'>Or enter subject FASTA sequence(s)</h1>
+                                <div className='w-full'>
+                                    <h1 className='font-semibold text-gray-400  mb-4 mt-6'>Or enter subject FASTA sequence(s)</h1>
                                     <FormTextField
                                         label="FASTA file"
                                         name="subjectSequence"
                                         onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setSubjectSequenceInput(true) : setSubjectSequenceInput(false)}
                                         multiline={true}
-                                        rows={6}
+                                        rows={11}
                                     />
 
-                                    <h1 className=' font-bold mb-2'>Or upload a file</h1>
+                                    <h1 className='font-semibold text-gray-400  mb-4 mt-6'>Or upload a file</h1>
                                     <FormFileUpload
                                         disabled={querySequenceInput}
                                         onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setSubjectFileInput(true) : setSubjectFileInput(false)}
@@ -204,39 +202,47 @@ function BlastQuery() {
                                         name='subjectFile'
                                         setInput={setSubjectFileInput}
                                         icon={<CloudUploadIcon />} >
-                                            Sequence file
-                                        </FormFileUpload>
+                                        Sequence file
+                                    </FormFileUpload>
                                 </div>
 
                             </div>
 
-                        <div className='w-1/2'>
+                            <div className='w-1/2'>
 
-                            <h1 className='mb-2 mt-6 font-bold'>Organism</h1>
-                            <div className='flex'>
-                                <FormTextField
-                                    name="organism"
-                                    label="Organism (optional)"
-                                />
+                                <h1 className='mb-2 mt-6 font-semibold text-gray-400 '>Organism</h1>
+                                <div className='flex'>
+                                    <FormTextField
+                                        name="organism"
+                                        label="Organism (optional)"
+                                    />
 
+                                </div>
+
+                                <h1 className='mb-2 font-semibold text-gray-400 mt-6'>Limit query</h1>
+                                <div className='w-full'>
+                                    <FormTextField
+                                        name="entrezQuery"
+                                        label="Entrez Query (optional)"
+                                    />
+                                </div>
+
+                                <h1 className='mb-2 font-semibold text-gray-400 mt-6'>Tax IDs</h1>
+                                <div className='w-full'>
+                                    <FormTextField
+                                        name="taxids"
+                                        label="Tax ids (optional)"
+                                    />
+                                </div>
+
+                                <h1 className='mb-2 font-semibold text-gray-400 mt-6'>Description</h1>
+                                <div className='w-full'>
+                                    <FormTextField
+                                        name="description"
+                                        label="Description (optional)"
+                                    />
+                                </div>
                             </div>
-
-                            <h1 className='mb-2 font-bold mt-6'>Limit query</h1>
-                            <div className='w-full'>
-                                <FormTextField
-                                    name="entrezQuery"
-                                    label="Entrez Query (optional)"
-                                />
-                            </div>
-
-                            <h1 className='mb-2 font-bold mt-6'>Tax IDs</h1>
-                            <div className='w-full'>
-                                <FormTextField
-                                    name="taxids"
-                                    label="Tax ids (optional)"
-                                />
-                            </div>
-                        </div>
                         </div>
                     </div>
                 </FormStep>
@@ -245,59 +251,65 @@ function BlastQuery() {
                     stepName="Refine blast parameters"
                     onSubmit={() => console.log('Step 2 submit')}
                 >
-                    <div className='w-1/4 mt-8'>
-                        <FormTextField
-                            label="Expected value"
-                            type='number'
-                            name='evalue'
-                        />
-                    </div>
 
-                    <div className='w-1/4 mt-8'>
-                        <FormTextField
-                            label="Max HSPS"
-                            type='number'
-                            name='max_hsps'
-                        />
-                    </div>
+                    <div className='mt-16 p-4 flex justify-between content-center gap-8'>
 
-                    <div className='w-1/3 mt-8'>
-                    {/* [defaultValue, min, max, step] */}
-                        <FormDiscreteSliderField
-                            step={1}
-                            min={4}
-                            max={64}
-                            id='word_size_slider'
-                            value={70}
-                            name="word_size"
-                        />
-                    </div>
+                        <div className='w-full'>
 
-                    <div className='w-1/3 mt-8'>
-                    {/* [defaultValue, min, max, step] */}
-                        <FormDiscreteSliderField
-                            value={70}
-                            min={1}
-                            max={100}
-                            step={5}
-                            name="perc_identity"
-                            id='perc_identity_slider'
-                        />
-                    </div>
+                            <h1 className='font-semibold text-gray-400  mb-4'>Search sensitivity</h1>
+                            <FormRadioField 
+                                label="Search sensitivity" 
+                                name="searchSensitivity" 
+                                row={true} 
+                                default={searchSensitivity}
+                                options={['Near match', 'Short sequences', 'Normal', 'Distant homologies']} 
+                            />
 
-                    <h1 className='mt-8 font-bold'>Match/Mismatch</h1>
-                    <div className='my-8 flex justify-between gap-4 w-1/2'>
-                        <FormTextField name='reward' label="reward"/>
-                        <FormTextField name='penalty' label="penalty"/>
-                    </div>
+                            <h1 className='font-semibold text-gray-400 mb-4 mt-6'>General</h1>
+                            <div className='w-full'>
 
-                    <h1 className='mt-8 font-bold'>Gap costs</h1>
-                    <div className='my-8 flex justify-between gap-4 w-1/2'>
-                        <FormTextField name='gapopen' label="Existence"/>
-                        <FormTextField name='gapextend' label="Extension"/>
+                                <div className='w-full flex justify-between gap-2'>
+                                    <FormTextField label="Word size" type='number' name='word_size' />
+                                    <FormTextField label="Max HSPS" type='number' name='max_hsps' />
+                                </div>
+
+                                <div className='w-full flex justify-between gap-2 mt-6'>
+                                    <FormTextField label="Percent identity" type='number' name='perc_id' />
+                                    <FormTextField label="Expected value" type='number' name='evalue' />
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div className='w-full'>
+                            <h1 className='font-semibold text-gray-400 mb-4'>Scoring options</h1>
+                            <div className='w-full mt-6'>
+
+                                <div className='flex justify-between gap-2 w-full'>
+                                    <FormTextField name='reward' label="reward" type="number" />
+                                    <FormTextField name='penalty' label="penalty" type="number" />
+                                </div>
+
+                                <div className='flex justify-between gap-2 w-full mt-6'>
+                                    <FormTextField name='gapopen' label="Existence" type="number" />
+                                    <FormTextField name='gapextend' label="Extension" type="number" />
+                                </div>
+
+                                <div className='flex gap-2 content-center items-center mt-2'>
+                                <div className='text-center'>Ungapped</div>
+                                <FormCheckboxField name='ungapped'/>
+                                </div>
+                            </div>
+
+                            <h1 className='font-semibold text-gray-400 mb-4 mt-6'>Masking options</h1>
+                            <div className='w-full flex gap-2 content-center items-center'>
+                            <div className='text-center'>Filter low complexity</div>
+                            <FormCheckboxField name='filterLowComplexity' />
+                            </div>
+                        </div>
+
                     </div>
-                    <h1 className='font-bold mt-8'>Ungapped</h1>
-                    <FormCheckboxField name='ungapped' />
                 </FormStep>
             </MultiStepForm>
         </div>

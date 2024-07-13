@@ -1,1 +1,7 @@
-Blast_server/volume/*
+worker/requirements.txt
+worker/Dockerfile
+worker/.dockerignore
+worker/__pycache__
+worker/logs
+worker/ncbi_blast.download.sh
+worker/requirements.txt

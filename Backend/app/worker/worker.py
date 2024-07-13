@@ -1,23 +1,22 @@
 import json
 import os
 import time
-from fastapi import UploadFile
 import aiofiles
-
+from urllib.parse import urljoin
 from celery import Celery
-from fastapi import UploadFile
 import xmltodict
 import sys
+import requests
 
 from blast_python.src.blast_python.Blastn import Blastn
 from blast_python.src.blast_python.types import OutFmt
-
-#from Backend.app.models.BlastParams import BlastParams
+from helper import api_update_request
 
 celery = Celery(__name__)
-celery.conf.broker_url = os.environ.get("CELERY_BROKER_URL", "redis://redis:6379")
-celery.conf.result_backend = os.environ.get("CELERY_RESULT_BACKEND", "redis://redis:6379")
 
+# Config file
+default_config = 'celeryconfig'
+celery.config_from_object(default_config)
 
 @celery.task(name="run_blastn")
 def run_blastn(params, id):
@@ -25,9 +24,10 @@ def run_blastn(params, id):
         save_dir = os.getenv('BLAST_SAVE_DIR')
         results_file_xml = os.path.join(save_dir, id, "results", "results.xml")
         results_file_json = os.path.join(save_dir, id, "results", "results.json")
+        API_ENDPOINT = os.getenv('API_ENDPOINT')
         
         
-        (return_code, _) = Blastn(
+        (return_code, message) = Blastn(
             db=params['db'],
             subject=params['subject'],
             entrez_query=params['entrezQuery'],
@@ -41,21 +41,25 @@ def run_blastn(params, id):
             out=results_file_xml,
             ungapped=params['ungapped']
             ).run(verbose=True)
-
+        
+        
         if return_code == 0: # success
 
             # save file in json format
 
-            with open(results_file_xml) as fd:
-                json_parse = xmltodict.parse(fd.read())
-
-            with open(results_file_json, "w") as f:
-                f.write(json.dumps(json_parse, indent=2))
-
+            response = api_update_request(url = API_ENDPOINT + '/blast/' + str(id), params = {'new_status': 'Success'})
+            
             return True
 
         else:
-            return False
+            response = api_update_request(url = API_ENDPOINT + '/blast/' + str(id), params = {'new_status': 'Failed'})
+            
+            raise Exception(f"Process failed: {message}")
+        
+@celery.task(name="run_clustalw")
+def run_clustalw(params, id):
+    time.sleep(640)
+    return True
 
 
 

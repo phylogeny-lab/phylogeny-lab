@@ -1,3 +1,5 @@
 const BASE_URL = process.env.NEXT_PUBLIC_FASTAPI_ENDPOINT
 
-export { BASE_URL }
+const WORKER_API = process.env.NEXT_PUBLIC_WORKER_API
+
+export { BASE_URL, WORKER_API }

@@ -1,4 +1,4 @@
 ./Backend/volume/*
 Backend/alembic/versions/*
 postgres/volume
-./Backend/app/Blast_server/volume/*
+./Backend/app/worker/volume/*

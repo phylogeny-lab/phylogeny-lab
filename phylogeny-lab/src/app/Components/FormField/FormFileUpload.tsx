@@ -56,7 +56,7 @@ function FormFileUpload(props: FieldHookConfig<any> & { label: string, icon: Rea
     <VisuallyHiddenInput type="file" accept=".fa,.fasta,.fastq,.fna" onChange={showFile} />
     </Button>
    
-    {uploaded && <div className='mt-3 cursor-pointer flex items-center text-sm text-gray-400 font-semibold'> {filename}<button className='ml-2 hover:text-green-500' onClick={removeFile}><CloseIcon />
+    {uploaded && <div className='mt-10 cursor-pointer flex items-center text-sm text-gray-400 font-semibold absolute'> {filename}<button className='ml-2 hover:text-green-500' onClick={removeFile}><CloseIcon />
     </button></div>}
     
     </div>

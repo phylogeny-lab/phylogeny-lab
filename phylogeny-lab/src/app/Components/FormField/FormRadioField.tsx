@@ -4,7 +4,7 @@ import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { FieldConfig, FieldHookConfig, useField, useFormikContext } from 'formik';
 import React from 'react'
 
-function FormRadioField(props: FieldHookConfig<any> & { label: string, row: boolean, options: string[] }) {
+function FormRadioField(props: FieldHookConfig<any> & { label: string, row: boolean, options: string[], default?: string }) {
 
     const { values, touched, setFieldValue } = useFormikContext()
     const [field, meta] = useField(props);
@@ -12,7 +12,7 @@ function FormRadioField(props: FieldHookConfig<any> & { label: string, row: bool
   return (
     <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue="female"
+        defaultValue={props.default}
         row={props.row}
         {...field} 
       >

@@ -13,6 +13,7 @@ const FormTextField = (props: FieldHookConfig<any> & { label: string, multiline?
             label={props.label} 
             multiline={props.multiline}
             rows={props.rows}
+            type={props.type}
             inputProps={{ spellCheck: 'false' }}
             placeholder={props.placeholder}
             {...field} 
