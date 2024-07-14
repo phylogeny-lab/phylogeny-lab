@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { generateMessage } from "@/utils/MessageGenerator";
 import { AnimatedListItem } from "../AnimatedListItem/AnimatedListItem";
 import { Chip, Progress } from "@nextui-org/react";
 import { useRouter } from 'next/navigation';
@@ -39,23 +38,6 @@ const BlastQueries = () => {
         blastJobs.forEach((item: BlastTable) => (statuses.add(item.status.toLowerCase())))
         Array.from(statuses).includes(CeleryTaskStatus.STARTED.toLowerCase()) ? setIsLoading(true) : setIsLoading(false)
         setJobs(Array.from(blastJobs))
-        // getTaskResult(item.id).then((result: CeleryTaskStatus) => {
-        //   item.status = result
-        //   blastJobs.add(item)
-        // }).catch((err: any) => {
-        //   console.error(err)
-        // }).finally(() => {
-          
-        //   if (blastJobs.size != jobs.length || Array.from(blastJobs).map((item: BlastTable, i: number) => (item.status !== jobs[i].status))) {
-
-        //     if (jobs.length == 0 || !(jobs.map((item: BlastTable) => blastJobs.has(item)))) {
-        //       setJobs(Array.from(blastJobs))
-        //     }
-            
-
-            
-        //   }
-        // })
       })
       
     })
@@ -72,15 +54,6 @@ const BlastQueries = () => {
     return () => clearInterval(intervalId);
     
   }, [])
-
-
-  const addJob = () => {
-    const newJob = generateMessage();
-
-    setJobs((prev) => {
-      return [...prev, newJob];
-    });
-  };
 
   const toggleJob = (id: string) => {
     if (selectedJobs.includes(id)) {
@@ -168,7 +141,7 @@ const BlastQueries = () => {
       <div className="flex justify-between w-full border-b-gray-500 border-opacity-50 border-b-[1px] p-4">
         
         <div className="flex gap-2 items-center">
-        <h1 onClick={addJob}
+        <h1
           className="-mx-2 rounded px-2 py-1 font-bold text-large"
         >
           Blast Jobs

@@ -1,4 +1,6 @@
-import ProcessesPanel from "@/app/Components/Dashboard/ProcessesPanel/ProcessesPanel"
+"use client";
+
+import ProcessesPanel from "./Components/Dashboard/ProcessesPanel/ProcessesPanel"
 
 
 export default function Home() {

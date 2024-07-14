@@ -25,7 +25,7 @@ const config: Config = {
               DEFAULT: colors.green[600],
             },
             focus: colors.grey[200],
-
+            secondary: colors.blue[600],
           },
         },
         dark: {
@@ -38,6 +38,7 @@ const config: Config = {
               DEFAULT: colors.green[600],
             },
             focus: colors.grey[200],
+            secondary: colors.blue[600],
           },
         },
       },

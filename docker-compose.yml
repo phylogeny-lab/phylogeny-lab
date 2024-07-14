@@ -38,37 +38,69 @@ services:
       - "5000:5000"
     environment:
       - POSTGRES_URL=postgresql://admin:password@postgres/postgres
-      - BLAST_SAVE_DIR=/volume/blast_queries
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - PYTHONPATH=/code/app/worker
+      - BLAST_SAVE_DIR=/volume/blast_queries
+    volumes:
+      - shared_web_worker:/volume
     depends_on:
       - postgres
       - redis
-    volumes:
-      - ./Backend/app/Blast_server/volume/:/volume
+      - worker
     networks:
       - bridged_net_adapter
 
-  blast_server:
-    container_name: blast_server
+  worker:
+    container_name: worker
     build:
-      context: ./Backend/app/Blast_server
+      context: ./Backend/app/worker
       dockerfile: Dockerfile
     command: celery -A worker.celery worker --loglevel=info --logfile=logs/celery.log
     volumes:
-      - ./Backend/app/Blast_server:/usr/src/app
+      - ./Backend/app/worker/logs/celery.log:/code/worker/logs/celery.log
+      - shared_web_worker:/volume
     environment:
+      - BLAST_SAVE_DIR=/volume/blast_queries
+      - API_ENDPOINT=http://fastapi:5000/api
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - POSTGRES_URL=postgresql://admin:password@postgres/postgres
     depends_on:
-      - fastapi
       - redis
     networks:
       - bridged_net_adapter
 
   redis:
     container_name: redis
-    image: redis:7
+    image: redis:alpine
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - 6379:6379
+    networks:
+      - bridged_net_adapter
+
+  flower:
+    container_name: flower
+    build: 
+      context: ./Backend/app/worker
+      dockerfile: Dockerfile
+    command: celery --broker=redis://redis:6379/0 flower --port=5555
+    ports:
+      - 5555:5555
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - FLOWER_UNAUTHENTICATED_API=true
+    volumes:
+      - flower_data:/data
+    depends_on:
+      - fastapi
+      - redis
+      - worker
     networks:
       - bridged_net_adapter
 
@@ -78,3 +110,8 @@ networks:
     ipam:
      config:
        - subnet: 192.168.50.0/24
+
+volumes:
+  shared_web_worker:
+  flower_data:
+  redis_data:

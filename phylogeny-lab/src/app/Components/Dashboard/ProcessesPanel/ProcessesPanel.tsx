@@ -1,30 +1,38 @@
-import React, { useMemo } from 'react'
+"use client";
 
-import { Card, CardBody, CardFooter, CardHeader, Chip, Divider } from "@nextui-org/react";
-import Image from "next/image";
-import { Avatar } from '@mui/material';
-import Link from 'next/link'
-import { FaVirus } from "react-icons/fa6";
+import React, { useEffect, useState } from 'react'
+
+import { Card, CardBody, CardFooter, CardHeader, Chip, Divider, Tabs, Tab } from "@nextui-org/react";
+import { Avatar, IconButton } from '@mui/material';
 import { GiProcessor } from "react-icons/gi";
+import { colors } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import InfoIcon from '@mui/icons-material/Info';
+import Tooltip from '@mui/material/Tooltip';
+import ServerStatus from "./ServerStatus"
+import { Status } from '@/enums/BackendServerStatus';
+import TaskTable from "./TaskTable"
+import { getTasks, getWorkers } from '@/utils/WorkerApi';
 
-function ProcessesPanel() {
+export default function ProcessesPanel() {
 
+    const [tasks, setTasks] = useState([])
+    const [workers, setWorkers] = useState([])
 
-    const interpolate = useMemo(() => {
-        return (
-            <svg width="450" height="70">
-            <defs>
-                <linearGradient id="gradientDefault">
-                <stop offset="0%" stop-color="white" />
-                <stop offset="25%" stop-color="blue" />
-                <stop offset="50%" stop-color="white" />
-                <stop offset="75%" stop-color="red" />
-                <stop offset="100%" stop-color="white" />
-                </linearGradient>
-            </defs>
-            </svg>
+    const getBackendInfo = () => {
+        getTasks().then((tasks: any) => setTasks(tasks))
+        getWorkers().then((workers: any) => setWorkers(workers))
+    }
 
-        )
+    useEffect(() => {
+        
+        getBackendInfo()
+
+        const intervalId = setInterval(getBackendInfo, 10000);
+
+        return () => clearInterval(intervalId);
+
     }, [])
 
     return (
@@ -35,17 +43,57 @@ function ProcessesPanel() {
                     <div className="flex content-center items-center gap-3 justify-between w-full">
                         <div className="flex content-center gap-3 items-center">
 
-                            <Avatar sx={{ display: 'flex', justifyContent: 'center', background: "transparent", border: '1px solid #808080', color: '#808080', padding: '4px', height: '3.5rem', width: '3.5rem' }}>
+                            <Avatar sx={{ display: 'flex', justifyContent: 'center', background: "transparent", border: '1px solid #eeeeee', color: colors.grey[200], padding: '4px', height: '3.5rem', width: '3.5rem' }}>
                                 <GiProcessor size={70} />
                             </Avatar>
                             <p className="text-xl font-semibold">Backend server</p>
                         </div>
-                        <Chip style={{ border: 'none' }} color="success" variant="dot">Online</Chip>
+                        <ServerStatus status={Status.connected} />
+
                     </div>
                 </CardHeader>
                 <Divider />
                 <CardBody>
-                    <p>Make beautiful websites regardless of your design experience.</p>
+
+                <div className='absolute top-3 right-4 flex gap-2'>
+
+                <Tooltip title="Delete" sx={{width: '2rem', height: '2rem', color: colors.grey[400]}} >
+                <IconButton>
+                    <InfoIcon />
+                </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Delete" sx={{width: '2rem', height: '2rem', color: colors.grey[400]}}>
+                <IconButton>
+                <RestartAltIcon />
+                </IconButton>
+                </Tooltip>
+
+                </div>
+                    
+                    <Tabs aria-label="Options" >
+                        <Tab key="workers" title="Workers">
+                            <Card>
+                                <CardBody>
+                                    {JSON.stringify(workers)}
+                                </CardBody>
+                            </Card>
+                        </Tab>
+                        <Tab key="tasks" title="Tasks">
+                            <Card>
+     
+                                    <TaskTable />
+                     
+                            </Card>
+                        </Tab>
+                        <Tab key="broker" title="Broker">
+                            <Card>
+                                <CardBody>
+                                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                </CardBody>
+                            </Card>
+                        </Tab>
+                    </Tabs>
                 </CardBody>
                 <CardFooter>
 
@@ -55,5 +103,3 @@ function ProcessesPanel() {
 
     )
 }
-
-export default ProcessesPanel
