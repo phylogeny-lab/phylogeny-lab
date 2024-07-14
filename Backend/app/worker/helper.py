@@ -1,6 +1,5 @@
 import os
 import aiofiles
-from fastapi import UploadFile
 import requests
 
 async def save_file(file, out_file_path: str | os.PathLike):

@@ -25,7 +25,8 @@ import {
   Pagination,
   NextUIProvider,
 } from "@nextui-org/react";
-import { columns, statusOptions, genusIconMap, speciesIconMap } from "@/utils/DatabaseMaps";
+import { statusOptions, genusIconMap, speciesIconMap } from "@/utils/DatabaseMaps";
+import { DatabaseColumns as columns } from "@/utils/TableColumns";
 import { ThemeProvider } from "@emotion/react";
 import { PiDnaLight } from "react-icons/pi";
 import axios from "axios";

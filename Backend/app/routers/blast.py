@@ -22,7 +22,7 @@ import json
 import datetime
 import xmltodict
 from fastapi.responses import JSONResponse
-from ..worker.worker import run_blastn
+from ..worker import worker
 from celery.result import AsyncResult
 from celery import uuid
 
@@ -84,7 +84,7 @@ async def blastn(
             blast_params.query = queryFilepath
         
         print(blast_id)
-        run_blastn.apply_async((blast_params.model_dump(), blast_id), task_id=blast_id)
+        worker.blastn.apply_async((blast_params.model_dump(), blast_id), task_id=blast_id)
 
         db.add(new_query)
         db.commit()

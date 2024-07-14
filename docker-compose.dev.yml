@@ -44,18 +44,18 @@ services:
       - BLAST_SAVE_DIR=/volume/blast_queries
     volumes:
       - shared_web_worker:/volume
+      - ./Backend/app/data:/data
     depends_on:
       - postgres
-      - redis
-      - worker
     networks:
       - bridged_net_adapter
 
   worker:
     container_name: worker
+    restart: always
     build:
       context: ./Backend/app/worker
-      dockerfile: Dockerfile
+      dockerfile: worker.Dockerfile
     command: celery -A worker.celery worker --loglevel=info --logfile=logs/celery.log
     volumes:
       - ./Backend/app/worker/logs/celery.log:/code/worker/logs/celery.log
@@ -68,6 +68,7 @@ services:
       - POSTGRES_URL=postgresql://admin:password@postgres/postgres
     depends_on:
       - redis
+      - fastapi
     networks:
       - bridged_net_adapter
 
@@ -87,10 +88,10 @@ services:
     container_name: flower
     build: 
       context: ./Backend/app/worker
-      dockerfile: Dockerfile
-    command: celery --broker=redis://redis:6379/0 flower --port=5555
+      dockerfile: flower.Dockerfile
+    command: ./start-flower.sh
     ports:
-      - 5555:5555
+      - 5556:5555
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0

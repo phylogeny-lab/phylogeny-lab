@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Response
 from sqlalchemy.orm import Session
-from ..worker.worker import run_clustalw
+from ..worker import worker
 from ..config.database import get_db
 from celery import uuid
 
@@ -13,5 +13,5 @@ router = APIRouter(
 @router.post("/clustalw")
 def clustalw(db: Session = Depends(get_db)):
     alignment_id = uuid()
-    run_clustalw.apply_async(({}, alignment_id), task_id=alignment_id)
+    worker.clustalw.apply_async(({}, alignment_id), task_id=alignment_id)
     return Response("success", status_code=200)

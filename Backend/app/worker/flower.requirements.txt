@@ -1,0 +1,6 @@
+aiofiles
+biopython
+celery[redis]
+flower
+python-dotenv
+redis-py

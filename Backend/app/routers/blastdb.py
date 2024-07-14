@@ -157,10 +157,10 @@ async def customdb(req: Request, db: Session = Depends(get_db)) -> List[Blastdb]
 @router.get("/ncbi")
 async def ncbidb(req: Request, db: Session = Depends(get_db)):
     
-    with open('/code/app/routers/metazoa.json') as f:
+    with open('/data/metazoa.json') as f:
         metazoa = json.load(f)
 
-    with open('/code/app/routers/vir.json') as f:
+    with open('/data/vir.json') as f:
         vir = json.load(f)
     
     

@@ -5,24 +5,6 @@ import { FaBacteria } from "react-icons/fa";
 import { PiDnaLight } from "react-icons/pi";
 import { FaDatabase } from "react-icons/fa";
 
-const columns = [
-  {name: "ACCESSION", uid: "accession", sortable: true},
-  {name: "ORGANISM NAME", uid: "organism_name", sortable: true},
-  {name: "STATUS", uid: "status", sortable: true},
-  {name: "SEQUENCE LENGTH", uid: "total_sequence_length", sortable: true},
-  {name: "RELEASE DATE", uid: "release_date", sortable: true},
-  {name: "ASSEMBLY NAME", uid: "assembly_name", sortable: true},
-  {name: "ASSEMBLY TYPE", uid: "assembly_type", sortable: true},
-  {name: "GC COUNT", uid: "gc_count", sortable: true},
-  {name: "GC PERCENT", uid: "gc_percent", sortable: true},
-  {name: "CHROMOSOMES", uid: "total_number_of_chromosomes", sortable: true},
-  {name: "TAX ID", uid: "tax_id", sortable: true},
-  {name: "SOURCE DATABASE", uid: "source_database", sortable: true},
-  {name: "ACCESSION NAME", uid: "accession_name", sortable: true},
-  {name: "TOTAL GENES", uid: "total_genes", sortable: true},
-  {name: "", uid: "more_info", sortable: true},
-];
-
 const statusOptions = [
   {name: "Installed", uid: "installed"},
   {name: "Available", uid: "available"},
@@ -95,4 +77,4 @@ const genusIconMap: any = {
   "carcharodon": "http://localhost:3000/assets/animals/carcharodon.svg",
 }
 
-export {columns, statusOptions, genusIconMap, speciesIconMap};
+export {statusOptions, genusIconMap, speciesIconMap};

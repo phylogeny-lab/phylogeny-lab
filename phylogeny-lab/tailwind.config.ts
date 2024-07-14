@@ -23,9 +23,13 @@ const config: Config = {
             },
             success: {
               DEFAULT: colors.green[600],
+              foreground: colors.grey[200],
             },
             focus: colors.grey[200],
-            secondary: colors.blue[600],
+            secondary: {
+              DEFAULT: colors.blue[600],
+              foreground: colors.grey[200]
+            }
           },
         },
         dark: {
@@ -36,9 +40,13 @@ const config: Config = {
             },
             success: {
               DEFAULT: colors.green[600],
+              foreground: colors.grey[200],
             },
             focus: colors.grey[200],
-            secondary: colors.blue[600],
+            secondary: {
+              DEFAULT: colors.blue[600],
+              foreground: colors.grey[200]
+            }
           },
         },
       },

@@ -1,0 +1,5 @@
+aiofiles
+biopython
+celery[redis]
+python-dotenv
+redis-py

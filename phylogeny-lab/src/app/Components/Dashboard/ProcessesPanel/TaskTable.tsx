@@ -1,51 +1,60 @@
+"use client";
+
 import React from "react";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, ChipProps, getKeyValue} from "@nextui-org/react";
-import {columns, users} from "./data";
-import { GifBoxOutlined } from "@mui/icons-material";
+import {TaskColumns} from "@/utils/TableColumns";
+import { taskData, workerData } from "@/models/TaskData";
+import { CeleryTaskStatus } from "@/enums/CeleryTaskStatus";
+import { FaInfoCircle, FaInfo } from "react-icons/fa";
+import { MdDeleteForever, MdInfo } from "react-icons/md";
 
 const statusColorMap: Record<string, ChipProps["color"]>  = {
-  active: "success",
-  paused: "danger",
-  vacation: "warning",
+  SUCCESS : "success",
+  FAILURE: "danger",
+  STARTED: "warning",
 };
 
-type User = typeof users[0];
+interface Props {
+  tasks: Array<taskData>
+}
 
-export default function TaskTable() {
-  const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof User];
+
+export default function TaskTable({ tasks }: Props) {
+
+    type Tasks = typeof tasks[0];
+  const renderCell = React.useCallback((task: Tasks, columnKey: React.Key) => {
+    const cellValue = task[columnKey as keyof Tasks];
 
     switch (columnKey) {
+      case "uuid":
+        return (
+          <div>
+            {task.uuid.substring(0, 6)}...{task.uuid.substring(task.uuid.length - 6, task.uuid.length)}
+          </div>
+        );
       case "name":
         return (
           <div>
-            {user.name}
-          </div>
-        );
-      case "role":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue}</p>
-            <p className="text-bold text-sm capitalize text-default-400">{user.team}</p>
+            {task.name}
           </div>
         );
       case "status":
         return (
-          <Chip className="capitalize" color={statusColorMap[user.status]} size="sm" variant="flat">
-            {cellValue}
+          <Chip className="capitalize" color={statusColorMap[task.status]} size="sm" variant="dot">
+            {task.status.toLowerCase()}
           </Chip>
         );
       case "actions":
         return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <GifBoxOutlined />
+          <div className="relative flex items-center gap-2 justify-end content-center dark">
+            <Tooltip content="Task Info" color="foreground">
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50 dark">
+                <MdInfo />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Delete user">
+            <Tooltip color="danger" content="Stop Task">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <GifBoxOutlined />
+                <MdDeleteForever />
               </span>
             </Tooltip>
           </div>
@@ -57,16 +66,16 @@ export default function TaskTable() {
 
   return (
   <Table aria-label="Example table with custom cells">
-      <TableHeader columns={columns}>
+      <TableHeader columns={TaskColumns}>
         {(column) => (
           <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
             {column.name}
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={users}>
-        {(item) => (
-          <TableRow key={item.id}>
+      <TableBody items={tasks} className="h-16" emptyContent='No running tasks'>
+        {(item: taskData) => (
+          <TableRow key={item.uuid}>
             {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
           </TableRow>
         )}
