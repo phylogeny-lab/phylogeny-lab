@@ -18,6 +18,7 @@ import { convertToTaskTable } from "@/utils/WorkerApi"
 import { HiServer } from "react-icons/hi2";
 import { RiServerFill } from "react-icons/ri";
 import WorkerTable from './WorkerTable';
+import { VscServerProcess } from "react-icons/vsc";
 
 export default function ProcessesPanel() {
 
@@ -49,10 +50,10 @@ export default function ProcessesPanel() {
                     <div className="flex content-center items-center gap-3 justify-between w-full">
                         <div className="flex content-center gap-3 items-center">
 
-                            <Avatar sx={{ display: 'flex', justifyContent: 'center', background: "transparent", border: '1px solid #eeeeee', color: colors.grey[200], padding: '6px', height: '3.5rem', width: '3.5rem' }}>
-                                <RiServerFill size={70} />
+                            <Avatar sx={{ display: 'flex', justifyContent: 'center', background: "transparent", border: '1px solid #eeeeee', color: colors.grey[200], padding: '6px', height: '3rem', width: '3rem' }}>
+                            <VscServerProcess size={70} />
                             </Avatar>
-                            <p className="text-xl font-semibold">Thread pool server</p>
+                            <p className="text-xl font-semibold">Backend server</p>
                         </div>
                         <ServerStatus status={Status.connected} />
 

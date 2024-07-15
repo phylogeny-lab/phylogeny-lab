@@ -1,6 +1,6 @@
 #!/bin/sh
 
-until timeout 1m celery -A worker inspect ping; do
+until timeout 2m celery -A worker inspect ping; do
     >&2 echo "Celery workers not available"
 done
 

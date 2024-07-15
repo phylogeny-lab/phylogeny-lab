@@ -42,7 +42,7 @@ const getTasks = async () => {
                 refresh: true
             }
         }).then((res: any) => {
-            resolve(res.data)
+            resolve(res?.data)
         }).catch((err: any) => {
             reject(err)
         })
@@ -56,7 +56,7 @@ const getWorkers = async () => {
                 json: true
             }
         }).then((res: AxiosResponse) => {
-            resolve(res.data.data)
+            resolve(res?.data?.data)
         }).catch((err: any) => {
             reject(err)
         })

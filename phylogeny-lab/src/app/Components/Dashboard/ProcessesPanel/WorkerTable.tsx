@@ -62,11 +62,6 @@ export default function WorkerTable({ workers }: Props) {
                                 <MdInfo />
                             </span>
                         </Tooltip>
-                        <Tooltip color="danger" content="Stop Task">
-                            <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                                <MdDeleteForever />
-                            </span>
-                        </Tooltip>
                     </div>
                 );
             default:
@@ -75,8 +70,8 @@ export default function WorkerTable({ workers }: Props) {
     }, []);
 
     return (
-        <Table aria-label="Example table with custom cells">
-            <TableHeader columns={WorkerColumns}>
+        <Table aria-label="Example table with custom cells" className="overflow-x-hidden">
+            <TableHeader columns={WorkerColumns} className="overflow-x-hidden">
                 {(column) => (
                     <TableColumn key={column.uid} align={column.uid === "actions" ? "center" : "start"}>
                         {column.name}

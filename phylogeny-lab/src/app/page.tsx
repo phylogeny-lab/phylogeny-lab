@@ -1,5 +1,6 @@
 "use client";
 
+import FileTreePanel from "./Components/Dashboard/FileTreePanel/FileTreePanel";
 import ProcessesPanel from "./Components/Dashboard/ProcessesPanel/ProcessesPanel"
 
 
@@ -12,7 +13,7 @@ export default function Home() {
 
       <ProcessesPanel />
 
-      <div className="w-full"></div>
+      <FileTreePanel />
       <div className="w-full"></div>
         
       </div>

@@ -34,6 +34,7 @@
     "react-dom": "^18",
     "react-dotenv": "^0.1.3",
     "react-drag-drop-files": "^2.3.10",
+    "react-folder-tree": "^5.1.1",
     "react-hierarchy-tree-graph": "^1.0.3",
     "react-icons": "^5.1.0",
     "react-phylogeny-tree-gl": "^1.0.0-beta",
