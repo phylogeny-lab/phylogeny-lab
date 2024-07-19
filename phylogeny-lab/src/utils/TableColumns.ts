@@ -29,7 +29,6 @@ const TaskColumns = [
     {name: "Processed", uid: "processed"},
     //{name: "Pid", uid: "pid"},
     {name: "Average load", uid: "loadavg"},
-    {name: "Actions", uid: "actions"},
 ];
 
 export { DatabaseColumns, WorkerColumns, TaskColumns }

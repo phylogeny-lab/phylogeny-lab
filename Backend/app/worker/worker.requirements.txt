@@ -3,3 +3,5 @@ biopython
 celery[redis]
 python-dotenv
 redis-py
+aiohttp
+ncbi-datasets-cli

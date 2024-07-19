@@ -20,6 +20,9 @@ COPY ncbi_blast.download.sh .
 RUN bash ncbi_blast.download.sh $BLAST_VERSION && rm ncbi_blast.download.sh
 ENV PATH=/ncbi-blast-$BLAST_VERSION+/bin:$PATH
 ENV BLASTDB=blastdb
+# copy scripts
+COPY ./scripts /scripts
+RUN chmod +x /scripts/*.sh
 # setup app & run server
 WORKDIR /code/app/worker
 COPY . /code/app/worker

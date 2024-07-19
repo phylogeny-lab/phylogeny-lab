@@ -1,4 +1,6 @@
+import asyncio
 import os
+import shlex
 import time
 from urllib.parse import urljoin
 from celery import Celery
@@ -16,49 +18,54 @@ celery = Celery(__name__)
 default_config = 'celeryconfig'
 celery.config_from_object(default_config)
 
+API_ENDPOINT = os.getenv('API_ENDPOINT')
+
 @celery.task(name="blastn")
 def blastn(params, id):
-        
-        API_ENDPOINT = os.getenv('API_ENDPOINT')
 
         save_dir = os.getenv('BLAST_SAVE_DIR')
         results_file_xml = os.path.join(save_dir, id, "results", "results.xml")
         results_file_json = os.path.join(save_dir, id, "results", "results.json")
         
         
-        (return_code, message) = Blastn(
-            db=params['db'],
-            subject=params['subject'],
-            entrez_query=params['entrezQuery'],
-            query=params['query'],
-            reward=params['reward'],
-            penalty=params['penalty'],
-            gapextend=params['gapextend'],
-            gapopen=params['gapopen'],
-            outfmt=OutFmt.XML.value,
-            word_size=params['word_size'],
-            out=results_file_xml,
-            ungapped=params['ungapped']
-            ).run(verbose=True)
-        
-        
-        if return_code == 0: # success
-
-            # save file in json format
-
-            response = api_update_request(url = API_ENDPOINT + '/blast/' + str(id), params = {'new_status': 'Success'})
+        try:
+            (return_code, message) = Blastn(
+                db=params['db'],
+                subject=params['subject'],
+                entrez_query=params['entrezQuery'],
+                query=params['query'],
+                reward=params['reward'],
+                penalty=params['penalty'],
+                gapextend=params['gapextend'],
+                gapopen=params['gapopen'],
+                outfmt=OutFmt.XML.value,
+                word_size=params['word_size'],
+                out=results_file_xml,
+                ungapped=params['ungapped']
+                ).run(verbose=True)
             
-            return True
 
-        else:
-            response = api_update_request(url = API_ENDPOINT + '/blast/' + str(id), params = {'new_status': 'Failed'})
             
-            raise Exception(f"Process failed: {message}")
+            if return_code == 0: # success
+
+                # save file in json format
+
+                asyncio.run(api_update_request(url = API_ENDPOINT + '/blast/' + str(id), params = {'new_status': 'Success'}))
+                return True
+
+            else:
+
+                asyncio.run(api_update_request(url = API_ENDPOINT + '/blast/' + str(id), params = {'new_status': 'Failed'}))
+                raise Exception(f"Process failed: {message}")
+            
+        except Exception as e:
+             
+            asyncio.run(api_update_request(url = API_ENDPOINT + '/blast/' + str(id), params = {'new_status': 'Failed'}))
+            raise Exception(e)
+
         
 @celery.task(name="clustalw")
 def clustalw(params, id):
-
-    API_ENDPOINT = os.getenv('API_ENDPOINT')
 
     clustalw_cline = ClustalwCommandline(cmd="clustalw2", **params)
 
@@ -72,14 +79,32 @@ def clustalw(params, id):
     return_code = proc.returncode
 
     if return_code == 0:
-        response = api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Success'})
+        asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Success'}))
         return True
     
     else:
-        response = api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Failed'})
+        asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Failed'}))
         raise Exception(f"Process failed: {err}")
          
         
+@celery.task(name="install_ncbi_databases")
+def install_ncbi_databases(databases):
 
+    try:
+        for database in databases:
+
+            status_code = subprocess.call(shlex.split(f'/scripts/ncbi_database.install.sh {database}'))
+            
+            if status_code != 0:
+                raise Exception("Error installing databases") #TODO: add output from shell
+            
+            else:
+                asyncio.run(api_update_request(url = API_ENDPOINT + '/blastdb/' + database, params = {'new_status': 'installed'}))
+            
+        
+        return True
+    
+    except Exception as e:
+        raise Exception(e)
 
 

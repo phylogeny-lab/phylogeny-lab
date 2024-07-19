@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import GlobalStyleProvider from "./providers/GlobalStyleProvider";
 import Hr from "./Components/Hr/Hr";
@@ -9,7 +9,10 @@ import darkTheme from "./theme";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  weight: '400',
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
   title: "Phylogeny lab",
@@ -23,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <Hr />
         <Navbar />
         <GlobalStyleProvider>  

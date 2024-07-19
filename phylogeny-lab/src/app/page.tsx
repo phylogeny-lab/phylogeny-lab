@@ -5,6 +5,9 @@ import ProcessesPanel from "./Components/Dashboard/ProcessesPanel/ProcessesPanel
 
 
 export default function Home() {
+
+  
+
   return (
     <main className="flex justify-between top-0 w-full">
 

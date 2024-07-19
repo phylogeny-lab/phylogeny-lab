@@ -46,6 +46,9 @@ const config: Config = {
             secondary: {
               DEFAULT: colors.blue[600],
               foreground: colors.grey[200]
+            },
+            default: {
+              DEFAULT: colors.grey[400]
             }
           },
         },

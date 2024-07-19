@@ -11,9 +11,6 @@ COPY ./requirements.txt /code/requirements.txt
 RUN conda install -y --file /code/requirements.txt -c bioconda -c conda-forge
 # create volume
 ENV NCBI_DATABASE_DIR=/volume/ncbi_databases
-# copy scripts
-COPY ./app/scripts /scripts
-RUN chmod +x /scripts/*.sh
 # setup app & run server
 WORKDIR /code
 COPY ./app /code/app

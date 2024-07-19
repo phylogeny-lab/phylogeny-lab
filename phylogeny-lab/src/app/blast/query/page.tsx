@@ -47,12 +47,18 @@ function BlastQuery() {
 
     useEffect(() => {
 
-        axios.get(BASE_URL + '/blastdb/installed')
+        const getDatabases = (async () => {
+
+            await axios.get(BASE_URL + '/blastdb/installed')
             .then(((response: any) => { 
                 const res = response.data
                 setInstalledDatabases(new Set(res.map((item: any) => (item.dbname))))
             }))
             .catch((err: any) => { console.error(err) })
+        })
+
+        getDatabases()
+        
 
     }, []);
 

@@ -4,3 +4,4 @@ celery[redis]
 flower
 python-dotenv
 redis-py
+aiohttp

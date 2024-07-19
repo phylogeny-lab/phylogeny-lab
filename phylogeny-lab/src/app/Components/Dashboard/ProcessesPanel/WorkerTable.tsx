@@ -26,8 +26,9 @@ export default function WorkerTable({ workers }: Props) {
         switch (columnKey) {
             case "hostname":
                 return (
-                    <div>
-                        {worker.hostname}
+                    <div className="flex items-center gap-0 content-center">
+                        <Chip className="absolute" color={worker.status ? 'success' : 'danger'} variant="dot" style={{border: 'none'}}></Chip>
+                        <span className="ml-6">{worker.hostname}</span>
                     </div>
                 );
             case "pid":
@@ -54,16 +55,6 @@ export default function WorkerTable({ workers }: Props) {
                         {JSON.stringify(worker.loadavg)}
                     </div>
                 )
-            case "actions":
-                return (
-                    <div className="relative flex items-center gap-2 justify-end content-center dark">
-                        <Tooltip content="Task Info" color="foreground">
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50 dark">
-                                <MdInfo />
-                            </span>
-                        </Tooltip>
-                    </div>
-                );
             default:
                 return cellValue;
         }

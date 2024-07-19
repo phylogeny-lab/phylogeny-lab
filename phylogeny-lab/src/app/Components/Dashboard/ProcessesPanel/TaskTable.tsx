@@ -3,15 +3,19 @@
 import React from "react";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, ChipProps, getKeyValue} from "@nextui-org/react";
 import {TaskColumns} from "@/utils/TableColumns";
-import { taskData, workerData } from "@/models/TaskData";
+import { taskData } from "@/models/TaskData";
 import { CeleryTaskStatus } from "@/enums/CeleryTaskStatus";
 import { FaInfoCircle, FaInfo } from "react-icons/fa";
 import { MdDeleteForever, MdInfo } from "react-icons/md";
+import TaskModal from "./taskModal";
+import AbortModal from "./RevokeModal";
 
-const statusColorMap: Record<string, ChipProps["color"]>  = {
+
+export const statusColorMap: Record<string, ChipProps["color"]>  = {
   SUCCESS : "success",
   FAILURE: "danger",
   STARTED: "warning",
+  REVOKED: "default"
 };
 
 interface Props {
@@ -40,23 +44,15 @@ export default function TaskTable({ tasks }: Props) {
         );
       case "status":
         return (
-          <Chip className="capitalize" color={statusColorMap[task.status]} size="sm" variant="dot">
+          <Chip className="capitalize" color={statusColorMap[task.status]} size="sm" variant="dot" style={{border: 'none'}}>
             {task.status.toLowerCase()}
           </Chip>
         );
       case "actions":
         return (
           <div className="relative flex items-center gap-2 justify-end content-center dark">
-            <Tooltip content="Task Info" color="foreground">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50 dark">
-                <MdInfo />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Stop Task">
-              <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <MdDeleteForever />
-              </span>
-            </Tooltip>
+            <TaskModal rowData={task} />
+            <AbortModal task_id={task.uuid} />
           </div>
         );
       default:

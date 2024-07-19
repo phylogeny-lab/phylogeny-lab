@@ -1,6 +1,6 @@
 import { Avatar, colors } from '@mui/material';
 import { Button, Card, CardBody, CardFooter, CardHeader, Divider } from '@nextui-org/react';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'react-folder-tree/dist/style.css';
 import { RiServerFill } from 'react-icons/ri';
 import TreeView from "./TreeView";
@@ -12,6 +12,22 @@ import { FaFileZipper } from "react-icons/fa6";
 function FileTreePanel() {
     const onTreeStateChange = (state: any, event: any) => console.log(state, event);
     const [selectedNodes, setSelectedNodes] = useState([])
+    const [fileTree, setFileTree] = useState({})
+
+    const getFileTree = () => {
+
+        
+    }
+
+    useEffect(() => {
+        
+        getFileTree()
+
+        const intervalId = setInterval(getFileTree, 10000);
+
+        return () => clearInterval(intervalId);
+
+    }, [])
     
 
     return (

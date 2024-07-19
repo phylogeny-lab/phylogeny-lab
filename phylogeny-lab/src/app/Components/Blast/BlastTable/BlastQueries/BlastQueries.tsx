@@ -115,7 +115,7 @@ const BlastQueries = () => {
                         </p>
                         
                         <div className="flex justify-center">
-                        <Chip className="dark h-6 capitalize" variant="dot" color={job.status.toLowerCase() === CeleryTaskStatus.STARTED.toLowerCase() ? `warning` : job.status.toLowerCase() === CeleryTaskStatus.FAILED.toLowerCase() ? `danger` : `success`} >{job.status.toLowerCase()}</Chip>
+                        <Chip style={{border: 'none'}} className="dark h-6 capitalize" variant="dot" color={job.status.toLowerCase() === CeleryTaskStatus.STARTED.toLowerCase() ? `warning` : job.status.toLowerCase() === CeleryTaskStatus.FAILED.toLowerCase() ? `danger` : `success`} >{job.status.toLowerCase()}</Chip>
                         </div>
   
                         <div className="flex justify-center">

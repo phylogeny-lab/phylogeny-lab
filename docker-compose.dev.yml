@@ -23,7 +23,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres/volume:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - bridged_net_adapter
 
@@ -37,10 +37,11 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - POSTGRES_URL=postgresql://admin:password@postgres/postgres
+      - POSTGRES_URL=postgresql+asyncpg://admin:password@postgres/postgres
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - PYTHONPATH=/code/app/worker
+      - SHARED_VOLUME=/volume
       - BLAST_SAVE_DIR=/volume/blast_queries
     volumes:
       - shared_web_worker:/volume
@@ -65,7 +66,7 @@ services:
       - API_ENDPOINT=http://fastapi:5000/api
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - POSTGRES_URL=postgresql://admin:password@postgres/postgres
+      - POSTGRES_URL=postgresql+asyncpg://admin:password@postgres/postgres
     depends_on:
       - redis
       - fastapi
@@ -116,3 +117,4 @@ volumes:
   shared_web_worker:
   flower_data:
   redis_data:
+  postgres_data:

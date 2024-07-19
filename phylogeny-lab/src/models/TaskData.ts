@@ -4,6 +4,7 @@ interface taskData {
     uuid: string;
     name: string;
     status: CeleryTaskStatus;
+    args: any;
 }
   
 interface workerData {
@@ -12,6 +13,7 @@ interface workerData {
   active: number;
   processed: number;
   loadavg: number[];
+  status?: boolean;
 }
 
 export { type taskData, type workerData }

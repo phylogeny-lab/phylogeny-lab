@@ -11,7 +11,7 @@ router = APIRouter(
 
 # Execute new blast query
 @router.post("/clustalw")
-def clustalw(db: Session = Depends(get_db)):
+async def clustalw(db: Session = Depends(get_db)):
     alignment_id = uuid()
     worker.clustalw.apply_async(({}, alignment_id), task_id=alignment_id)
     return Response("success", status_code=200)

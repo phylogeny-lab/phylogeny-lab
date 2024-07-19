@@ -49,6 +49,14 @@ const getTasks = async () => {
     })
 }
 
+const revokeTask = async (id: string) => {
+    return new Promise<any>(async (resolve, reject) => {
+        await axios.post(WORKER_API + "/api/task/revoke/" + id)
+        .then((res: any) => resolve(res))
+        .catch((err: any) => reject(err))
+    })
+}
+
 const getWorkers = async () => {
     return new Promise<any>(async (resolve, reject) => {
         await axios.get(WORKER_API + "/workers", {
@@ -67,9 +75,14 @@ const convertToTaskTable = (data: object) => {
 
     let rows: Array<taskData> = []
     for (const [_, v] of Object.entries(data)) {
-      rows.push({ 'uuid': v['uuid'], 'name': v['name'], 'status': v['state'] })
+      rows.push({
+        'uuid': v['uuid'], 
+        'name': v['name'], 
+        'status': v['state'],  
+        'args': v['args'],
+    })
     }
     return rows
   }
 
-export { getTaskInfo, getTasks, getTaskResult, getWorkers, convertToTaskTable }
+export { getTaskInfo, getTasks, getTaskResult, getWorkers, convertToTaskTable, revokeTask }

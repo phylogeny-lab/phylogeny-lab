@@ -4,7 +4,7 @@ import os
 from fastapi import FastAPI, File, Request, Response, UploadFile, status, HTTPException, Depends, APIRouter, Form
 from typing import Annotated, Union
 from fastapi.responses import FileResponse
-from sqlalchemy import func
+from sqlalchemy import func, select, update
 from sqlalchemy.orm import Session
 from pathlib import Path
 from pydantic import BaseModel
@@ -38,14 +38,13 @@ async def blastn(
     data: Annotated[str, Form()], 
     subjectFile: Union[UploadFile, None] = None, 
     queryFile: Union[UploadFile, None] = None, 
-    db: Session = Depends(get_db)
+    session: Session = Depends(get_db)
     ):
         
         model_dict = json.loads(data)
         blast_params =  BlastParams.model_validate(model_dict)
 
         # create an id based on name and timestamp: id <- id(jobTitle + now())
-        now = datetime.datetime.now()
         blast_id = uuid()
         
         # set other metadata
@@ -83,16 +82,24 @@ async def blastn(
             await save_file(queryFile, queryFilepath)
             blast_params.query = queryFilepath
         
-        print(blast_id)
-        worker.blastn.apply_async((blast_params.model_dump(), blast_id), task_id=blast_id)
+        exclude = ['created_at', 'status']
+        for (k, v) in blast_params:
+            if v == '':
+                exclude.append(k)
 
-        db.add(new_query)
-        db.commit()
+        model_json = blast_params.model_dump(exclude=exclude)
+                
+
+        worker.blastn.apply_async((model_json, blast_id), task_id=blast_id)
+
+        async with session.begin():
+            session.add(new_query)
+            await session.commit()
 
         return Response(content="success", media_type="application/json", status_code=200)
 
 @router.get("/tasks/{task_id}")
-def get_status(task_id):
+async def get_status(task_id):
     task_result = AsyncResult(task_id)
     result = {
         "task_id": task_id,
@@ -102,11 +109,15 @@ def get_status(task_id):
     return JSONResponse(result)
 
 @router.post("/rerun/{id}")
-async def rerun(id: int, db: Session = Depends(get_db)):
+async def rerun(id: int, session: Session = Depends(get_db)):
 
     id = str(id)
 
-    job = db.query(schemas.BlastQueries).filter(schemas.BlastQueries.id == id).first()
+    stmt = select(schemas.BlastQueries).where(schemas.BlastQueries.id == id)
+    result = await session.execute(stmt)
+    job = result.scalar_one()
+
+    # TODO: run job again
 
     return Response(content="success", status_code=200)
 
@@ -114,9 +125,11 @@ async def rerun(id: int, db: Session = Depends(get_db)):
 
 # Fetch all current jobs, or specific job if ID is supplied
 @router.get("/")
-async def blastn(req: Request, db: Session = Depends(get_db)) -> List[BlastJobs]:
+async def blastn(req: Request, session: Session = Depends(get_db)) -> List[BlastJobs]:
 
-    jobs = db.query(schemas.BlastQueries).all()
+    stmt = select(schemas.BlastQueries)
+    result = await session.execute(stmt)
+    jobs = result.scalars().all()
 
     return [BlastJobs(
         id=item.id,
@@ -129,25 +142,27 @@ async def blastn(req: Request, db: Session = Depends(get_db)) -> List[BlastJobs]
 
 # Fetch all information pertaining to single ID
 @router.get("/{id}")
-async def blast(id: int, db: Session = Depends(get_db)):
+async def blast(id: int, session: Session = Depends(get_db)):
 
     id = str(id)
 
-    job = db.query(schemas.BlastQueries).filter(schemas.BlastQueries.id == id).first()
+    stmt = select(schemas.BlastQueries).filter(schemas.BlastQueries.id == id)
+    job = await session.execute(stmt).first()
 
     return job
 
 
 @router.put("/{task_id}")
-def update_status(task_id: str, new_status: str, db: Session = Depends(get_db)):
-    db.query(schemas.BlastQueries).where(schemas.BlastQueries.id == task_id).update({'status': new_status})
-    db.commit()
+async def update_status(task_id: str, new_status: str, session: Session = Depends(get_db)):
+    stmt = update(schemas.BlastQueries).where(schemas.BlastQueries.id == task_id).values(status=new_status)
+    result = await session.execute(stmt)
+    await session.commit()
     return task_id
 
 
 # Fetch results for blast queries
 @router.get("/results/{id}")
-async def results(id: int, db: Session = Depends(get_db)):
+async def results(id: int, session: Session = Depends(get_db)):
 
     if not isinstance(id, int):
         return Response(content="Error, bad id", status_code=400)

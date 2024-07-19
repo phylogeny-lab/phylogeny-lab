@@ -5,9 +5,9 @@ celery[redis]
 clustalw
 fastapi[all]
 muscle
-ncbi-datasets-cli
 passlib[bcrypt]
 psycopg2-binary
+asyncpg
 python-dotenv
 python-jose[cryptography]
 python-multipart
@@ -15,3 +15,4 @@ redis-py
 sqlalchemy
 uvicorn[standard]
 xmltodict
+aiohttp
