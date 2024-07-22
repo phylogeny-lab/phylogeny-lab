@@ -43,6 +43,7 @@ services:
       - PYTHONPATH=/code/app/worker
       - SHARED_VOLUME=/volume
       - BLAST_SAVE_DIR=/volume/blast_queries
+      - ALIGNMENTS_SAVE_DIR=/volume/alignments
     volumes:
       - shared_web_worker:/volume
       - ./Backend/app/data:/data

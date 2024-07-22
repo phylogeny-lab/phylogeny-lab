@@ -19,7 +19,6 @@ from ..models.Blastdb import Blastdb
 from ..models.Database import Database
 from ..config.database import get_db
 from ..schemas import schemas
-from ..helper.install_databases import install_databases
 from ..helper.utils import save_file
 from pathlib import Path
 from subprocess import Popen, PIPE

@@ -6,7 +6,7 @@ import { FieldConfig, FieldHookConfig, useField } from "formik";
 import { InputLabel, MenuItem, Select } from '@mui/material';
 
 
-function FormDropdownField(props: FieldHookConfig<any> & { label?: string, options: any }) {
+function FormDropdownField(props: FieldHookConfig<any> & { label?: string, options: any, color?: any }) {
     const [field, meta] = useField(props);
 
     return (
@@ -16,12 +16,13 @@ function FormDropdownField(props: FieldHookConfig<any> & { label?: string, optio
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             label={props.label}
+            color={props.color}
             {...field} 
             defaultValue={props.options[0]}
         >
           {props.options.map((option: string, i: number) => {
             return(
-            <MenuItem key={i} value={option}>{option}</MenuItem>
+            <MenuItem color={props.color} key={i} value={option}>{option}</MenuItem>
             )
           })}
 

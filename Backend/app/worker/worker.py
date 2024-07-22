@@ -67,12 +67,13 @@ def blastn(params, id):
 @celery.task(name="clustalw")
 def clustalw(params, id):
 
-    clustalw_cline = ClustalwCommandline(cmd="clustalw2", **params)
+    clustalw_cline = ClustalwCommandline(cmd="clustalw", **params)
 
     proc: subprocess.CompletedProcess[str] = subprocess.run(
-        clustalw_cline,
+        str(clustalw_cline),
         capture_output=True,
-        text=True
+        text=True,
+        shell=True
     )
     data = proc.stdout
     err = proc.stderr
@@ -87,7 +88,7 @@ def clustalw(params, id):
         raise Exception(f"Process failed: {err}")
          
         
-@celery.task(name="install_ncbi_databases")
+@celery.task(name="install_ncbi_databases", bind=True, autoretry_for=(Exception,), retry_kwargs={'max_retries': 3, 'countdown': 5})
 def install_ncbi_databases(databases):
 
     try:
