@@ -1,7 +1,7 @@
 # Phylogeny lab 🧪🦎
 
 ## TL;DR
-An easy-to-use web application for comparative genomics with a great UI. It will include some of the main tools and external resources in the space such as NCBI BLAST+, Clustalw, Muscle, Biomart and more. When completed, we hope it will be useful for phylogeneticists and other evolutionary biologists as a research tool.
+An easy-to-use web application for comparative genomics with a great UI. It will include some of the main tools and external resources in the space such as NCBI BLAST+, Clustalw, Muscle, Biomart, Mr Bayes and more. When completed, we hope it will be useful for phylogeneticists and other evolutionary biologists as a research tool.
 
 **Thanks for stopping by! To see current progress run in docker compose:**
 
@@ -25,7 +25,7 @@ docker-compose -f docker-compose.dev.yml up -d --build
 ```
 
 ## Ethos & License
-**We believe tools which aid in scientific research should be free and fully auditable by its community of users.** This makes it easier for those who are not part of an academic institution, or perhaps don't have the funds to purchase an expensive software license to participate in active research. Open source software allows users to "scratch their own itch" so to speak, by adding features they and others will find useful. Therefore, Phylogeny lab's codebase is 100% open source and packaged with the GNU GPL 3.0 license. This grants anyone the ability to modify or redistribute so long as the source code remains freely available. If you have no ethics and wish to commercialise this software for your own gain, this is permitted within the license. However, it is not recommended since we plan to make this software freely available from an easily downloadable source in the future. 
+**We believe tools which aid in scientific research should be free and fully auditable by its community of users.** This makes it easier for those who are not part of an academic institution, or perhaps don't have the funds to purchase an expensive software license to participate in active research. Open source software allows users to "scratch their own itch" so to speak, by adding features they and others will find useful. Therefore, Phylogeny lab's codebase is 100% open source and packaged with the GNU GPL 3.0 license. This grants anyone the ability to modify or redistribute so long as the source code remains freely available. We plan to make this software freely available from an easily downloadable source in the future. 
 
 ## Roadmap
 
