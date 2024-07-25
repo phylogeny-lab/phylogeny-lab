@@ -8,15 +8,15 @@ interface Props {
     task_id: string;
 }
 
-function AbortModal({task_id}: Props) {
+function AbortModal({ task_id }: Props) {
 
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     
   return (
     <>
-    <Tooltip color="danger" content="Stop Task">
-        <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={onOpen}>
+    <Tooltip color="danger" content="Stop Task" >
+        <span className="text-lg text-danger  cursor-pointer active:opacity-50" onClick={onOpen}>
             <MdDeleteForever />
         </span>
     </Tooltip>

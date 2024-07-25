@@ -8,7 +8,7 @@ interface Props {
     rowData: taskData;
 }
 
-function taskModal({ rowData }: Props) {
+function TaskModal({ rowData }: Props) {
 
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [args, setArgs] = useState<Array<any>>([])
@@ -40,8 +40,8 @@ function taskModal({ rowData }: Props) {
           <ModalBody>
                 Parameters:
                 <div className='leading-3'>
-                {args.map((item: string) => (
-                  <div className='flex items-center gap-4 text-gray-200 text-sm font-semibold'>
+                {args.map((item: string, i: number) => (
+                  <div key={i} className='flex items-center gap-4 text-gray-400 text-xs font-light'>
                   <span>{item.split(':')[0]}</span>
                   <span>{item.split(':')[1]}</span>
                   </div>
@@ -61,4 +61,4 @@ function taskModal({ rowData }: Props) {
   )
 }
 
-export default taskModal
+export default TaskModal

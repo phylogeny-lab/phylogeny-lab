@@ -4,7 +4,7 @@ const ToastSuccess = (text: string) => {
     toast.success(text, {
         position: "bottom-right",
         autoClose: 5000,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
@@ -18,7 +18,7 @@ const ToastFail = (text: string) => {
     toast.error(text, {
         position: "bottom-right",
         autoClose: 5000,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
@@ -32,7 +32,7 @@ const ToastInfo = (text: string) => {
     toast.info(text, {
         position: "bottom-right",
         autoClose: 5000,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,

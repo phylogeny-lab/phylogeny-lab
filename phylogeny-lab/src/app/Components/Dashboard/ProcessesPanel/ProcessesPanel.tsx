@@ -44,8 +44,7 @@ export default function ProcessesPanel() {
 
     return (
 
-        <div className="w-full h-full">
-            <Card className="w-full dark">
+            <Card className="w-full dark" style={{gridColumnStart: 1, gridColumnEnd: 2, gridRowStart: 1, gridRowEnd: 5}}>
                 <CardHeader className="flex gap-3">
                     <div className="flex content-center items-center gap-3 justify-between w-full">
                         <div className="flex content-center gap-3 items-center">
@@ -60,7 +59,7 @@ export default function ProcessesPanel() {
                     </div>
                 </CardHeader>
                 <Divider />
-                <CardBody>
+                <CardBody >
 
                 <div className='absolute top-3 right-4 flex gap-2'>
 
@@ -78,7 +77,7 @@ export default function ProcessesPanel() {
 
                 </div>
                     
-                    <Tabs aria-label="Options" color='success' >
+                    <Tabs aria-label="Options" color='success'>
                         <Tab key="workers" title="Workers">
                             <Card>
                                     {workers &&
@@ -95,11 +94,6 @@ export default function ProcessesPanel() {
                         </Tab>
                     </Tabs>
                 </CardBody>
-                <CardFooter>
-
-                </CardFooter>
             </Card>
-        </div>
-
     )
 }

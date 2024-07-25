@@ -1,17 +1,22 @@
 from fastapi import APIRouter
 import os
 
-router = APIRouter(
-    prefix="/api/blast",
-    tags=['Blast']
-)
+from fastapi.responses import JSONResponse
+from ..helper.utils import create_folder_structure_json
+import json
 
-def list_directory_tree_with_os_walk(starting_directory):
-    for root, directories, files in os.walk(starting_directory):
-        for file in files:
-            print("hi")
+router = APIRouter(
+    prefix="/api/volume",
+    tags=['Volume']
+)
             
 
 @router.get('/')
-def volume():
-    root = os.getenv('SHARED_VOLUME')
+def volume() -> JSONResponse:
+    # Specify the path to the folder you want to create the JSON for 
+    folder_path = os.getenv('SHARED_VOLUME')
+    
+    # Call the function to create the JSON representation 
+    folder_json = create_folder_structure_json(folder_path) 
+    
+    return JSONResponse(content=folder_json, status_code=200)

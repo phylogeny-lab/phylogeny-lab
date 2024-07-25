@@ -21,7 +21,7 @@ function GlobalStyleProvider({ children }: Props) {
 
 const GlobalStyles = styled.div`
     background: rgb(12, 14, 12);
-    padding: 2.5rem;
+    padding: var(--page-padding);
     height: calc(100vh - var(--navbar-height));
 `;
 

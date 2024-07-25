@@ -89,7 +89,7 @@ def clustalw(params, id):
          
         
 @celery.task(name="install_ncbi_databases", bind=True, autoretry_for=(Exception,), retry_kwargs={'max_retries': 3, 'countdown': 5})
-def install_ncbi_databases(databases):
+def install_ncbi_databases(self, databases):
 
     try:
         for database in databases:

@@ -107,6 +107,7 @@ async def ncbidb(req: Request, session: Session = Depends(get_db)):
         return Response("success", status_code=200)
     
     except Exception as e:
+        print(e)
         return Response("Could not download database", status_code=500)
 
 

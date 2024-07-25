@@ -23,7 +23,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres/volume:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - bridged_net_adapter
 
@@ -37,25 +37,27 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - POSTGRES_URL=postgresql://admin:password@postgres/postgres
+      - POSTGRES_URL=postgresql+asyncpg://admin:password@postgres/postgres
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - PYTHONPATH=/code/app/worker
+      - SHARED_VOLUME=/volume
       - BLAST_SAVE_DIR=/volume/blast_queries
+      - ALIGNMENTS_SAVE_DIR=/volume/alignments
     volumes:
       - shared_web_worker:/volume
+      - ./Backend/app/data:/data
     depends_on:
       - postgres
-      - redis
-      - worker
     networks:
       - bridged_net_adapter
 
   worker:
     container_name: worker
+    restart: always
     build:
       context: ./Backend/app/worker
-      dockerfile: Dockerfile
+      dockerfile: worker.Dockerfile
     command: celery -A worker.celery worker --loglevel=info --logfile=logs/celery.log
     volumes:
       - ./Backend/app/worker/logs/celery.log:/code/worker/logs/celery.log
@@ -65,9 +67,10 @@ services:
       - API_ENDPOINT=http://fastapi:5000/api
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - POSTGRES_URL=postgresql://admin:password@postgres/postgres
+      - POSTGRES_URL=postgresql+asyncpg://admin:password@postgres/postgres
     depends_on:
       - redis
+      - fastapi
     networks:
       - bridged_net_adapter
 
@@ -87,10 +90,10 @@ services:
     container_name: flower
     build: 
       context: ./Backend/app/worker
-      dockerfile: Dockerfile
-    command: celery --broker=redis://redis:6379/0 flower --port=5555
+      dockerfile: flower.Dockerfile
+    command: ./start-flower.sh
     ports:
-      - 5555:5555
+      - 5556:5555
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
@@ -115,3 +118,4 @@ volumes:
   shared_web_worker:
   flower_data:
   redis_data:
+  postgres_data:

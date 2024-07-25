@@ -83,14 +83,13 @@ export default function NextTable({ title }: Props) {
   const [page, setPage] = React.useState(1);
 
   const LoadDatabasesFromServer = () => {
-    var isDownloading = false
 
     LoadDatabases()
     .then((dbs: DatabaseDisplayTable[]) => {
-      dbs.map((item: DatabaseDisplayTable) => {
-        isDownloading = (item.status == 'installing')
-      })
-      setIsDownloading(isDownloading)
+      const statuses = dbs.map((item: DatabaseDisplayTable) => (item.status))
+
+      statuses.includes('installing') ? setIsDownloading(true) : setIsDownloading(false);
+      
       setDatabases(dbs)
     })
     .catch((err: any) => {console.log(err)})
@@ -100,7 +99,7 @@ export default function NextTable({ title }: Props) {
 
     LoadDatabasesFromServer()
 
-    const intervalId = setInterval(LoadDatabasesFromServer, 10000);
+    const intervalId = setInterval(LoadDatabasesFromServer, 5000);
 
     return () => clearInterval(intervalId);
 

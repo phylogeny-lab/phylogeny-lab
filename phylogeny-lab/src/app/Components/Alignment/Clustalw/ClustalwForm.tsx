@@ -13,22 +13,19 @@ import Card from '../../Card/Card';
 import { BASE_URL } from '@/app/consts/consts';
 import axios from 'axios';
 import { ToastFail, ToastSuccess } from '@/utils/Toast';
+import { useRouter } from 'next/navigation';
 
 function ClustalwForm() {
 
     const [sequenceInput, setSequenceInput] = useState(false)
+    const router = useRouter()
 
     const validationSchema = yup.object({
-        //sequenceFile: yup.object().required('Sequence file required'),
-        dbname: yup.string().required('Database name required'),
-        chromosomes: yup.string().nullable().notRequired(),
-        taxid: yup.string().nullable().notRequired(),
-        databaseID: yup.string().nullable().notRequired(),
-        databaseSource: yup.string().nullable().notRequired(),
-        tags: yup.string().nullable().notRequired(),
+        
     })
 
     const onSubmit = (async (data: any) => {
+
         const { 'infile': inFile, 'matrixfile': matrixFile, 'dnamatrixfile': dnaMatrixFile, ...newData } = data;
 
         let formData = new FormData();
@@ -45,7 +42,7 @@ function ClustalwForm() {
                 }
             }).then((res: any) => {
                 ToastSuccess("Alignment started")
-                ToastSuccess("File will automatically download when completed")
+                router.push('/alignment')
             }).catch((err: any) => {
                 ToastFail(`Error ${err}`)
             })
@@ -56,9 +53,10 @@ function ClustalwForm() {
     return (
         <Formik
             initialValues={{
-                jobName: '',
+                jobTitle: '',
                 bootstrap: 1000,
                 infile: '',
+                inSequence: '',
                 type: 'DNA',
                 matrix: 'BLOSUM',
                 matrixfile: '',
@@ -92,7 +90,7 @@ function ClustalwForm() {
                             <h2 className='mt-2 font-semibold text-gray-400 text-lg mb-2'>General</h2>
                             <div className='flex content-center items-center gap-2 mt-6'>
                                 <FormTextField
-                                    name='dbname'
+                                    name='jobTitle'
                                     label="Alignment job title"
                                 />
                                 <div className=''>
@@ -106,7 +104,7 @@ function ClustalwForm() {
                                 <h1 className='mb-2 font-light'>Enter FASTA sequence(s)</h1>
                                 <FormTextField
                                     label="FASTA file"
-                                    name="querySequence"
+                                    name="inSequence"
                                     multiline={true}
                                     rows={9}
                                     onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setSequenceInput(true) : setSequenceInput(false)}

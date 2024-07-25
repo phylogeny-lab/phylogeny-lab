@@ -16,6 +16,7 @@ import { getTaskResult, getTasks } from "@/utils/WorkerApi";
 import { CeleryTaskStatus } from "@/enums/CeleryTaskStatus";
 import { BlastTable } from "@/models/BlastTable";
 import { stringify } from "querystring";
+import AnimatedTable from "@/app/Components/Table/AnimatedTable";
 
 const BASE_URL = process.env.NEXT_PUBLIC_FASTAPI_ENDPOINT
 
@@ -67,9 +68,9 @@ const BlastQueries = () => {
     }
   };
 
-  const queryTable = useMemo(() => {
+  const tableRows = useMemo(() => {
     return (
-      <AnimatePresence initial={false}>
+            <>
             <div className="justify-between px-4 content-center grid grid-cols-7 mt-2">
             <h1 className=" text-sm text-gray-400 font-semibold text-center">JOB</h1>
             <h1 className=" text-sm text-gray-400 font-semibold text-center">ALGORITHM</h1>
@@ -132,55 +133,13 @@ const BlastQueries = () => {
                   </div>
                 </AnimatedListItem>
               ))}
-            </AnimatePresence>
+              </>
     )
   }, [jobs])
 
   return (
-    <div className="bg-[var(--bg-primary)] border-gray-500 border-opacity-20 border-1 rounded-lg">
-      <div className="flex justify-between w-full border-b-gray-500 border-opacity-50 border-b-[1px] p-4">
-        
-        <div className="flex gap-2 items-center">
-        <h1
-          className="-mx-2 rounded px-2 py-1 font-bold text-large"
-        >
-          Blast Jobs
-        </h1>
-        { isLoading &&
-        <div className="flex gap-2 items-center">
-        <p className="text-gray-500 ml-4">Running</p>
-        <CircularProgress color="secondary" size={20} />
-        </div>
-        }
-        </div>
-
-        <Button type="submit" color="primary" variant="contained" onClick={() => router.push('/blast/query')} startIcon={<Add />}>
-          New Job
-        </Button>
-      </div>
-      {isLoading ? <Progress
-        size="sm"
-        isIndeterminate
-        aria-label="Loading..."
-        style={{ height: '1px' }}
-        classNames={{
-          base: "w-full",
-          track: "drop-shadow-md border border-0",
-          indicator: "bg-gradient-to-r from-pink-500 to-yellow-500",
-          label: "tracking-wider font-medium text-default-600",
-          value: "text-foreground/60",
-        }}
-      /> :
-      <div className="h-[1px]"></div>}
-      <div className="overflow-y-scroll px-3 py-2 h-52 ">
-        <ul>
-          {queryTable}
-        </ul>
-      </div>
-    </div>
+    <AnimatedTable height="auto" new_job_page="/blast/query" title="Blast Jobs" isLoading={isLoading} tableRows={tableRows}  />
   );
 };
-
-
 
 export default BlastQueries;

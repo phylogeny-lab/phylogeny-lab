@@ -9,6 +9,9 @@
   --bg-primary: rgb(31, 41, 55, 0.4);
   --bg-secondary: rgb(31, 41, 55, 0.2);
   --navbar-height: 4rem;
+  --page-padding: 2.5rem;
+  --main-height: calc(100vh - var(--navbar-height) - (2 * var(--page-padding)));
+
 }
 
 @media (prefers-color-scheme: dark) {

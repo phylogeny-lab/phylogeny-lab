@@ -16,6 +16,14 @@ const config: Config = {
     nextui({
       themes: {
         light: {
+          layout: {
+            disabledOpacity: 0.3,
+            radius: {
+              small: "0.375rem", 
+              medium: "0.4rem",
+              large: "0.5rem", 
+            }
+          },
           colors: {
             primary: {
               DEFAULT: colors.grey[200],
@@ -29,10 +37,21 @@ const config: Config = {
             secondary: {
               DEFAULT: colors.blue[600],
               foreground: colors.grey[200]
+            },
+            default: {
+              DEFAULT: colors.grey[400]
             }
           },
         },
         dark: {
+          layout: {
+            disabledOpacity: 0.3,
+            radius: {
+              small: "0.375rem",
+              medium: "0.4rem", 
+              large: "0.5rem", 
+            }
+          },
           colors: {
             primary: {
               DEFAULT: colors.grey[200],

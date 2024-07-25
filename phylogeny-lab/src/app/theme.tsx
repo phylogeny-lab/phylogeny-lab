@@ -22,16 +22,13 @@ const darkTheme = createTheme({
       }
     },
     components: {
-      MuiTextField: {
+      MuiButton: {
         styleOverrides: {
-          
-        },
-      },
-      MuiSelect: {
-        styleOverrides: {
-          
-        },
-      },
+          root: {
+            textTransform: "none",
+          }
+        }
+      }
     },
     shape: {
       

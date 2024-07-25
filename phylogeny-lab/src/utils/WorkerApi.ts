@@ -83,6 +83,7 @@ const convertToTaskTable = (data: object) => {
     })
     }
     return rows
-  }
+}
+
 
 export { getTaskInfo, getTasks, getTaskResult, getWorkers, convertToTaskTable, revokeTask }

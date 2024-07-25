@@ -26,6 +26,17 @@ class BlastQueries(Base):
     ungapped = Column(Boolean, nullable=True)
     word_size = Column(Integer, nullable=False)
 
+class AlignmentJobs(Base):
+    __tablename__ = "AlignmentJobs"
+
+    id = Column(String, primary_key=True, nullable=False)
+    jobTitle = Column(String, nullable=False)
+    filepath = Column(String, nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+    status = Column(String, nullable=False)
+    algorithm = Column(String, nullable=False)
+
+
 class BlastDB(Base):
     __tablename__ = "BlastDB"
 
@@ -41,3 +52,27 @@ class BlastDB(Base):
     bytesTotal = Column(Integer, nullable=True)
     status = Column(String, nullable=False)
     ncbidb = Column(Boolean, nullable=False)
+
+class ClustalwJobs(Base):
+    __tablename__ = "ClustalwJobs"
+
+    id = Column(String, ForeignKey('AlignmentJobs.id', ondelete="CASCADE"), primary_key=True)
+    align = Column(Boolean, nullable=True)
+    bootstrap = Column(Integer, nullable=True) 
+    tree = Column(Boolean, nullable=True) 
+    infile = Column(String, nullable=False)
+    type = Column(String, nullable=False)
+    matrix = Column(String, nullable=True)
+    dnamatrix = Column(String, nullable=True)
+    gapopen = Column(Float, nullable=True)
+    gapext = Column(Float, nullable=True)
+    seed = Column(Integer, nullable=True)
+    kimura = Column(Boolean, nullable=True)
+    output = Column(String, nullable=True)
+    outputtree = Column(String, nullable=True)
+    outorder = Column(String, nullable=True)
+    outfile = Column(String, nullable=False)
+    numiter = Column(Integer, nullable=True)
+    clustering = Column(String, nullable=True)
+    maxseqlen = Column(Integer, nullable=True)
+    stats = Column(String, nullable=True) 

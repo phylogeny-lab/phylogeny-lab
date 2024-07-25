@@ -1,13 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, ChipProps, getKeyValue} from "@nextui-org/react";
 import {TaskColumns} from "@/utils/TableColumns";
 import { taskData } from "@/models/TaskData";
 import { CeleryTaskStatus } from "@/enums/CeleryTaskStatus";
 import { FaInfoCircle, FaInfo } from "react-icons/fa";
 import { MdDeleteForever, MdInfo } from "react-icons/md";
-import TaskModal from "./taskModal";
+import TaskModal from "./TaskModal";
 import AbortModal from "./RevokeModal";
 
 
@@ -25,7 +25,7 @@ interface Props {
 
 export default function TaskTable({ tasks }: Props) {
 
-    type Tasks = typeof tasks[0];
+  type Tasks = typeof tasks[0];
   const renderCell = React.useCallback((task: Tasks, columnKey: React.Key) => {
     const cellValue = task[columnKey as keyof Tasks];
 
@@ -50,9 +50,9 @@ export default function TaskTable({ tasks }: Props) {
         );
       case "actions":
         return (
-          <div className="relative flex items-center gap-2 justify-end content-center dark">
+          <div className="relative flex items-center gap-2 justify-center content-center dark">
             <TaskModal rowData={task} />
-            <AbortModal task_id={task.uuid} />
+            {task.status === CeleryTaskStatus.STARTED && <AbortModal task_id={task.uuid} />}
           </div>
         );
       default:
