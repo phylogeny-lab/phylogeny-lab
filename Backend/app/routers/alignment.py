@@ -8,11 +8,13 @@ from sqlalchemy.orm import Session
 from ..worker import worker
 from ..config.database import get_db
 from ..models.ClustalwParams import ClustalwParams
-from ..helper.utils import save_file
+from ..worker.helper.utils import save_file
 from celery import uuid
 from ..schemas import schemas
 from ..enums.enums import CeleryStatus
 from ..models.AlignmentJobs import AlignmentJobs
+from ..worker.helper.minio import upload_file, download_file
+from ..worker.helper.GLPath import GLPath
 
 router = APIRouter(
     prefix="/api/alignment",
@@ -32,59 +34,47 @@ async def clustalw(
     if not infile:
         return Response(content="No infile", status_code=400)
 
+    # convert raw params to dict and validate the model
     model_dict = json.loads(data)
-
     clustalw_params = ClustalwParams.model_validate(model_dict)
 
+    # create unique ID and add `started` status
     alignment_id = uuid()
     clustalw_params.id = alignment_id
     clustalw_params.status = CeleryStatus.STARTED.value
 
-    root_path = os.getenv('ALIGNMENTS_SAVE_DIR')
+    gl_infile_path = GLPath('alignments', alignment_id, 'infiles', infile.filename.replace(' ', '_'). replace(')', '_').replace('(', '_'), makedirs=True)
 
-    if not os.path.isdir(os.path.join(root_path, alignment_id)):
-        os.makedirs(os.path.join(root_path, alignment_id, "infiles"))
-        os.makedirs(os.path.join(root_path, alignment_id, "outfiles"))
-    else: 
-        return Response("ID already exists", status_code=500)
-    
-    
-    infile_path = os.path.join(root_path, alignment_id, "infiles", infile.filename
-    .replace(' ', '_').replace('(', '_').replace(')', '_'))
-    
-    await save_file(infile, infile_path)
+    # set infile path to be stored in database
+    clustalw_params.infile = gl_infile_path.local
 
-    if matrixfile:
-        matrix_path = os.path.join(root_path, alignment_id, "infiles", matrixfile.filename)
-        await save_file(matrixfile, matrix_path)
-        clustalw_params.matrix = matrix_path
-
-    if dnamatrixfile:
-        dnamatrix_path = os.path.join(root_path, alignment_id, "infiles", dnamatrixfile.filename)
-        await save_file(dnamatrixfile, dnamatrix_path)
-        clustalw_params.dnamatrix = dnamatrix_path
-
-    clustalw_params.infile = infile_path
-
+    # attach extension for output file depending on user's choice
     extension_map = {'CLUSTAL': 'aln', 'FASTA': 'fasta', 'NEXUS': 'nex', 'PHYLIP': 'ph', 'PIR': 'pir', 'GDE': 'gde', 'GCE': 'gce'}
     ext = extension_map[clustalw_params.output]
-    clustalw_params.outfile = os.path.join(root_path, alignment_id, "outfiles", f"aligned.{ext}")
+    # create tmp output file
+    gl_outfile_path = GLPath('alignments', alignment_id, 'outfiles', f"aligned.{ext}", makedirs=True)
+    clustalw_params.outfile = gl_outfile_path.local
 
+    # define new ClustalwJob schema from params
     new_clustalw_query = schemas.ClustalwJobs(
         **clustalw_params.model_dump(exclude_none=True, exclude=['status', 'jobTitle'])
     )
 
+    # define new AlignmentJob schema (stores non-algorithm specific data)
     new_alignment_job = schemas.AlignmentJobs(
         id=clustalw_params.id, 
         jobTitle=clustalw_params.jobTitle.replace(' ', '_'), 
-        filepath=clustalw_params.outfile, 
+        filepath=gl_outfile_path.minio, 
         created_at=clustalw_params.created_at,
         status=clustalw_params.status,
         algorithm='clustalw'
     )
 
-    worker.clustalw.apply_async((clustalw_params.model_dump(exclude_none=True, exclude=['status', 'jobTitle', 'id']), alignment_id), task_id=alignment_id)
+    # Send job to Celery, Celery ID will be the same as ID in databases
+    worker.clustalw.apply_async((
+        clustalw_params.model_dump(exclude_none=True, exclude=['status', 'jobTitle', 'id']), alignment_id, infile.file.read()), task_id=alignment_id)
 
+    # write to databases using async context manager
     async with session.begin():
         session.add(new_alignment_job)
         await session.commit()
@@ -121,8 +111,12 @@ async def download(task_id: str, session: Session = Depends(get_db)) -> FileResp
     stmt = select(schemas.AlignmentJobs).where(schemas.AlignmentJobs.id == task_id)
     result = await session.execute(stmt)
     record: schemas.AlignmentJobs = result.scalar_one()
+    tmp_file = GLPath.parse(record.filepath).local
+    if not os.path.exists(os.path.dirname(tmp_file)):
+        os.makedirs(os.path.dirname(tmp_file))
+    download_file(object_name=record.filepath, file_path=tmp_file)
     return FileResponse(
-        record.filepath, 
+        tmp_file, 
         content_disposition_type="attachment",
         media_type='text/plain', 
         filename=f"{record.jobTitle}_{record.filepath.split('/')[-1]}"

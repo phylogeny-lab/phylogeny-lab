@@ -4,4 +4,6 @@ celery[redis]
 flower
 python-dotenv
 redis-py
+fastapi
 aiohttp
+minio

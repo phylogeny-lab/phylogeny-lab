@@ -6,20 +6,20 @@ import os
 from fastapi import FastAPI, File, Query, Request, Response, UploadFile, status, HTTPException, Depends, APIRouter, Form, BackgroundTasks
 from typing import Annotated, Union
 from fastapi.responses import FileResponse
-from sqlalchemy import func, update
+from sqlalchemy import CursorResult, func, update
 from sqlalchemy.orm import Session
 from pathlib import Path
 from pydantic import BaseModel
 from typing import List, Optional
 import random
-from sqlalchemy import select
+from sqlalchemy import select, delete
 from ..worker import worker
 from ..models.BlastParams import BlastParams
 from ..models.Blastdb import Blastdb
 from ..models.Database import Database
 from ..config.database import get_db
 from ..schemas import schemas
-from ..helper.utils import save_file
+from ..worker.helper.utils import save_file
 from pathlib import Path
 from subprocess import Popen, PIPE
 import json
@@ -82,20 +82,18 @@ async def ncbidb(req: Request, session: Session = Depends(get_db)):
 
         databases = json.loads(body.decode())
 
-        databases = databases['databases']
-
-        if not os.path.isdir(os.getenv('NCBI_DATABASE_DIR')):
-            os.mkdir(os.getenv('NCBI_DATABASE_DIR'))
-        os.chdir(os.getenv('NCBI_DATABASE_DIR'))
-
+        databases: str = databases['databases']
 
         worker.install_ncbi_databases.delay(databases)
-        
 
         for database in databases:
+
+            accession = database.split('|')[0].lstrip()
+            common_name = database.split('|')[-1].lstrip()
+
             new_db = schemas.BlastDB(
-                id=database,
-                dbname="fll;fdm",
+                id=accession,
+                dbname=common_name,
                 status="installing",
                 ncbidb=True,
             )
@@ -159,8 +157,21 @@ async def get_installed_databases(session: Session = Depends(get_db)) -> List[Bl
 @router.put("/{database_id}")
 async def update_status(database_id: str, new_status: str, session: Session = Depends(get_db)):
     stmt = update(schemas.BlastDB).where(schemas.BlastDB.id == database_id).values({'status': new_status})
-    result = await session.execute(stmt)
+    result: CursorResult = await session.execute(stmt)
     await session.commit()
-    return database_id
+    if result.rowcount != 0:
+        return database_id
+    else:
+        return Response(content="ID does not match any records", status_code=400)
+
+@router.delete("/{database_id}")
+async def delete_database(database_id: str, session: Session = Depends(get_db)):
+    stmt = delete(schemas.BlastDB).where(schemas.BlastDB.id == database_id)
+    result: CursorResult = await session.execute(stmt)
+    await session.commit()
+    if result.rowcount != 0:
+        return database_id
+    else:
+        return Response(content="ID does not match any records", status_code=400)
 
         

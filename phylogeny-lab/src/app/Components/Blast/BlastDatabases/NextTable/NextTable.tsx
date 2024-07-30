@@ -509,7 +509,7 @@ export default function NextTable({ title }: Props) {
         </TableHeader>
         <TableBody emptyContent={"No databases found"} items={sortedItems}>
           {(item: DatabaseDisplayTable) => (
-            <TableRow key={item.accession}>
+            <TableRow key={`${item.accession}|${item.organism_name}`}>
               {(columnKey: any) => <TableCell >{renderCell(item, columnKey)}</TableCell>}
             </TableRow>
           )}

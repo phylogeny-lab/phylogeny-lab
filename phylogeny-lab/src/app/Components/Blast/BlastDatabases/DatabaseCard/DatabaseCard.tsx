@@ -26,6 +26,7 @@ function DatabaseCard({ dataRow, genus, species }: Props) {
         <>
             <Button
                 color="secondary"
+                className='uppercase'
                 startIcon={ <FaInfo /> } 
                 onClick={onOpen}
                 >

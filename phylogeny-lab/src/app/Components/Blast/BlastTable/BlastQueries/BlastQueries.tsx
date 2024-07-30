@@ -138,7 +138,7 @@ const BlastQueries = () => {
   }, [jobs])
 
   return (
-    <AnimatedTable height="auto" new_job_page="/blast/query" title="Blast Jobs" isLoading={isLoading} tableRows={tableRows}  />
+    <AnimatedTable height="25vh" new_job_page="/blast/query" title="Blast Jobs" isLoading={isLoading} tableRows={tableRows}  />
   );
 };
 

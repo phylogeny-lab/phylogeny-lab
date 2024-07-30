@@ -12,29 +12,30 @@ interface Props {
   tableRows: any;
   title: string;
   new_job_page: string;
-  height: string;
+  fullHeight?: boolean;
+  height?: string;
 }
 
-function AnimatedTable({ isLoading, tableRows, title, new_job_page, height }: Props) {
+function AnimatedTable({ isLoading, tableRows, title, new_job_page, height, fullHeight = false }: Props) {
 
   const router = useRouter()
 
   return (
-    <div style={{height: height}} className={`bg-[var(--bg-primary)] border-gray-500 border-opacity-20 border-1 rounded-lg grow`}>
+    <div className={`bg-[var(--bg-primary)] border-gray-500 border-opacity-20 border-1 rounded-lg grow ${fullHeight && 'h-[var(--main-height)]'}`}>
       <div className="flex justify-between w-full border-b-gray-500 border-opacity-50 border-b-[1px] p-4">
-        
+
         <div className="flex gap-2 items-center">
-        <h1
-          className="-mx-2 rounded px-2 py-1 font-bold text-large"
-        >
-          {title}
-        </h1>
-        { isLoading &&
-        <div className="flex gap-2 items-center">
-        <p className="text-gray-500 ml-4">Running</p>
-        <CircularProgress color="secondary" size={20} />
-        </div>
-        }
+          <h1
+            className="-mx-2 rounded px-2 py-1 font-bold text-large"
+          >
+            {title}
+          </h1>
+          {isLoading &&
+            <div className="flex gap-2 items-center">
+              <p className="text-gray-500 ml-4">Running</p>
+              <CircularProgress color="secondary" size={20} />
+            </div>
+          }
         </div>
 
         <Button type="submit" color="primary" variant="contained" onClick={() => router.push(new_job_page)} startIcon={<Add />}>
@@ -54,11 +55,12 @@ function AnimatedTable({ isLoading, tableRows, title, new_job_page, height }: Pr
           value: "text-foreground/60",
         }}
       /> :
-      <div className="h-[1px]"></div>}
-      <div style={{height: `calc(${height} - 2rem)`}} className="overflow-y-scroll p-4 dark">
+        <div className="h-[1px]"></div>
+      }
+      <div className="overflow-y-scroll p-4 dark" style={{height: height}}>
         <ul>
           <AnimatePresence initial={false}>
-          {tableRows}
+            {tableRows}
           </AnimatePresence>
         </ul>
       </div>

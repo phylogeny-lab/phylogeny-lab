@@ -10,20 +10,34 @@ import { FaFileZipper } from "react-icons/fa6";
 import { FaDownload } from "react-icons/fa";
 import axios from 'axios';
 import { BASE_URL } from '@/app/consts/consts';
-import { TFiles } from './FileData';
+import { Dictionary, TFiles } from './FileData';
 import NextButton from "../../Button/Button"
 import { formatBytes } from '@/utils/utils';
+import { useRouter } from "next/navigation"
+import { headers } from 'next/headers';
 
 function FileTreePanel() {
     const onTreeStateChange = (state: any, event: any) => console.log(state, event);
     const [selectedNodes, setSelectedNodes] = useState<Set<any>>(new Set([]))
     const [fileSize, setFileSize] = useState(0)
-    const [files, setFiles] = useState<TFiles>({name: 'volume'} as TFiles)
+    const [files, setFiles] = useState<Dictionary<TFiles>>({volume: {name: 'volume', children: {}, size: 0, type: 'dir'}} as Dictionary<TFiles>)
+    const router = useRouter()
 
-    const requestFiles = () => {
+    const requestFiles = async () => {
 
-        setSelectedNodes(new Set<any>([]));
-        setFileSize(0);
+        const params = new URLSearchParams(); 
+        params.append('files', JSON.stringify(Array.from(selectedNodes)))
+
+        // TODO: encode files in the request body 
+        await axios.get(BASE_URL + '/volume/request', { params })
+        .then((response: any) => {
+            setSelectedNodes(new Set<any>([]));
+            setFileSize(0);
+            const request_id = response.data.request_id
+            router.push(`${BASE_URL}/volume/download/${request_id}`)
+        })
+        .catch((err: any) => console.error(err))
+        
     }
 
     const getFileTree = async () => {
@@ -60,7 +74,7 @@ function FileTreePanel() {
                 </CardHeader>
                 <Divider />
                 <CardBody style={{height: '35vh'}} >
-                <TreeView tree={files} setSelectedNodes={setSelectedNodes} setFileSize={setFileSize} />
+                <TreeView tree={Object.entries(files)[0][1]} setSelectedNodes={setSelectedNodes} setFileSize={setFileSize} />
                 </CardBody>
                 <Divider />
                 <CardFooter style={{display: 'flex', justifyContent: 'space-between', content: 'center', alignItems: 'center'}}>

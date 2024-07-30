@@ -1,13 +1,15 @@
 aiofiles
+aiohttp
 alembic
+asyncpg
 biopython
 celery[redis]
 clustalw
 fastapi[all]
+minio
 muscle
 passlib[bcrypt]
 psycopg2-binary
-asyncpg
 python-dotenv
 python-jose[cryptography]
 python-multipart
@@ -15,4 +17,3 @@ redis-py
 sqlalchemy
 uvicorn[standard]
 xmltodict
-aiohttp

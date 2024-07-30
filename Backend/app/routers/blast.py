@@ -9,10 +9,11 @@ from sqlalchemy.orm import Session
 from pathlib import Path
 from pydantic import BaseModel
 from typing import List, Optional
-from ..helper.utils import save_file
+from ..worker.helper.utils import save_file
 from ..models.BlastParams import BlastParams
 from ..models.BlastJobs import BlastJobs
 from ..models.BlastResults import BlastOutput
+from ..worker.helper.GLPath import GLPath
 from ..config.database import get_db
 from ..schemas import schemas
 from ..enums.enums import CeleryStatus
@@ -25,6 +26,7 @@ from fastapi.responses import JSONResponse
 from ..worker import worker
 from celery.result import AsyncResult
 from celery import uuid
+import binascii
 
 
 router = APIRouter(
@@ -57,30 +59,12 @@ async def blastn(
             **blast_params.model_dump(exclude={'subject', 'query'})
         )
 
-        # locate database
-        # TODO
-
-        root_path = os.getenv('BLAST_SAVE_DIR')
-
-        if not os.path.isdir(root_path):
-            os.mkdir(root_path)
-
-        if not os.path.isdir(os.path.join(root_path, blast_id)):
-            os.mkdir(os.path.join(root_path, blast_id))
-            os.mkdir(os.path.join(root_path, blast_id, "query"))
-            os.mkdir(os.path.join(root_path, blast_id, "subject"))
-            os.mkdir(os.path.join(root_path, blast_id, "results"))
-        else: 
-            return Response("ID already exists", status_code=500)
-
         if subjectFile:
-            subjectFilepath = os.path.join(root_path, blast_id, "subject", subjectFile.filename)
-            await save_file(subjectFile, subjectFilepath)
-            blast_params.subject = subjectFilepath
+            gl_subject_path = GLPath(parent='blast', id=blast_id, subdir='subject', filename=subjectFile.filename, makedirs=True)
+            blast_params.subject = gl_subject_path.local
         if queryFile:
-            queryFilepath = os.path.join(root_path, blast_id, "query", queryFile.filename)
-            await save_file(queryFile, queryFilepath)
-            blast_params.query = queryFilepath
+            gl_query_path = GLPath(parent='blast', id=blast_id, subdir='query', filename=queryFile.filename, makedirs=True)
+            blast_params.query = gl_query_path.local
         
         exclude = ['created_at', 'status']
         for (k, v) in blast_params:
@@ -90,7 +74,9 @@ async def blastn(
         model_json = blast_params.model_dump(exclude=exclude)
                 
 
-        worker.blastn.apply_async((model_json, blast_id), task_id=blast_id)
+        worker.blastn.apply_async((model_json, blast_id, subjectFile.file.read().decode("utf-8"), queryFile.file.read().decode("utf-8")), 
+            task_id=blast_id,
+        )
 
         async with session.begin():
             session.add(new_query)

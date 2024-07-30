@@ -9,8 +9,6 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py311_24.1.2-0-L
 ENV PATH=$CONDA_DIR/bin:$PATH
 COPY ./worker.requirements.txt /code/requirements.txt
 RUN conda install -y --file /code/requirements.txt -c bioconda -c conda-forge
-# create volume
-ENV NCBI_DATABASE_DIR=/volume/ncbi_databases
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
