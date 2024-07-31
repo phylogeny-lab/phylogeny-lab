@@ -9,6 +9,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py311_24.1.2-0-L
 ENV PATH=$CONDA_DIR/bin:$PATH
 COPY ./worker.requirements.txt /code/requirements.txt
 RUN conda install -y --file /code/requirements.txt -c bioconda -c conda-forge
+RUN pip install simlord
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -30,3 +31,7 @@ RUN chmod +x /scripts/*.sh
 # setup app & run server
 WORKDIR /code/app/worker
 COPY . /code/app/worker
+# compile tools
+ENV EXECUTABLES_DIR=/code/app/worker
+RUN g++ /code/app/worker/tools/feature_selection/vectorize/vectorize.cpp -o ${EXECUTABLES_DIR}/vectorize -fopenmp --std=c++17
+ENV PATH=${EXECUTABLES_DIR}:$PATH

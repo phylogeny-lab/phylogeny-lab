@@ -1,7 +1,7 @@
 import asyncio
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import blast, blastdb, alignment, volume, health
+from .routers import blast, blastdb, alignment, volume, health, feature_selection
 from .schemas.schemas import Base
 from .config.database import engine, get_db
 from contextlib import asynccontextmanager
@@ -46,3 +46,4 @@ app.include_router(blastdb.router)
 app.include_router(alignment.router)
 app.include_router(volume.router)
 app.include_router(health.router)
+app.include_router(feature_selection.router)

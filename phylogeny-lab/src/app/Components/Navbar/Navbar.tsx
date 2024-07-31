@@ -38,9 +38,11 @@ function NavBar() {
                 <div className="hidden sm:block">
                     <div className="flex space-x-4">
                         <NavButton href={'/'} active={pathname === '/'}>Dashboard</NavButton>
+                        <NavButton href={'/featureselection'} active={pathname.split('/')[1] === 'featureselection'}>Feature Selection</NavButton>
                         <NavButton href={'/blast'} active={pathname.split('/')[1] === 'blast'}>Blast</NavButton>
                         <NavButton href={'/alignment'} active={pathname.split('/')[1] === 'alignment'}>Alignment</NavButton>
                         <NavButton href={'/biomart'} active={pathname.split('/')[1] === 'biomart'}>Biomart</NavButton>
+                        <NavButton href={'/mrbayes'} active={pathname.split('/')[1] === 'mrbayes'}>Mr Bayes</NavButton>
                         <NavButton href={'/tree'} active={pathname.split('/')[1] === 'tree'}>Tree</NavButton>
                     </div>
                 </div>

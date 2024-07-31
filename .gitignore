@@ -2,3 +2,6 @@
 Backend/alembic/versions/*
 postgres/volume
 ./Backend/app/worker/volume/*
+
+# Exclude in production
+# .env

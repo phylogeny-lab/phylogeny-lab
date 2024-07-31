@@ -16,10 +16,8 @@ services:
     build: 
       context: ./postgres
       dockerfile: Dockerfile
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=postgres
+    env_file:
+      - ./postgres/.env
     ports:
       - "5432:5432"
     volumes:
@@ -36,17 +34,11 @@ services:
     stdin_open: true
     ports:
       - "5000:5000"
-    environment:
-      - POSTGRES_URL=postgresql+asyncpg://admin:password@postgres/postgres
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - PYTHONPATH=/code/app/worker
-      - SHARED_VOLUME=/volume
-      - BLAST_SAVE_DIR=/volume/blast_queries
-      - ALIGNMENTS_SAVE_DIR=/volume/alignments
+    env_file:
+      - ./Backend/.env
     volumes:
-      - shared_web_worker:/volume
       - ./Backend/app/data:/data
+      - shared_tmp_volume:/tmp
     depends_on:
       - postgres
     networks:
@@ -61,13 +53,10 @@ services:
     command: celery -A worker.celery worker --loglevel=info --logfile=logs/celery.log
     volumes:
       - ./Backend/app/worker/logs/celery.log:/code/worker/logs/celery.log
-      - shared_web_worker:/volume
-    environment:
-      - BLAST_SAVE_DIR=/volume/blast_queries
-      - API_ENDPOINT=http://fastapi:5000/api
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - POSTGRES_URL=postgresql+asyncpg://admin:password@postgres/postgres
+      - shared_tmp_volume:/tmp
+      - ncbi_databases:/volume/ncbi_databases
+    env_file:
+      - ./Backend/app/worker/.env
     depends_on:
       - redis
       - fastapi
@@ -94,16 +83,36 @@ services:
     command: ./start-flower.sh
     ports:
       - 5556:5555
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - FLOWER_UNAUTHENTICATED_API=true
+    env_file:
+      - ./Backend/app/worker/.env
+      - ./Backend/app/worker/flower.env
     volumes:
       - flower_data:/data
     depends_on:
       - fastapi
       - redis
       - worker
+    networks:
+      - bridged_net_adapter
+
+  minio:
+    container_name: minio
+    image: quay.io/minio/minio
+    hostname: minio
+    command: minio server --console-address ":9090" /data
+    ports:
+      - 9000:9000
+      - 9090:9090
+    environment:
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    volumes:
+      - minio:/data
     networks:
       - bridged_net_adapter
 
@@ -115,7 +124,9 @@ networks:
        - subnet: 192.168.50.0/24
 
 volumes:
-  shared_web_worker:
   flower_data:
   redis_data:
   postgres_data:
+  minio:
+  shared_tmp_volume:
+  ncbi_databases:
