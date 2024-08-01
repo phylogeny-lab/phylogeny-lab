@@ -5,7 +5,7 @@ import os
 
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from ..worker.helper.utils import create_folder_structure_json, sendzipfile
-from ..worker.helper.minio import upload_file, download_file, list_files
+from ..worker.helper.minio_utils import upload_file, download_file, list_files
 import json
 import zipfile
 

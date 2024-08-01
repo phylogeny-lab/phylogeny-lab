@@ -16,8 +16,6 @@ import subprocess
 
 from Bio.Align.Applications import ClustalwCommandline
 
-from helper.minio import download_file, upload_file
-
 celery = Celery(__name__)
 
 # Config file
@@ -28,8 +26,6 @@ API_ENDPOINT = os.getenv('API_ENDPOINT')
 
 @celery.task(name="blastn")
 def blastn(params, id, subjectfile: str, queryfile: str):
-        
-    
 
         results_file_xml = GLPath(parent='blast', id=id, subdir='results', filename='results.xml')
 
@@ -79,54 +75,46 @@ def blastn(params, id, subjectfile: str, queryfile: str):
 
         
 @celery.task(name="clustalw")
-def clustalw(params, id, infile: bytes):
+def clustalw(params, id):
 
     try:
 
-        f = open(params['infile'], 'wb')
-        write_chrs = f.write(infile)
-        f.close()
+        # if file does not exist locally, it might have been uploaded to file server
+        # this would be the case if worker and api are running on different servers
+        infile_path = params['infile']
+        gl_infile_path = GLPath(infile_path, makedirs=True)
+        if not os.path.isdir(gl_infile_path.head):
+            gl_infile_path.download_from_filestore()
 
-        if write_chrs > 0:
+        clustalw_cline = ClustalwCommandline(cmd="clustalw", **params)
 
-            clustalw_cline = ClustalwCommandline(cmd="clustalw", **params)
+        proc: subprocess.CompletedProcess[str] = subprocess.run(
+            str(clustalw_cline),
+            capture_output=True,
+            text=True,
+            shell=True
+        )
+        data = proc.stdout
+        err = proc.stderr
+        return_code = proc.returncode
 
-            proc: subprocess.CompletedProcess[str] = subprocess.run(
-                str(clustalw_cline),
-                capture_output=True,
-                text=True,
-                shell=True
-            )
-            data = proc.stdout
-            err = proc.stderr
-            return_code = proc.returncode
+        if return_code == 0:
 
-            if return_code == 0:
+            outfile_path = params['outfile']
+            with open(outfile_path, 'rb') as file:
+                gl_outfile_path = GLPath(outfile_path, makedirs=True)
+                gl_outfile_path.upload_to_filestore(file=file)
 
-                
-                with open(params['outfile'], 'rb') as file:
-                    gl_outfile_path = GLPath.parse(params['outfile'])
-                    upload_file(file_path=gl_outfile_path.minio, data=file)
-                
-                with open(params['infile'], 'rb') as file:
-                    gl_infile_path = GLPath.parse(params['infile'])
-                    upload_file(file_path=gl_infile_path.minio, data=file)
+            # remove temporary files
+            shutil.rmtree(os.path.join('/tmp', 'alignments', id), ignore_errors=True)
 
-                # TODO: matrix or DNA matrix custom files could also be upload, although these are passed into the same slots as built-in matrices
+            asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Success'}))
 
-                # remove temporary files
-                shutil.rmtree(os.path.join('/tmp', 'alignments', id), ignore_errors=True)
-
-                asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Success'}))
-
-                return True
+            return True
             
-            else:
-                asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Failed'}))
-                raise Exception(f"Process failed: {err}")
-            
-        else: # if write failed
-            raise Exception(f"File write failed, {params['infile']}")
+        else:
+            asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Failed'}))
+            raise Exception(f"Process failed: {err}")
         
     except Exception as e:
         asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Failed'}))

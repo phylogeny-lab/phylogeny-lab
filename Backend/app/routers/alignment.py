@@ -13,7 +13,7 @@ from celery import uuid
 from ..schemas import schemas
 from ..enums.enums import CeleryStatus
 from ..models.AlignmentJobs import AlignmentJobs
-from ..worker.helper.minio import upload_file, download_file
+from ..worker.helper.minio_utils import upload_file, download_file
 from ..worker.helper.GLPath import GLPath
 
 router = APIRouter(
@@ -43,16 +43,20 @@ async def clustalw(
     clustalw_params.id = alignment_id
     clustalw_params.status = CeleryStatus.STARTED.value
 
-    gl_infile_path = GLPath('alignments', alignment_id, 'infiles', infile.filename.replace(' ', '_'). replace(')', '_').replace('(', '_'), makedirs=True)
-
-    # set infile path to be stored in database
+    # set infile path to be stored in database, then save to tmp directory
+    gl_infile_path = GLPath(path=os.path.join('alignments', alignment_id, 'infiles', infile.filename), makedirs=True)
     clustalw_params.infile = gl_infile_path.local
+    # if worker is running on a different machine to the api, we must upload to filestore
+    if os.getenv('SEPARATE_WORKER_API_VOLUME') == 'true':
+        gl_infile_path.upload_to_filestore(file=infile.file) 
+    else:
+        gl_infile_path.save_locally(file=infile)
 
     # attach extension for output file depending on user's choice
     extension_map = {'CLUSTAL': 'aln', 'FASTA': 'fasta', 'NEXUS': 'nex', 'PHYLIP': 'ph', 'PIR': 'pir', 'GDE': 'gde', 'GCE': 'gce'}
     ext = extension_map[clustalw_params.output]
-    # create tmp output file
-    gl_outfile_path = GLPath('alignments', alignment_id, 'outfiles', f"aligned.{ext}", makedirs=True)
+    # do something similar for outfile
+    gl_outfile_path = GLPath(path=os.path.join('alignments', alignment_id, 'outfiles', f'aligned.{ext}'), makedirs=True)
     clustalw_params.outfile = gl_outfile_path.local
 
     # define new ClustalwJob schema from params
@@ -72,7 +76,7 @@ async def clustalw(
 
     # Send job to Celery, Celery ID will be the same as ID in databases
     worker.clustalw.apply_async((
-        clustalw_params.model_dump(exclude_none=True, exclude=['status', 'jobTitle', 'id']), alignment_id, infile.file.read()), task_id=alignment_id)
+        clustalw_params.model_dump(exclude_none=True, exclude=['status', 'jobTitle', 'id']), alignment_id), task_id=alignment_id)
 
     # write to databases using async context manager
     async with session.begin():
@@ -108,18 +112,18 @@ async def blastn(req: Request, session: Session = Depends(get_db)) -> List[Align
 
 @router.get("/download/{task_id}") 
 async def download(task_id: str, session: Session = Depends(get_db)) -> FileResponse:
+
     stmt = select(schemas.AlignmentJobs).where(schemas.AlignmentJobs.id == task_id)
     result = await session.execute(stmt)
     record: schemas.AlignmentJobs = result.scalar_one()
-    tmp_file = GLPath.parse(record.filepath).local
-    if not os.path.exists(os.path.dirname(tmp_file)):
-        os.makedirs(os.path.dirname(tmp_file))
-    download_file(object_name=record.filepath, file_path=tmp_file)
+    tmp_file = GLPath.parse(record.filepath, makedirs=True)
+    tmp_file.download_from_filestore()
+
     return FileResponse(
-        tmp_file, 
+        tmp_file.local, 
         content_disposition_type="attachment",
         media_type='text/plain', 
-        filename=f"{record.jobTitle}_{record.filepath.split('/')[-1]}"
+        filename=f"{record.jobTitle}_{tmp_file.filename}"
     )
 
 

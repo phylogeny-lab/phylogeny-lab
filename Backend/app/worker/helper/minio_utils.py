@@ -1,10 +1,7 @@
 from typing import BinaryIO
 from minio import Minio
 import os
-import json
-import io
 from minio.datatypes import Object
-
 from helper.utils import build_nested
 
 bucket_name = os.getenv('MINIO_BUCKET_NAME')
