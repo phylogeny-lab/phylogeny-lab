@@ -75,6 +75,17 @@ const genusIconMap: any = {
   "pararge": "http://localhost:3000/assets/animals/butterfly.svg",
   "zerene": "http://localhost:3000/assets/animals/butterfly.svg",
   "carcharodon": "http://localhost:3000/assets/animals/carcharodon.svg",
+  "athene": "http://localhost:3000/assets/animals/owl.svg",
+  "glaucidium": "http://localhost:3000/assets/animals/owl.svg",
+  "ceratotherium": "http://localhost:3000/assets/animals/rhino.svg",
+  "diceros": "http://localhost:3000/assets/animals/rhino.svg",
+  "onychomys": "http://localhost:3000/assets/animals/mus.svg",
+  "schistocerca": "http://localhost:3000/assets/animals/grasshopper.svg",
+  "rangifer": "http://localhost:3000/assets/animals/reindeer.svg",
+  "capra": "http://localhost:3000/assets/animals/goat.svg",
+  "apus": "http://localhost:3000/assets/animals/apus.svg",
+  "pelecanus": "http://localhost:3000/assets/animals/pelecanus.svg",
+  "monodelphis": "http://localhost:3000/assets/animals/monodelphis.svg",
 }
 
 export {statusOptions, genusIconMap, speciesIconMap};
