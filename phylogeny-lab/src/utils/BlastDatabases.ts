@@ -96,7 +96,8 @@ export function bringToFrontByTaxIDS(taxids: number[], arr: DatabaseDisplayTable
           // objects need to be converted into databasetable model to be rendered
           const ncbiDatabaseTable: DatabaseDisplayTable[] = convertNcbiToDatabaseTable(ncbiDatabases);
           const customDatabaseTable: DatabaseDisplayTable[] = convertCustomToDatabaseTable(customDatabases);
-          bringToFrontByTaxIDS([9606, 10090, 7955, 9598, 2697049], ncbiDatabaseTable)
+          // human, mouse, zebrafish, chimpanzee, rat
+          bringToFrontByTaxIDS([9606, 10090, 7955, 9598, 10117], ncbiDatabaseTable)
     
           resolve(customDatabaseTable.concat(ncbiDatabaseTable))
         }))

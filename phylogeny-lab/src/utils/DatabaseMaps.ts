@@ -86,6 +86,11 @@ const genusIconMap: any = {
   "apus": "http://localhost:3000/assets/animals/apus.svg",
   "pelecanus": "http://localhost:3000/assets/animals/pelecanus.svg",
   "monodelphis": "http://localhost:3000/assets/animals/monodelphis.svg",
+  "chelonia": "http://localhost:3000/assets/animals/chelonia.svg",
+  "silurus": "http://localhost:3000/assets/animals/silurus.svg",
+  "asterias": "http://localhost:3000/assets/animals/asterias.svg",
+  "octopus": "http://localhost:3000/assets/animals/octopus.svg",
+  "danio": "http://localhost:3000/assets/animals/danio.svg",
 }
 
 export {statusOptions, genusIconMap, speciesIconMap};
