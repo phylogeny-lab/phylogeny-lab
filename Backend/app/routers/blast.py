@@ -60,10 +60,10 @@ async def blastn(
         )
 
         if subjectFile:
-            gl_subject_path = GLPath(parent='blast', id=blast_id, subdir='subject', filename=subjectFile.filename, makedirs=True)
+            gl_subject_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'blast', blast_id, 'subject', subjectFile.filename), makedirs=True)
             blast_params.subject = gl_subject_path.local
         if queryFile:
-            gl_query_path = GLPath(parent='blast', id=blast_id, subdir='query', filename=queryFile.filename, makedirs=True)
+            gl_query_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'blast', blast_id, 'query', subjectFile.filename), makedirs=True)
             blast_params.query = gl_query_path.local
         
         exclude = ['created_at', 'status']
@@ -74,9 +74,7 @@ async def blastn(
         model_json = blast_params.model_dump(exclude=exclude)
                 
 
-        worker.blastn.apply_async((model_json, blast_id, subjectFile.file.read().decode("utf-8"), queryFile.file.read().decode("utf-8")), 
-            task_id=blast_id,
-        )
+        worker.blastn.apply_async((model_json, blast_id), task_id=blast_id)
 
         async with session.begin():
             session.add(new_query)
@@ -148,16 +146,12 @@ async def update_status(task_id: str, new_status: str, session: Session = Depend
 
 # Fetch results for blast queries
 @router.get("/results/{id}")
-async def results(id: int, session: Session = Depends(get_db)):
-
-    if not isinstance(id, int):
-        return Response(content="Error, bad id", status_code=400)
+async def results(id: str, session: Session = Depends(get_db)):
     
     save_dir = os.getenv('BLAST_SAVE_DIR')
-    results_dir = os.path.join(save_dir, str(id), "results")
+    results_dir = os.path.join(save_dir, id, "results")
     results_json = os.path.join(results_dir, "results.json")
             
-
     with open(results_json, "r") as f:
         json_parse = json.loads(f.read())
 

@@ -44,7 +44,7 @@ async def clustalw(
     clustalw_params.status = CeleryStatus.STARTED.value
 
     # set infile path to be stored in database, then save to tmp directory
-    gl_infile_path = GLPath(path=os.path.join('alignments', alignment_id, 'infiles', infile.filename), makedirs=True)
+    gl_infile_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'alignments', alignment_id, 'infiles', infile.filename), makedirs=True)
     clustalw_params.infile = gl_infile_path.local
     # if worker is running on a different machine to the api, we must upload to filestore
     if os.getenv('SEPARATE_WORKER_API_VOLUME') == 'true':
@@ -56,7 +56,7 @@ async def clustalw(
     extension_map = {'CLUSTAL': 'aln', 'FASTA': 'fasta', 'NEXUS': 'nex', 'PHYLIP': 'ph', 'PIR': 'pir', 'GDE': 'gde', 'GCE': 'gce'}
     ext = extension_map[clustalw_params.output]
     # do something similar for outfile
-    gl_outfile_path = GLPath(path=os.path.join('alignments', alignment_id, 'outfiles', f'aligned.{ext}'), makedirs=True)
+    gl_outfile_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'alignments', alignment_id, 'outfiles', f'aligned.{ext}'), makedirs=True)
     clustalw_params.outfile = gl_outfile_path.local
 
     # define new ClustalwJob schema from params
@@ -116,7 +116,7 @@ async def download(task_id: str, session: Session = Depends(get_db)) -> FileResp
     stmt = select(schemas.AlignmentJobs).where(schemas.AlignmentJobs.id == task_id)
     result = await session.execute(stmt)
     record: schemas.AlignmentJobs = result.scalar_one()
-    tmp_file = GLPath.parse(record.filepath, makedirs=True)
+    tmp_file = GLPath(record.filepath, makedirs=True)
     tmp_file.download_from_filestore()
 
     return FileResponse(

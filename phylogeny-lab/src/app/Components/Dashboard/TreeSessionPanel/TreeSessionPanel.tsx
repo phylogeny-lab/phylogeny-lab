@@ -5,7 +5,7 @@ import { ImTree } from "react-icons/im";
 
 function TreeSessionPanel() {
   return (
-    <Card className="dark" style={{gridColumnStart: 2, gridColumnEnd: 3, gridRowStart: 1, gridRowEnd: 6}}>
+    <Card className="dark" style={{gridColumnStart: 2, gridColumnEnd: 3, gridRowStart: 1, gridRowEnd: 6, padding: '1rem', background: 'var(--bg-primary)'}}>
         <CardHeader className="flex gap-3">
                     <div className="flex content-center items-center gap-3 justify-between w-full">
                         <div className="flex content-center gap-3 items-center">

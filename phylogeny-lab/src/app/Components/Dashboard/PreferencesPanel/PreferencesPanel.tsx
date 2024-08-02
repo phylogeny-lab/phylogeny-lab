@@ -5,7 +5,7 @@ import { IoCogOutline } from "react-icons/io5";
 
 function PreferencesPanel() {
   return (
-    <Card className="dark" style={{gridColumnStart: 3, gridColumnEnd: 4, gridRowStart: 5, gridRowEnd: 9}}>
+    <Card className="dark" style={{gridColumnStart: 3, gridColumnEnd: 4, gridRowStart: 5, gridRowEnd: 9, padding: '1rem', background: 'var(--bg-primary)'}}>
         <CardHeader className="flex gap-3">
                     <div className="flex content-center items-center gap-3 justify-between w-full">
                         <div className="flex content-center gap-3 items-center">

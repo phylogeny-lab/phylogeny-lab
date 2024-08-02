@@ -29,10 +29,11 @@ docker-compose -f docker-compose.dev.yml up --build
 
 ## Roadmap
 
-- [ ] Blast portal
+- [*] Blast portal
+- [ ] Add support for more BLAST flavours
 - [ ] Biomart page
 - [ ] pairwise alignments page with blast
-- [ ] Phylogenetic construction page (tree)
+- [ ] Phylogenetic reconstruction page
 - [ ] Cogent3 functionality, hmm models, substitution scores
 - [ ] Dashboard
 - [ ] Blast summaries
@@ -40,3 +41,5 @@ docker-compose -f docker-compose.dev.yml up --build
 - [ ] Alignment results page
 - [ ] Learn D3 svg library
 - [ ] Create custom cladogram components with D3
+- [ ] Add tests and deploy with Github actions CI pipeline
+- [ ] Add a documentation page (we already have a domain http://phylogenylab.io!)

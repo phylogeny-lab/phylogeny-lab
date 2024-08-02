@@ -22,9 +22,9 @@ export default function Home() {
 
       <FileTreePanel />
 
-      <Card className="dark" style={{gridColumnStart: 1, gridColumnEnd: 2, gridRowStart: 5, gridRowEnd: 9}} />
+      <Card className="dark" style={{gridColumnStart: 1, gridColumnEnd: 2, gridRowStart: 5, gridRowEnd: 9, padding: '1rem', background: 'var(--bg-primary)'}} />
 
-      <Card className="dark" style={{gridColumnStart: 2, gridColumnEnd: 3, gridRowStart: 6, gridRowEnd: 9}} />
+      <Card className="dark" style={{gridColumnStart: 2, gridColumnEnd: 3, gridRowStart: 6, gridRowEnd: 9, padding: '1rem', background: 'var(--bg-primary)'}} />
 
       <PreferencesPanel />
 

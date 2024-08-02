@@ -59,7 +59,7 @@ function FileTreePanel() {
     
 
     return (
-            <Card className="w-full dark" style={{gridColumnStart: 3, gridColumnEnd: 4, gridRowStart: 1, gridRowEnd: 5}}>
+            <Card className="w-full dark" style={{gridColumnStart: 3, gridColumnEnd: 4, gridRowStart: 1, gridRowEnd: 5, padding: '1rem', background: 'var(--bg-primary)'}}>
                 <CardHeader className="flex gap-3">
                     <div className="flex content-center items-center gap-3 justify-between w-full">
                         <div className="flex content-center gap-3 items-center">

@@ -38,7 +38,7 @@ services:
       - ./Backend/.env
     volumes:
       - ./Backend/app/data:/data
-      - shared_tmp_volume:/tmp
+      - shared_tmp_volume:/filestore
     depends_on:
       - postgres
     networks:
@@ -53,7 +53,7 @@ services:
     command: celery -A worker.celery worker --loglevel=info --logfile=logs/celery.log
     volumes:
       - ./Backend/app/worker/logs/celery.log:/code/worker/logs/celery.log
-      - shared_tmp_volume:/tmp
+      - shared_tmp_volume:/filestore
       - ncbi_databases:/volume/ncbi_databases
     env_file:
       - ./Backend/app/worker/.env

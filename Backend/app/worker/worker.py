@@ -25,18 +25,26 @@ celery.config_from_object(default_config)
 API_ENDPOINT = os.getenv('API_ENDPOINT')
 
 @celery.task(name="blastn")
-def blastn(params, id, subjectfile: str, queryfile: str):
+def blastn(params, id):
 
-        results_file_xml = GLPath(parent='blast', id=id, subdir='results', filename='results.xml')
-
-        with open(params['subject'], 'wb') as file:
-            file.write(subjectfile.encode("utf-8"))
-
-        with open(params['query'], 'wb') as file:
-            file.write(queryfile.encode("utf-8"))
-        
-        
         try:
+
+            results_file_xml = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'blast', id, 'results', 'results.xml'))
+
+            # if file does not exist locally, it might have been uploaded to file server
+            # this would be the case if worker and api are running on different servers
+            subject_path = params['subject']
+            gl_subject_path = GLPath(subject_path, makedirs=True)
+            if not os.path.isdir(gl_subject_path.head):
+                gl_subject_path.download_from_filestore()
+
+            # if file does not exist locally, it might have been uploaded to file server
+            # this would be the case if worker and api are running on different servers
+            query_path = params['query']
+            gl_query_path = GLPath(query_path, makedirs=True)
+            if not os.path.isdir(gl_query_path.head):
+                gl_query_path.download_from_filestore()
+
             (return_code, message) = Blastn(
                 db=params['db'],
                 subject=params['subject'],
@@ -56,21 +64,22 @@ def blastn(params, id, subjectfile: str, queryfile: str):
             
             if return_code == 0: # success
 
-                # upload to minio
+                # write to minio
                 with open(results_file_xml, 'rb') as file:
-                    upload_file(results_file_xml.minio, data=file)
+                    gl_outfile_path = GLPath(results_file_xml, makedirs=True)
+                    gl_outfile_path.upload_to_filestore(file=file)
 
-                asyncio.run(api_update_request(url = API_ENDPOINT + '/blast/' + str(id), params = {'new_status': 'Success'}))
+                asyncio.run(api_update_request(url = API_ENDPOINT + '/blast/' + id, params = {'new_status': 'Success'}))
                 return True
 
             else:
 
-                asyncio.run(api_update_request(url = API_ENDPOINT + '/blast/' + str(id), params = {'new_status': 'Failed'}))
+                asyncio.run(api_update_request(url = API_ENDPOINT + '/blast/' + id, params = {'new_status': 'Failed'}))
                 raise Exception(f"Process failed: {message}")
             
         except Exception as e:
              
-            asyncio.run(api_update_request(url = API_ENDPOINT + '/blast/' + str(id), params = {'new_status': 'Failed'}))
+            asyncio.run(api_update_request(url = API_ENDPOINT + '/blast/' + id, params = {'new_status': 'Failed'}))
             raise Exception(e)
 
         
@@ -106,12 +115,12 @@ def clustalw(params, id):
                 gl_outfile_path.upload_to_filestore(file=file)
 
             # remove temporary files
-            shutil.rmtree(os.path.join('/tmp', 'alignments', id), ignore_errors=True)
+            shutil.rmtree(os.path.join(os.getenv('VOLUME_DIR'), 'alignments', id), ignore_errors=True)
 
             asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Success'}))
 
             return True
-            
+             
         else:
             asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Failed'}))
             raise Exception(f"Process failed: {err}")

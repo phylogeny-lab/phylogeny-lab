@@ -12,7 +12,6 @@ class GLPath:
         path: str | os.PathLike, 
         makedirs = False, 
         base_minio_path = os.environ.get('MINIO_VOLUME', "/volume"), 
-        base_local_path = '/tmp',
         remove_special_chrs = True
     ):
         """
@@ -35,16 +34,15 @@ class GLPath:
         self.head, self.filename = os.path.split(self.path)
 
         if remove_special_chrs:
-            self.path = self.remove_special_chrs(self.path)
+            self.path = self._remove_special_chrs(self.path)
 
-        self.base_minio_path = base_minio_path
-        self.base_local_path = base_local_path        
+        self.base_minio_path = base_minio_path  
 
-        self.local = os.path.join(self.base_local_path, self.path)
+        self.local = self.path
         self.minio = os.path.join(self.base_minio_path, self.path)
 
         if makedirs:
-            os.makedirs(os.path.join(self.base_local_path, self.head), exist_ok=True)
+            os.makedirs(self.head, exist_ok=True)
 
     
     def upload_to_filestore(self, file: BinaryIO):
