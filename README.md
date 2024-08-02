@@ -29,7 +29,7 @@ docker-compose -f docker-compose.dev.yml up --build
 
 ## Roadmap
 
-- [*] Blast portal
+- [x] Blast portal
 - [ ] Add support for more BLAST flavours
 - [ ] Biomart page
 - [ ] pairwise alignments page with blast
