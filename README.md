@@ -42,4 +42,4 @@ docker-compose -f docker-compose.dev.yml up --build
 - [ ] Learn D3 svg library
 - [ ] Create custom cladogram components with D3
 - [ ] Add tests and deploy with Github actions CI pipeline
-- [ ] Add a documentation page (we already have a domain http://phylogenylab.io!)
+- [ ] Add a documentation page (we already have a domain http://www.phylogenylab.io!)
