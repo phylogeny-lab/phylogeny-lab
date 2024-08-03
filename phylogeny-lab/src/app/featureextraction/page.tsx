@@ -1,12 +1,17 @@
 "use client";
 
 import { Tab, Tabs } from '@nextui-org/react';
-import React from 'react'
-import DimensionalityReductionForm from '../Components/FeatureExtraction/DimensionalityReductionForm';
+import React, { useEffect } from 'react'
+import DimensionalityReductionForm from '@/app/Components/FeatureExtraction/DimensionalityReductionForm';
 import { VscGraphScatter } from "react-icons/vsc";
-import Graph from '../Components/FeatureExtraction/Graph';
+import GraphView from '@/app/Components/FeatureExtraction/Graph';
 
-function FeatureExtraction() {
+export default function FeatureExtractionPage() {
+
+  useEffect(() => {
+
+  })
+  
   return (
     <div className='flex justify-between gap-8' >
       <div className="flex w-full flex-col">
@@ -36,10 +41,8 @@ function FeatureExtraction() {
       </div>
 
       <div className='w-full'>
-        <Graph />
+        <GraphView />
       </div>
     </div>
   )
 }
-
-export default FeatureExtraction

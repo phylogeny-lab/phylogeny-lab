@@ -1,12 +1,20 @@
-"use client";
+"use client"
 
+import React, { useEffect } from 'react'
 import { Tab, Tabs } from '@nextui-org/react';
-import React from 'react'
-import { FaSquare } from "react-icons/fa";
-import { FaCube } from "react-icons/fa";
+import { FaSquare, FaCube } from "react-icons/fa";
+import TwoDimensionChart from '@/app/Components/FeatureExtraction/TwoDimensionChart';
+import ThreeDimensionChart from '@/app/Components/FeatureExtraction/ThreeDimensionChart';
 
-function Graph() {
+export default function GraphView() {
+
+  useEffect(() => {
+
+  })
+
   return (
+
+    <div className='text-center'>
     <Tabs
           aria-label="Options"
           color="primary"
@@ -19,7 +27,7 @@ function Graph() {
           }}
         >
           <Tab
-            key="2dGraph"
+            key="twodGraph"
             title={
               <div className="flex items-center space-x-2">
                 <FaSquare />
@@ -27,10 +35,10 @@ function Graph() {
               </div>
             }
           >
-          
+          <TwoDimensionChart />
           </Tab>
           <Tab
-            key="3dGraph"
+            key="threedGraph"
             title={
               <div className="flex items-center space-x-2">
                 <FaCube />
@@ -38,10 +46,9 @@ function Graph() {
               </div>
             }
           >
-
+            <ThreeDimensionChart />
           </Tab>
         </Tabs>
+        </div>
   )
 }
-
-export default Graph

@@ -1,5 +1,5 @@
-from typing import Union
-from fastapi import APIRouter, UploadFile
+from typing import Annotated, Union
+from fastapi import APIRouter, Form, UploadFile
 
 
 router = APIRouter(
@@ -9,6 +9,7 @@ router = APIRouter(
 
 router.post("/vectorize")
 def vectorize(
+    data: Annotated[str, Form()], 
     sequenceFile: Union[UploadFile, None] = None,
 ):
     pass # return id for vectorized files

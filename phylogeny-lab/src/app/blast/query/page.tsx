@@ -13,6 +13,7 @@ import FormFileUpload from '@/app/Components/FormField/FormFileUpload';
 import { useRouter } from 'next/navigation';
 import FormCheckboxField from '@/app/Components/FormField/FormCheckboxField';
 import FormComboboxField from '@/app/Components/FormField/FormComboboxField';
+import { Card } from '@nextui-org/react';
 
 function BlastQuery() {
 
@@ -91,7 +92,8 @@ function BlastQuery() {
     }
 
     return (
-        <div className='w-full px-60'>
+        
+        <Card className='dark' style={{padding: '1rem', background: 'var(--bg-primary)', marginLeft: '10rem', marginRight: '10rem', paddingTop: '2rem' }}>
             <MultiStepForm
                 initialValues={{
                     jobTitle: '',
@@ -127,7 +129,8 @@ function BlastQuery() {
                     validationSchema={validationSchema}
                 >
                     {/* FIRST PAGE - Query Sequence */}
-                    <div className='mt-16 p-4'>
+                    
+                    <div className=' mt-6 p-4'>
                         <h1 className='mt-6 font-semibold text-gray-400 '>New BLAST job</h1>
                         <div className='mt-6 flex gap-2 items-top content-top align-top'>
 
@@ -160,7 +163,7 @@ function BlastQuery() {
                                 name='queryFile'
                                 setInput={setQueryFileInput}
                                 icon={<CloudUploadIcon />}>
-                                Upload Sequence
+                                Upload
                             </FormFileUpload>
                         </div>
                     </div>
@@ -318,7 +321,7 @@ function BlastQuery() {
                     </div>
                 </FormStep>
             </MultiStepForm>
-        </div>
+        </Card>
     )
 }
 

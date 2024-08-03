@@ -3,20 +3,16 @@
 import { Form, Formik } from 'formik'
 import React, { useState } from 'react'
 import * as yup from 'yup';
-import FormTextField from '../FormField/FormTextField';
-import FormFileUpload from '../FormField/FormFileUpload';
+import FormTextField from '@/app/Components/FormField/FormTextField';
+import FormFileUpload from '@/app/Components/FormField/FormFileUpload';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import FormCheckboxField from '../FormField/FormCheckboxField';
-import FormButtonGroup from '../FormField/FormButtonGroup';
-import FormSelectField from '../FormField/FormSelectField';
+import FormButtonGroup from '@/app/Components/FormField/FormButtonGroup';
 import { Button } from '@mui/material';
-import { SiAccenture } from "react-icons/si";
 import { Card } from '@nextui-org/react';
 import { BASE_URL } from '@/app/consts/consts';
 import axios from 'axios';
 import { ToastFail, ToastSuccess } from '@/utils/Toast';
 import { useRouter } from 'next/navigation';
-import { Accordion, AccordionItem } from '@nextui-org/react';
 
 function DimensionalityReductionForm() {
 
