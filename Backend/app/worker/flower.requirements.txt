@@ -7,3 +7,5 @@ redis-py
 fastapi
 aiohttp
 minio
+seaborn
+scikit-learn

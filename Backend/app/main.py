@@ -1,11 +1,10 @@
 import asyncio
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import blast, blastdb, alignment, volume, health, feature_selection
+from .routers import blast, blastdb, alignment, volume, health, pca
 from .schemas.schemas import Base
-from .config.database import engine, get_db
+from .config.database import engine
 from contextlib import asynccontextmanager
-from sqlalchemy.orm import Session
 from .schemas import schemas
 from sqlalchemy import select, delete
 from .enums.enums import CeleryStatus
@@ -46,4 +45,4 @@ app.include_router(blastdb.router)
 app.include_router(alignment.router)
 app.include_router(volume.router)
 app.include_router(health.router)
-app.include_router(feature_selection.router)
+app.include_router(pca.router)

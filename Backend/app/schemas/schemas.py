@@ -2,7 +2,7 @@ from ..config.database import Base
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Float, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import text
-from sqlalchemy.sql.sqltypes import TIMESTAMP
+from sqlalchemy.sql.sqltypes import TIMESTAMP, ARRAY
 
 class BlastQueries(Base):
     __tablename__ = "BlastQueries"
@@ -76,3 +76,15 @@ class ClustalwJobs(Base):
     clustering = Column(String, nullable=True)
     maxseqlen = Column(Integer, nullable=True)
     stats = Column(String, nullable=True) 
+
+class DimReduction(Base):
+    __tablename__ = "DimReduction"
+
+    id = Column(String, primary_key=True)
+    title = Column(String, nullable=False)
+    sequenceFilePaths = Column(ARRAY(String), nullable=False)
+    algorithm = Column(String, nullable=False)
+    kmers = Column(Integer, nullable=False)
+    batch_size = Column(Integer, nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
+    status = Column(String, nullable=False)

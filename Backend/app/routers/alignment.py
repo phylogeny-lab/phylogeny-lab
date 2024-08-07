@@ -5,16 +5,14 @@ from fastapi import APIRouter, Depends, Form, Request, Response, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy import select, update
 from sqlalchemy.orm import Session
-from ..worker import worker
 from ..config.database import get_db
 from ..models.ClustalwParams import ClustalwParams
-from ..worker.helper.utils import save_file
 from celery import uuid
 from ..schemas import schemas
 from ..enums.enums import CeleryStatus
 from ..models.AlignmentJobs import AlignmentJobs
-from ..worker.helper.minio_utils import upload_file, download_file
 from ..worker.helper.GLPath import GLPath
+from ..worker import worker
 
 router = APIRouter(
     prefix="/api/alignment",

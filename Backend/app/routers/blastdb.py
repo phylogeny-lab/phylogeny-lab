@@ -1,27 +1,18 @@
-import shlex
-import subprocess
-import threading
 import uuid
 import os
-from fastapi import FastAPI, File, Query, Request, Response, UploadFile, status, HTTPException, Depends, APIRouter, Form, BackgroundTasks
+from fastapi import Request, Response, UploadFile, Depends, APIRouter, Form
 from typing import Annotated, Union
 from fastapi.responses import FileResponse
 from sqlalchemy import CursorResult, func, update
 from sqlalchemy.orm import Session
-from pathlib import Path
-from pydantic import BaseModel
-from typing import List, Optional
+from typing import List
 import random
 from sqlalchemy import select, delete
-from ..worker import worker
-from ..models.BlastParams import BlastParams
+from ..worker.worker import install_ncbi_databases
 from ..models.Blastdb import Blastdb
-from ..models.Database import Database
 from ..config.database import get_db
 from ..schemas import schemas
 from ..worker.helper.utils import save_file
-from pathlib import Path
-from subprocess import Popen, PIPE
 import json
 import requests
 
@@ -84,7 +75,7 @@ async def ncbidb(req: Request, session: Session = Depends(get_db)):
 
         databases: str = databases['databases']
 
-        worker.install_ncbi_databases.delay(databases)
+        install_ncbi_databases.delay(databases)
 
         for database in databases:
 

@@ -17,6 +17,8 @@ import { useRouter } from 'next/navigation';
 function DimensionalityReductionForm() {
 
     const [sequenceInput, setSequenceInput] = useState(false)
+    const [currentTask, setCurrentTask] = useState(null)
+
     const router = useRouter()
 
     const validationSchema = yup.object({
@@ -25,23 +27,21 @@ function DimensionalityReductionForm() {
 
     const onSubmit = (async (data: any) => {
 
-        const { 'infile': inFile, 'matrixfile': matrixFile, 'dnamatrixfile': dnaMatrixFile, ...newData } = data;
+        const { 'sequenceFile': sequenceFile, ...newData } = data;
 
         let formData = new FormData();
 
         formData.append('data', JSON.stringify(newData))
-        formData.append('infile', inFile)
-        formData.append('matrixfile', matrixFile)
-        formData.append('dnamatrixfile', dnaMatrixFile)
+        formData.append('sequenceFile', sequenceFile)
 
-        await axios.post(BASE_URL + `/alignment/clustalw`, formData,
+        await axios.post(BASE_URL + `/pca`, formData,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((res: any) => {
-                ToastSuccess("Alignment started")
-                router.push('/alignment')
+                ToastSuccess("Running PCA")
+                setCurrentTask(res.task_id)
             }).catch((err: any) => {
                 ToastFail(`Error ${err}`)
             })
@@ -53,9 +53,9 @@ function DimensionalityReductionForm() {
         <Formik
             initialValues={{
                 title: '',
-                infile: '',
+                sequenceFile: '',
                 sequences: '',
-                batchSize: 8,
+                batch_size: 100,
                 kmers: 3,
                 algorithm: 'PCA',
             }}
@@ -93,7 +93,7 @@ function DimensionalityReductionForm() {
                             <h2 className='mt-3 font-light text-medium mb-2'>Or upload FASTA file</h2>
                             <FormFileUpload
                                 label='Upload'
-                                name='infile'
+                                name='sequenceFile'
                                 key={'sequence'}
                                 icon={<CloudUploadIcon />}>
                                 Upload
@@ -110,7 +110,7 @@ function DimensionalityReductionForm() {
 
                             <div>
                                 <h2 className='mt-3 font-light text-medium mb-2'>Batch size</h2>
-                                <FormTextField label="Batch size" type='number' name="batchSize" />
+                                <FormTextField label="Batch size" type='number' name="batch_size" />
                             </div>
                         </div>
 
@@ -126,7 +126,7 @@ function DimensionalityReductionForm() {
 
 
                         <div className='w-full flex justify-end'>
-                            <Button variant='contained'>Run</Button>
+                            <Button type='submit' variant='contained'>Run</Button>
                         </div>
 
 

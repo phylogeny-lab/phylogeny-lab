@@ -17,3 +17,5 @@ redis-py
 sqlalchemy
 uvicorn[standard]
 xmltodict
+seaborn
+scikit-learn

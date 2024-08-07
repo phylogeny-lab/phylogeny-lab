@@ -1,32 +1,22 @@
-import threading
 import uuid
 import os
-from fastapi import FastAPI, File, Request, Response, UploadFile, status, HTTPException, Depends, APIRouter, Form
+from fastapi import Request, Response, UploadFile, Depends, APIRouter, Form
 from typing import Annotated, Union
-from fastapi.responses import FileResponse
-from sqlalchemy import func, select, update
+from sqlalchemy import select, update
 from sqlalchemy.orm import Session
-from pathlib import Path
-from pydantic import BaseModel
-from typing import List, Optional
-from ..worker.helper.utils import save_file
+from typing import List
 from ..models.BlastParams import BlastParams
 from ..models.BlastJobs import BlastJobs
-from ..models.BlastResults import BlastOutput
 from ..worker.helper.GLPath import GLPath
 from ..config.database import get_db
 from ..schemas import schemas
 from ..enums.enums import CeleryStatus
-from pathlib import Path
-from subprocess import Popen, PIPE
 import json
 import datetime
-import xmltodict
 from fastapi.responses import JSONResponse
-from ..worker import worker
+from ..worker.worker import blastn
 from celery.result import AsyncResult
 from celery import uuid
-import binascii
 
 
 router = APIRouter(
@@ -74,7 +64,7 @@ async def blastn(
         model_json = blast_params.model_dump(exclude=exclude)
                 
 
-        worker.blastn.apply_async((model_json, blast_id), task_id=blast_id)
+        blastn.apply_async((model_json, blast_id), task_id=blast_id)
 
         async with session.begin():
             session.add(new_query)

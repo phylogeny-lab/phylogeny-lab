@@ -1,6 +1,7 @@
 import asyncio
 import binascii
 import os
+from pathlib import Path
 import shlex
 import shutil
 import time
@@ -12,9 +13,11 @@ from blast_python.src.blast_python.Blastn import Blastn
 from blast_python.src.blast_python.types import OutFmt
 from helper.utils import api_update_request, delete_record
 from helper.GLPath import GLPath
+from helper.ml import do_pca
 import subprocess
 
 from Bio.Align.Applications import ClustalwCommandline
+from Bio import SeqIO
 
 celery = Celery(__name__)
 
@@ -78,7 +81,6 @@ def blastn(params, id):
                 raise Exception(f"Process failed: {message}")
             
         except Exception as e:
-             
             asyncio.run(api_update_request(url = API_ENDPOINT + '/blast/' + id, params = {'new_status': 'Failed'}))
             raise Exception(e)
 
@@ -133,27 +135,77 @@ def clustalw(params, id):
 @celery.task(name="install_ncbi_databases", bind=True, autoretry_for=(Exception,), retry_kwargs={'max_retries': 2, 'countdown': 5})
 def install_ncbi_databases(self, databases: List[str]):
 
-    try:
+    for database in databases:
 
-        for database in databases:
+        accession = database.split('|')[0].lstrip()
 
-            accession = database.split('|')[0].lstrip()
-
-            status_code = subprocess.call(shlex.split(f'/scripts/ncbi_database.install.sh {accession}'))
+        status_code = subprocess.call(shlex.split(f'/scripts/ncbi_database.install.sh {accession}'))
             
-            if status_code != 0:
-                if (self.request.retries >= self.max_retries):
-                    asyncio.run(delete_record(url = API_ENDPOINT + '/blastdb/' + accession))
-                    raise Exception(f"Error installing database, {database}") 
+        if status_code != 0:
+            if (self.request.retries >= self.max_retries):
+                asyncio.run(delete_record(url = API_ENDPOINT + '/blastdb/' + accession))
+                raise Exception(f"Error installing database, {database}") 
                 
-                raise Exception(f"Error installing database {database}") 
+            raise Exception(f"Error installing database {database}") 
             
-            asyncio.run(api_update_request(url = API_ENDPOINT + '/blastdb/' + accession, params = {'new_status': 'installed'}))
+        asyncio.run(api_update_request(url = API_ENDPOINT + '/blastdb/' + accession, params = {'new_status': 'installed'}))
             
         
-        return True
+    return True
     
+
+# This job encompases any dimensionality reduction alg from vectorized sequence data, not just PCA
+@celery.task(name="dim_reduction")
+def dim_reduction(alg, file, kmers, batch_size, task_id):
+
+    try:
+
+        if not os.path.exists(file):
+            gl_infile = GLPath(path=file, makedirs=True)
+            gl_infile.download_from_filestore()
+
+        files = []
+        output_files = []
+
+        with open(file, 'r') as f:
+            for record in SeqIO.parse(f, "fasta"):
+                output = os.path.join(os.path.dirname(file), f"{record.id}.fasta")
+                with open(output, 'w') as new_f:
+                    new_f.write(f">{record.description}\n")
+                    new_f.write(str(record.seq))
+                    files.append(output)
+
+
+        for file in files:
+
+            output = ('.').join(file.split('.')[:-1])
+
+            status_code_simlord = subprocess.call(shlex.split(f'simlord --no-sam -rr {file} -n 100 -mr 1500 {output}_output'))
+
+            if status_code_simlord == 0:
+                threads = 3
+                outfile = f'{output}_output.txt'
+                output_files.append(outfile)
+                with open(outfile, 'w') as output_f:
+                    status_code_vectorize = subprocess.run(
+                        shlex.split(f'vectorize {output}_output.fastq {kmers} {threads} {batch_size}'),
+                        stdout=output_f,
+                        check=True
+                    )
+                
+            else:
+                asyncio.run(delete_record(url = API_ENDPOINT + '/pca/' + task_id))
+
+        
+        # Compute PCA from vectorized sequences
+        do_pca(raw=output_files, labels=['a', 'b'], batches=batch_size, n_components=2) #2D
+        #do_pca(raw=output_files, labels=['a', 'b'], batches=batch_size, n_components=3) #3D
+
+        return True
+
     except Exception as e:
+        asyncio.run(delete_record(url = API_ENDPOINT + '/pca/' + task_id))
         raise Exception(e)
 
+    
 

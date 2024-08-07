@@ -1,10 +1,12 @@
 aiofiles
+aiohttp
 biopython
 celery[redis]
-python-dotenv
-redis-py
-aiohttp
-ncbi-datasets-cli
 clustalw
 fastapi
 minio
+ncbi-datasets-cli
+python-dotenv
+redis-py
+scikit-learn
+seaborn

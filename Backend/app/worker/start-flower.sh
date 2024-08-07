@@ -8,7 +8,7 @@ CYAN='\033[0;36m'
 
 # check backend is online
 printf "\nPerforming health check\n"
-until timeout 30s wget -qO /dev/null fastapi:5000/api/health; do
+until timeout 60s wget -qO /dev/null fastapi:5000/api/health; do
     printf "Pinging fastapi:5000...\n"
     sleep 1
 done
@@ -16,7 +16,7 @@ done
 printf "\n${GREEN}Fastapi health check Complete${ENDC}\n"
 
 printf "\nWaiting for celery workers...\n"
-until timeout 60s celery -A worker inspect ping; do
+until timeout 120s celery -A worker inspect ping; do
     >&2 echo "Celery workers not available\n"
 done
 
