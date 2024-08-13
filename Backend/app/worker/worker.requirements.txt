@@ -10,3 +10,4 @@ python-dotenv
 redis-py
 scikit-learn
 seaborn
+umap-learn

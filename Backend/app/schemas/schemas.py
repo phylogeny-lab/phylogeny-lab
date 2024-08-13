@@ -82,7 +82,7 @@ class DimReduction(Base):
 
     id = Column(String, primary_key=True)
     title = Column(String, nullable=False)
-    sequenceFilePaths = Column(ARRAY(String), nullable=False)
+    sequenceFilePath = Column(String, nullable=False)
     algorithm = Column(String, nullable=False)
     kmers = Column(Integer, nullable=False)
     batch_size = Column(Integer, nullable=False)

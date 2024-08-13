@@ -1,52 +1,61 @@
 "use client";
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import dynamic from "next/dynamic";
+import axios from 'axios';
+import { colors, NoDataset, PlotSlider, PlotWrapper } from './GraphUtils';
+import { BASE_URL } from '@/app/consts/consts';
+import { Autocomplete, AutocompleteItem, Slider } from '@nextui-org/react';
 const Plot = dynamic(() => import("react-plotly.js"), { ssr: false, })
 
-function ThreeDimensionChart() {
+interface Props {
+  currentTask: string;
+}
 
-    const colors = ['rgba(74,222,128,.8)', 'rgba(59,130,246,.8)', 'rgba(235,64,52,.8)']
+function ThreeDimensionChart({ currentTask }: Props) {
 
-    const ConvertToPlotlyData = (data: any, markerSize: number) => {
+  const [pca3DCoords, setPca3DCoords] = useState<Object>({})
+  const [title, setTitle] = useState("")
+  const [markerSize, setMarkerSize] = useState(4)
+
+  useEffect(() => {
+
+    const getCoords = async () => {
+      if (currentTask !== "") {
+        await axios.get(BASE_URL + `/pca/${currentTask}`).then((res: any) => {
+          setPca3DCoords(res.data['3d'])
+          setTitle(res.data.title)
+        })
+        .catch((err: any) => {
+          console.error(err)
+        })
+      }
+    }
+
+    getCoords()
+
+  }, [currentTask]);
+
+    const ConvertToPlotlyData = (data: Object, markerSize: number) => {
         const plotlyData: any = []
-        data.map((datum: any, i: number) => {
+
+        Object.entries(data).map(([key, value], i: number) => {
+          
             plotlyData.push({
-                name: datum.name,
+                name: key,
                 type: "scatter3d",
-                marker: { size: markerSize, color: colors[i] },
+                marker: { size: markerSize, color: colors[i % colors.length] },
                 mode: 'markers',
-                x: datum.x,
-                y: datum.y,
-                z: datum.z,
+                x: value.x,
+                y: value.y,
+                z: value.z,
             })
         })
         return plotlyData
     }
 
-    const graphData: any = [{
-        name: 'Orang',
-        x: [630, 310, 260, 566, 566, 400, 515, 630, 151, 400, 515, 176, 230, 260, 151, 648, 648, 176, 230, 310], 
-        y: [200, 100, 200, 100, 200, 100, 100, 100, 600, 200, 200, 200.1234, 200, 100, 100, 200, 100, 600, 100, 200], 
-        z: [495, 18, 104, 33, 33, 615, 10, 495, 420, 615, 10, 232, 515, 104, 420, 327, 327, 232, 515, 18],  
-    
-      },
-      {
-        name: 'Chimp',
-        x: [636, 310, 260, 566, 566, 400, 515, 630, 151, 400, 515, 176, 260, 21, 151, 648, 648, 186, 230, 300], 
-        y: [200, 100, 200, 100, 600, 15, 100, 100, 200, 200, 200, 200.1234, 200, 100, 600, 208, 100, 100, 100, 200], 
-        z: [495, 18, 134, 33, 33, 615, 10, 200, 420, 615, 10, 232, 52, 104, 420, 327, 327, 232, 515, 18],  
-      },
-      {
-        name: 'Human',
-        x: [636, 310, 260, 566, 266, 400, 515, 630, 151, 400, 515, 176, 260, 201, 151, 648, 648, 186, 280, 300], 
-        y: [210, 100, 200, 100, 600, 15, 100, 100, 200, 100, 200, 200.1234, 200, 100, 600, 108, 100, 100, 100, 200], 
-        z: [495, 18, 144, 33, 33, 315, 10, 200, 420, 615, 10, 232, 52, 104, 420, 327, 327, 232, 585, 10],  
-      },
-    ];
-
     const masterGraph = {
-        title: "Title",
+        title: title,
         xAxis: "PCA1",
         yAxis: "PCA2",
         zAxis: "PCA3"
@@ -54,17 +63,25 @@ function ThreeDimensionChart() {
     
 
   return (
-    <div>
+    <PlotWrapper>
+
+      
+
+        {Object.keys(pca3DCoords).length === 0 ?
+        <NoDataset/>
+        :
+        <>
         <Plot
-        data={ConvertToPlotlyData(graphData, 4)}
+        data={ConvertToPlotlyData(pca3DCoords, markerSize)}
         layout={{
           plot_bgcolor: "rgba(0,0,0,0)",
           paper_bgcolor: "rgba(0,0,0,0)",
-          width: 800,
-          height: 600,
+          autosize: true,
+          height: 650,
+          width: 1700,
           margin: {
-            l: 20,
-            r: 20,
+            l: 10,
+            r: 10,
             b: 50,
             t: 50,
             pad: 4
@@ -107,7 +124,11 @@ function ThreeDimensionChart() {
           }
         }}
       />
-    </div>
+      <PlotSlider markerSize={4} setMarkerSize={setMarkerSize} />
+      </>
+    }
+    
+    </PlotWrapper>
   )
 }
 

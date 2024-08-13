@@ -1,23 +1,17 @@
 import { Avatar, Button, colors } from '@mui/material';
 import { Card, CardBody, CardFooter, CardHeader, Divider } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react'
-import 'react-folder-tree/dist/style.css';
-import { RiServerFill } from 'react-icons/ri';
 import TreeView from "./TreeView";
 import { GoFileDirectoryFill } from "react-icons/go";
-import { FaFile } from "react-icons/fa6";
-import { FaFileZipper } from "react-icons/fa6";
 import { FaDownload } from "react-icons/fa";
 import axios from 'axios';
 import { BASE_URL } from '@/app/consts/consts';
 import { Dictionary, TFiles } from './FileData';
-import NextButton from "../../Button/Button"
 import { formatBytes } from '@/utils/utils';
 import { useRouter } from "next/navigation"
-import { headers } from 'next/headers';
 
 function FileTreePanel() {
-    const onTreeStateChange = (state: any, event: any) => console.log(state, event);
+
     const [selectedNodes, setSelectedNodes] = useState<Set<any>>(new Set([]))
     const [fileSize, setFileSize] = useState(0)
     const [files, setFiles] = useState<Dictionary<TFiles>>({volume: {name: 'volume', children: {}, size: 0, type: 'dir'}} as Dictionary<TFiles>)

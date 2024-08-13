@@ -11,9 +11,9 @@ from celery import Celery
 
 from blast_python.src.blast_python.Blastn import Blastn
 from blast_python.src.blast_python.types import OutFmt
-from helper.utils import api_update_request, delete_record
+from helper.utils import api_update_request, delete_record, csv_to_json
 from helper.GLPath import GLPath
-from helper.ml import do_pca
+from helper.ml import do_reduction
 import subprocess
 
 from Bio.Align.Applications import ClustalwCommandline
@@ -166,10 +166,12 @@ def dim_reduction(alg, file, kmers, batch_size, task_id):
 
         files = []
         output_files = []
+        labels = []
 
         with open(file, 'r') as f:
             for record in SeqIO.parse(f, "fasta"):
                 output = os.path.join(os.path.dirname(file), f"{record.id}.fasta")
+                labels.append(record.id)
                 with open(output, 'w') as new_f:
                     new_f.write(f">{record.description}\n")
                     new_f.write(str(record.seq))
@@ -198,9 +200,10 @@ def dim_reduction(alg, file, kmers, batch_size, task_id):
 
         
         # Compute PCA from vectorized sequences
-        do_pca(raw=output_files, labels=['a', 'b'], batches=batch_size, n_components=2) #2D
-        #do_pca(raw=output_files, labels=['a', 'b'], batches=batch_size, n_components=3) #3D
+        do_reduction(files=output_files, label_names=labels, batches=batch_size, n_components=2) #2D
+        do_reduction(files=output_files, label_names=labels, batches=batch_size, n_components=3) #3D
 
+        asyncio.run(api_update_request(url= API_ENDPOINT + '/pca/' + task_id, params={'new_status': 'Completed'}))
         return True
 
     except Exception as e:

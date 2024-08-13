@@ -9,3 +9,4 @@ aiohttp
 minio
 seaborn
 scikit-learn
+umap-learn

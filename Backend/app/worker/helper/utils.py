@@ -6,6 +6,7 @@ import zipfile
 from fastapi import UploadFile
 import aiofiles
 import json
+import csv
 from minio.datatypes import Object
 from aiohttp import ClientSession
 import requests
@@ -119,3 +120,20 @@ def sendzipfile(filepath):
         headers = { "Content-Disposition": f"attachment; filename=images.zip"}
     )
 
+
+def csv_to_json(csv_filepath, json_filepath, fieldnames):
+
+    csvfile = open(csv_filepath, 'r')
+    jsonfile = open(json_filepath, 'w')
+
+    reader = csv.DictReader( csvfile, fieldnames)
+    jsonfile.write('[\n')
+    for idx, row in enumerate(reader):
+        if idx != 0: # don't add comma on first line
+            jsonfile.write(',\n')
+        jsonfile.write('\t')
+        json.dump(row, jsonfile)
+    jsonfile.write('\n]\n')
+
+    csvfile.close()
+    jsonfile.close()

@@ -7,7 +7,7 @@ class DimReduction(BaseModel):
     title: str
     algorithm: str
     sequences: Optional[str] = None
-    sequenceFilePaths: Optional[List[str]] = None
+    sequenceFilePath: Optional[str] = None
     kmers: int
     batch_size: int
     created_at: Optional[datetime] = None

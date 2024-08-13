@@ -1,20 +1,32 @@
 "use client"
 
-import React, { useEffect } from 'react'
-import { Tab, Tabs } from '@nextui-org/react';
+import React, { useEffect, useState } from 'react'
+import { Autocomplete, AutocompleteItem, Tab, Tabs } from '@nextui-org/react';
 import { FaSquare, FaCube } from "react-icons/fa";
 import TwoDimensionChart from '@/app/Components/FeatureExtraction/TwoDimensionChart';
 import ThreeDimensionChart from '@/app/Components/FeatureExtraction/ThreeDimensionChart';
+import axios from 'axios';
+import { BASE_URL } from '@/app/consts/consts';
 
-export default function GraphView() {
+interface Props {
+  currentTask: string;
+}
+
+export default function GraphView({ currentTask }: Props) {
 
   useEffect(() => {
 
-  })
+    
+  }, [])
 
   return (
 
-    <div className='text-center'>
+    <div className='text-center flex-col'>
+
+      
+
+    <div>
+
     <Tabs
           aria-label="Options"
           color="primary"
@@ -35,7 +47,7 @@ export default function GraphView() {
               </div>
             }
           >
-          <TwoDimensionChart />
+          <TwoDimensionChart currentTask={currentTask} />
           </Tab>
           <Tab
             key="threedGraph"
@@ -46,9 +58,10 @@ export default function GraphView() {
               </div>
             }
           >
-            <ThreeDimensionChart />
+            <ThreeDimensionChart currentTask={currentTask} />
           </Tab>
         </Tabs>
+        </div>
         </div>
   )
 }

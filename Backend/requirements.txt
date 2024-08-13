@@ -14,8 +14,9 @@ python-dotenv
 python-jose[cryptography]
 python-multipart
 redis-py
+scikit-learn
+seaborn
 sqlalchemy
+umap-learn
 uvicorn[standard]
 xmltodict
-seaborn
-scikit-learn
