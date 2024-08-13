@@ -2,6 +2,7 @@ aiofiles
 aiohttp
 biopython
 celery[redis]
+flower
 clustalw
 fastapi
 minio

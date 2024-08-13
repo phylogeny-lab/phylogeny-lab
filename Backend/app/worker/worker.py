@@ -199,7 +199,7 @@ def dim_reduction(alg, file, kmers, batch_size, task_id):
                 asyncio.run(delete_record(url = API_ENDPOINT + '/pca/' + task_id))
 
         
-        # Compute PCA from vectorized sequences
+        # Compute PCA from vectorized DNA or amino acid sequences
         do_reduction(files=output_files, label_names=labels, batches=batch_size, n_components=2) #2D
         do_reduction(files=output_files, label_names=labels, batches=batch_size, n_components=3) #3D
 

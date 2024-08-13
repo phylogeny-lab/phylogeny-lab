@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM debian:bullseye-slim
 EXPOSE 5000
 RUN apt-get update && apt-get install -y wget libgomp1 zip unzip
 # setup miniconda

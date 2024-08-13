@@ -50,13 +50,15 @@ services:
     build:
       context: ./Backend/app/worker
       dockerfile: worker.Dockerfile
-    command: celery -A worker.celery worker --loglevel=info --logfile=logs/celery.log
+    command: /code/app/worker/start-celery.sh
     volumes:
       - ./Backend/app/worker/logs/celery.log:/code/worker/logs/celery.log
       - shared_tmp_volume:/filestore
       - ncbi_databases:/volume/ncbi_databases
     env_file:
       - ./Backend/app/worker/.env
+    ports:
+      - 5556:5555
     depends_on:
       - redis
       - fastapi
@@ -72,26 +74,6 @@ services:
       - redis_data:/data
     ports:
       - 6379:6379
-    networks:
-      - bridged_net_adapter
-
-  flower:
-    container_name: flower
-    build: 
-      context: ./Backend/app/worker
-      dockerfile: flower.Dockerfile
-    command: ./start-flower.sh
-    ports:
-      - 5556:5555
-    env_file:
-      - ./Backend/app/worker/.env
-      - ./Backend/app/worker/flower.env
-    volumes:
-      - flower_data:/data
-    depends_on:
-      - fastapi
-      - redis
-      - worker
     networks:
       - bridged_net_adapter
 
@@ -124,7 +106,6 @@ networks:
        - subnet: 192.168.50.0/24
 
 volumes:
-  flower_data:
   redis_data:
   postgres_data:
   minio:

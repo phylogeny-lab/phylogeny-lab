@@ -15,6 +15,9 @@ done
 
 printf "\n${GREEN}Fastapi health check Complete${ENDC}\n"
 
+# start celery
+celery --quiet -A worker.celery worker --loglevel=info --logfile=logs/celery.log --detach
+
 printf "\nWaiting for celery workers...\n"
 until timeout 120s celery -A worker inspect ping; do
     >&2 echo "Celery workers not available\n"
@@ -34,4 +37,5 @@ printf "\n\nSee our github repo: "
 printf "\nhttps://github.com/phylogeny-lab/phylogeny-lab/tree/main"
 printf "\n\nHave fun!\n\n"
 
-celery --quiet --broker=redis://redis:6379/0 flower --port=5555
+# start flower dashboard
+celery --quiet --broker=redis://redis:6379/0 flower --port=5555 --detach

@@ -1,5 +1,5 @@
-FROM ubuntu:22.04
-EXPOSE 500
+FROM debian:bullseye-slim
+EXPOSE 500 5555
 RUN apt-get update && apt-get install -y wget libgomp1 zip unzip automake autoconf pkg-config autoconf-archive git build-essential
 # setup miniconda
 ENV CONDA_DIR /opt/conda
@@ -31,6 +31,8 @@ RUN chmod +x /scripts/*.sh
 # setup app & run server
 WORKDIR /code/app/worker
 COPY . /code/app/worker
+# chmod start script which won't be in scripts directory
+RUN chmod +x start-celery.sh
 # compile tools
 ENV EXECUTABLES_DIR=/code/app/worker
 RUN g++ /code/app/worker/tools/feature_selection/vectorize/vectorize.cpp -o ${EXECUTABLES_DIR}/vectorize -fopenmp --std=c++17
