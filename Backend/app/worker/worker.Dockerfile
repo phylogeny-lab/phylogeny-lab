@@ -3,13 +3,11 @@ EXPOSE 500 5555
 RUN apt-get update && apt-get install -y wget libgomp1 zip unzip automake autoconf pkg-config autoconf-archive git build-essential
 # setup miniconda
 ENV CONDA_DIR /opt/conda
-ENV CONDA_ENV=bioconda_env
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py311_24.1.2-0-Linux-x86_64.sh -O ~/miniconda.sh && \
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py310_24.5.0-0-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda
 ENV PATH=$CONDA_DIR/bin:$PATH
-COPY ./worker.requirements.txt /code/requirements.txt
+COPY requirements.txt /code/requirements.txt
 RUN conda install -y --file /code/requirements.txt -c bioconda -c conda-forge
-RUN pip install simlord
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -30,7 +28,7 @@ COPY ./scripts /scripts
 RUN chmod +x /scripts/*.sh
 # setup app & run server
 WORKDIR /code/app/worker
-COPY . /code/app/worker
+COPY . .
 # chmod start script which won't be in scripts directory
 RUN chmod +x start-celery.sh
 # compile tools
