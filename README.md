@@ -1,4 +1,6 @@
 # Phylogeny lab 🧪🦎
+[![](https://dcbadge.vercel.app/api/server/wBDavdWp8n)](https://discord.gg/ZmVn9Kzc9f)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Phylogeny-lab/phylogeny-lab)](https://github.com/Phylogeny-lab/Phylogeny-lab/pulse)
 
 ## TL;DR
 An easy-to-use web application for comparative genomics with a great UI. It will include some of the main tools and external resources in the space such as NCBI BLAST+, Clustalw, Muscle, Biomart, Mr Bayes and more. When completed, we hope it will be useful for phylogeneticists and other evolutionary biologists as a research tool.
