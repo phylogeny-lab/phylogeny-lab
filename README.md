@@ -1,5 +1,5 @@
 # Phylogeny lab 🧪🦎
-[![](https://dcbadge.vercel.app/api/server/wBDavdWp8n)](https://discord.gg/ZmVn9Kzc9f)
+[![](https://dcbadge.vercel.app/api/server/ZmVn9Kzc9f)](https://discord.gg/ZmVn9Kzc9f)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Phylogeny-lab/phylogeny-lab)](https://github.com/Phylogeny-lab/Phylogeny-lab/pulse)
 
 ## TL;DR
