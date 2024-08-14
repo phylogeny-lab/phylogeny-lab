@@ -8,15 +8,15 @@ CYAN='\033[0;36m'
 
 # check backend is online
 printf "\nPerforming health check\n"
-until timeout 60s wget -qO /dev/null fastapi:5000/api/health; do
-    printf "Pinging fastapi:5000...\n"
+until timeout 60s wget -qO /dev/null ${FASTAPI_HEALTH}; do
+    printf "Pinging ${FASTAPI_HEALTH}...\n"
     sleep 1
 done
 
 printf "\n${GREEN}Fastapi health check Complete${ENDC}\n"
 
 # start celery
-celery --quiet -A worker.celery worker --loglevel=info --logfile=logs/celery.log --detach
+celery --quiet -A worker.celery worker --loglevel=${LOG_LEVEL} --logfile=${LOG_FILE} --detach
 
 printf "\nWaiting for celery workers...\n"
 until timeout 120s celery -A worker inspect ping; do
@@ -24,17 +24,20 @@ until timeout 120s celery -A worker inspect ping; do
 done
 
 # Welcome message
+
 printf "\n+=============================================+"
 printf "\n|${GREEN}    All containers running successfully!${ENDC}     |\n"
-printf "|     3'-. .-.   .-. .-.   .-. .-.   .5'      |"
-printf "|         \   \ /   \   \ /   \   \ /         |"
-printf "|        / \   \   / \   \   / \   \\          |"
+echo "|     3'-. .-.   .-. .-.   .-. .-.   .5'      |"
+echo "|         \   \ /   \   \ /   \   \ /         |"
+echo "|        / \   \   / \   \   / \   \\          |"
 printf "|     5'~   \`-~ \`-\`   \`-~ \`-\`   \`-~ \`-3'      |"
-printf "\n| Web portal running at ${CYAN}http://localhost:3000${ENDC} |"
+printf "\n| Web portal running at ${CYAN}${WEB_PORTAL}${ENDC} |"
 printf "\n+=============================================+"
-printf "\n\nSee our github repo: "
-printf "\nhttps://github.com/phylogeny-lab/phylogeny-lab/tree/main"
+printf "\n\nFor contributing see our github repo:"
+printf "\n${GITHUB_REPO}"
+printf "\n\nand join the discord!"
+printf "\n${DISCORD}"
 printf "\n\nHave fun!\n\n"
 
 # start flower dashboard
-celery --quiet --broker=redis://redis:6379/0 flower --port=5555
+celery --quiet --broker=${CELERY_BROKER_URL} flower --port=${FLOWER_PORT}
