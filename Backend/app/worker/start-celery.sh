@@ -24,12 +24,11 @@ until timeout 120s celery -A worker inspect ping; do
 done
 
 # Welcome message
-
 printf "\n+=============================================+"
 printf "\n|${GREEN}    All containers running successfully!${ENDC}     |\n"
-echo "|     3'-. .-.   .-. .-.   .-. .-.   .5'      |"
-echo "|         \   \ /   \   \ /   \   \ /         |"
-echo "|        / \   \   / \   \   / \   \\          |"
+printf "|     3'-. .-.   .-. .-.   .-. .-.   .5'      |"
+printf "|         \   \ /   \   \ /   \   \ /         |"
+printf "|        / \   \   / \   \   / \   \\          |"
 printf "|     5'~   \`-~ \`-\`   \`-~ \`-\`   \`-~ \`-3'      |"
 printf "\n| Web portal running at ${CYAN}http://localhost:3000${ENDC} |"
 printf "\n+=============================================+"
@@ -38,4 +37,4 @@ printf "\nhttps://github.com/phylogeny-lab/phylogeny-lab/tree/main"
 printf "\n\nHave fun!\n\n"
 
 # start flower dashboard
-celery --quiet --broker=redis://redis:6379/0 flower --port=5555 --detach
+celery --quiet --broker=redis://redis:6379/0 flower --port=5555
