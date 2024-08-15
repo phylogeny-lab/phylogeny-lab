@@ -46,10 +46,10 @@ docker-compose -f docker-compose.dev.yml up --build
 - [ ] Add tests and deploy with Github actions CI pipeline
 - [ ] Add a documentation page (we already have a domain http://www.phylogenylab.io)
 
-## Donate
+## Donate ❤️
 
 All development on this project and our sister project Nuwa is unpaid. So if you're feeling generous and want to support the continuation of this project, consider donating!
 
 Find us on [Patreon](https://patreon.com/GenomeLab?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink)
 
-<img height='100px' width='100px' src="screenshots/donate.gif">
+<img src="screenshots/donate.gif" width="200" height="200">
