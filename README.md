@@ -52,4 +52,4 @@ All development on this project and our sister project Nuwa is unpaid. So if you
 
 Find us on [Patreon](https://patreon.com/GenomeLab?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink)
 
-![donate screenshot](screenshots/donate.gif "donate gif")
+<img height='100px' width='100px' src="screenshots/donate.gif">
