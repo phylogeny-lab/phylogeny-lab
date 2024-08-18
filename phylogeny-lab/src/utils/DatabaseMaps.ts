@@ -91,6 +91,10 @@ const genusIconMap: any = {
   "asterias": "http://localhost:3000/assets/animals/asterias.svg",
   "octopus": "http://localhost:3000/assets/animals/octopus.svg",
   "danio": "http://localhost:3000/assets/animals/danio.svg",
+  "toxocara": "http://localhost:3000/assets/animals/worm.svg",
+  "angiostrongylus": "http://localhost:3000/assets/animals/worm.svg",
+  "ancylostoma": "http://localhost:3000/assets/animals/worm.svg",
+  "ctenocephalides": "http://localhost:3000/assets/animals/flea.svg",
 }
 
 export {statusOptions, genusIconMap, speciesIconMap};

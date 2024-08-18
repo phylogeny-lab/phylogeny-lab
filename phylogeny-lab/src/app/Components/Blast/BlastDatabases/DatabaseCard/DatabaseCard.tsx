@@ -40,7 +40,7 @@ function DatabaseCard({ dataRow, genus, species }: Props) {
                             <ModalHeader className="flex flex-col gap-1 lowercase text-center mt-4">
 
                                 <div className='width-full flex justify-center'>
-                                    <GenomeAvatar width="6rem" height="6rem" database={dataRow} genus={genus} species={species} />
+                                    <GenomeAvatar small={false} width="6rem" height="6rem" database={dataRow} genus={genus} species={species} />
                                 </div>
 
                                 <div className='flex gap-2 justify-center content-center'>

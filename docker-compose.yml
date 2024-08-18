@@ -50,6 +50,7 @@ services:
     build:
       context: ./Backend/app/worker
       dockerfile: worker.Dockerfile
+    command: /code/app/worker/start-celery.sh
     volumes:
       - ./Backend/app/worker/logs/celery.log:/code/worker/logs/celery.log
       - shared_tmp_volume:/filestore
@@ -105,7 +106,6 @@ networks:
        - subnet: 192.168.50.0/24
 
 volumes:
-  flower_data:
   redis_data:
   postgres_data:
   minio:

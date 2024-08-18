@@ -1,0 +1,1 @@
+extension_map = {'CLUSTAL': 'aln', 'FASTA': 'fasta', 'NEXUS': 'nex', 'PHYLIP': 'ph', 'PIR': 'pir', 'GDE': 'gde', 'GCE': 'gce', 'AFA': 'afa'}

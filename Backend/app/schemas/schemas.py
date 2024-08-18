@@ -77,6 +77,21 @@ class ClustalwJobs(Base):
     maxseqlen = Column(Integer, nullable=True)
     stats = Column(String, nullable=True) 
 
+class MuscleJobs(Base):
+    __tablename__ = "MuscleJobs"
+
+    id = Column(String, ForeignKey('AlignmentJobs.id', ondelete="CASCADE"), primary_key=True)
+    input = Column(String, nullable=True)
+    seed = Column(Integer, nullable=True)
+    out = Column(String, nullable=False)
+    outformat = Column(String, nullable=False)
+    consiters = Column(Integer, nullable=True)
+    refineiters = Column(Integer, nullable=True)
+    perturb = Column(Integer, nullable=True)
+    stats = Column(String, nullable=True) 
+    perm = Column(String, nullable=True)
+    threads = Column(Integer, nullable=True)
+
 class DimReduction(Base):
     __tablename__ = "DimReduction"
 

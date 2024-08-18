@@ -48,7 +48,7 @@ docker-compose -f docker-compose.dev.yml up --build
 
 ## Donate ❤️
 
-All development on this project is unpaid. So if you're feeling generous and want to support the continuation of this project, consider donating! Find us on [Patreon](https://patreon.com/GenomeLab?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink) or alternatively, we accept donations in bitcoin:
+All development on this project is unpaid. So if you're feeling generous and want to support the continuation of this project, consider donating! Find us on [Patreon](https://patreon.com/GenomeLab?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink) or alternatively, we also accept donations in bitcoin:
 
 <div style='display: flex;'>
 <img src="screenshots/address.png" width="200" height="200">

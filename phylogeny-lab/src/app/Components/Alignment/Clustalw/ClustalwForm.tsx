@@ -9,15 +9,14 @@ import FormButtonGroup from '../../FormField/FormButtonGroup';
 import FormSelectField from '../../FormField/FormSelectField';
 import { Button } from '@mui/material';
 import { SiAccenture } from "react-icons/si";
-import Card from '../../Card/Card';
 import { BASE_URL } from '@/app/consts/consts';
 import axios from 'axios';
 import { ToastFail, ToastSuccess } from '@/utils/Toast';
 import { useRouter } from 'next/navigation';
+import { Card } from '@nextui-org/react';
 
 function ClustalwForm() {
 
-    const [sequenceInput, setSequenceInput] = useState(false)
     const router = useRouter()
 
     const validationSchema = yup.object({
@@ -83,7 +82,7 @@ function ClustalwForm() {
           }) => (
             <Form>
                 
-                <Card style="">
+                <Card>
                 <div className='w-full flex justify-between gap-8 h-full'>
                     <div className='w-1/2 px-2 h-full'>
                         <div className='w-full'>
@@ -107,7 +106,6 @@ function ClustalwForm() {
                                     name="inSequence"
                                     multiline={true}
                                     rows={9}
-                                    onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setSequenceInput(true) : setSequenceInput(false)}
                                 />
 
                                 <h2 className='mt-3 font-light text-medium mb-2'>Or upload unaligned sequences</h2>

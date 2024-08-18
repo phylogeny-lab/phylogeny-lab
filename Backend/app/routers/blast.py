@@ -17,7 +17,7 @@ from fastapi.responses import JSONResponse
 from ..worker.worker import blastn
 from celery.result import AsyncResult
 from celery import uuid
-
+from ..utils.blast import create_new_blast_job
 
 router = APIRouter(
     prefix="/api/blast",
@@ -36,25 +36,11 @@ async def blastn(
         model_dict = json.loads(data)
         blast_params =  BlastParams.model_validate(model_dict)
 
-        # create an id based on name and timestamp: id <- id(jobTitle + now())
-        blast_id = uuid()
-        
-        # set other metadata
-        blast_params.id = blast_id
-        blast_params.status = CeleryStatus.STARTED.value
-        blast_params.created_at = datetime.datetime.now()
-
-
-        new_query = schemas.BlastQueries(
-            **blast_params.model_dump(exclude={'subject', 'query'})
+        blast_params: BlastParams = create_new_blast_job(
+            params=blast_params,
+            subjectFile=subjectFile,
+            queryFile=queryFile,
         )
-
-        if subjectFile:
-            gl_subject_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'blast', blast_id, 'subject', subjectFile.filename), makedirs=True)
-            blast_params.subject = gl_subject_path.local
-        if queryFile:
-            gl_query_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'blast', blast_id, 'query', subjectFile.filename), makedirs=True)
-            blast_params.query = gl_query_path.local
         
         exclude = ['created_at', 'status']
         for (k, v) in blast_params:
@@ -64,7 +50,11 @@ async def blastn(
         model_json = blast_params.model_dump(exclude=exclude)
                 
 
-        blastn.apply_async((model_json, blast_id), task_id=blast_id)
+        blastn.apply_async((model_json, blast_params.id), task_id=blast_params.id)
+
+        new_query = schemas.BlastQueries(
+            **blast_params.model_dump(exclude={'subject', 'query'})
+        )
 
         async with session.begin():
             session.add(new_query)

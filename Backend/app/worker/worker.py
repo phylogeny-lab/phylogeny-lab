@@ -16,7 +16,7 @@ from helper.GLPath import GLPath
 from helper.ml import do_reduction
 import subprocess
 
-from Bio.Align.Applications import ClustalwCommandline
+from Bio.Align.Applications import ClustalwCommandline, MuscleCommandline
 from Bio import SeqIO
 
 celery = Celery(__name__)
@@ -126,6 +126,53 @@ def clustalw(params, id):
         else:
             asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Failed'}))
             raise Exception(f"Process failed: {err}")
+        
+    except Exception as e:
+        asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Failed'}))
+        raise Exception(e)
+    
+
+@celery.task(name="muscle")
+def muscle(params, id):
+    
+    try:
+
+        # if file does not exist locally, it might have been uploaded to file server
+        # this would be the case if worker and api are running on different servers
+        infile_path = params['input']
+        gl_infile_path = GLPath(infile_path, makedirs=True)
+        if not os.path.isdir(gl_infile_path.head):
+            gl_infile_path.download_from_filestore()
+
+        muscle_cline = f"muscle -align {params['input']} -output {params['out']} -threads {params['threads']} -perturb {params['perturb']}"
+
+        proc: subprocess.CompletedProcess[str] = subprocess.run(
+            str(muscle_cline),
+            capture_output=True,
+            text=True,
+            shell=True
+        )
+        data = proc.stdout
+        err = proc.stderr
+        return_code = proc.returncode
+
+        if return_code == 0:
+
+            outfile_path = params['out']
+            with open(outfile_path, 'rb') as file:
+                gl_outfile_path = GLPath(outfile_path, makedirs=True)
+                gl_outfile_path.upload_to_filestore(file=file)
+
+            # remove temporary files
+            shutil.rmtree(os.path.join(os.getenv('VOLUME_DIR'), 'alignments', id), ignore_errors=True)
+
+            asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Success'}))
+
+            return True
+             
+        else:
+            asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Failed'}))
+            raise Exception(f"Process failed: {err}. Cline: {muscle_cline}")
         
     except Exception as e:
         asyncio.run(api_update_request(url = API_ENDPOINT + '/alignment/' + str(id), params = {'new_status': 'Failed'}))

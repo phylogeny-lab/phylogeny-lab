@@ -7,19 +7,22 @@ from sqlalchemy import select, update
 from sqlalchemy.orm import Session
 from ..config.database import get_db
 from ..models.ClustalwParams import ClustalwParams
+from ..models.MuscleParams import MuscleParams
 from celery import uuid
 from ..schemas import schemas
 from ..enums.enums import CeleryStatus
 from ..models.AlignmentJobs import AlignmentJobs
 from ..worker.helper.GLPath import GLPath
 from ..worker import worker
+from ..utils.alignment import add_jobs_to_db
+from ..utils.consts import extension_map
 
 router = APIRouter(
     prefix="/api/alignment",
     tags=['clustalw', 'muscle', 'alignment']
 )
 
-# Execute new blast query
+# Execute new clustal alignment
 @router.post("/clustalw")
 async def clustalw(
     data: Annotated[str, Form()], 
@@ -29,66 +32,106 @@ async def clustalw(
     session: Session = Depends(get_db)
     ):
 
-    if not infile:
-        return Response(content="No infile", status_code=400)
+    try:
 
-    # convert raw params to dict and validate the model
-    model_dict = json.loads(data)
-    clustalw_params = ClustalwParams.model_validate(model_dict)
+        if not infile:
+            return Response(content="No infile", status_code=400)
 
-    # create unique ID and add `started` status
-    alignment_id = uuid()
-    clustalw_params.id = alignment_id
-    clustalw_params.status = CeleryStatus.STARTED.value
+        # convert raw params to dict and validate the model
+        model_dict = json.loads(data)
+        clustalw_params = ClustalwParams.model_validate(model_dict)
 
-    # set infile path to be stored in database, then save to tmp directory
-    gl_infile_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'alignments', alignment_id, 'infiles', infile.filename), makedirs=True)
-    clustalw_params.infile = gl_infile_path.local
-    # if worker is running on a different machine to the api, we must upload to filestore
-    if os.getenv('SEPARATE_WORKER_API_VOLUME') == 'true':
-        gl_infile_path.upload_to_filestore(file=infile.file) 
-    else:
-        gl_infile_path.save_locally(file=infile)
+        alignment_id = uuid()
+        clustalw_params.id = alignment_id
+        clustalw_params.status = CeleryStatus.STARTED.value
+        
+        # set infile path to be stored in database, then save to tmp directory
+        gl_infile_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'alignments', alignment_id, 'infiles', infile.filename), makedirs=True)
+        clustalw_params.infile = gl_infile_path.local
+        # if worker is running on a different machine to the api, we must upload to filestore
+        if os.getenv('SEPARATE_WORKER_API_VOLUME') == 'true':
+            gl_infile_path.upload_to_filestore(file=infile.file) 
+        else:
+            gl_infile_path.save_locally(file=infile)
 
-    # attach extension for output file depending on user's choice
-    extension_map = {'CLUSTAL': 'aln', 'FASTA': 'fasta', 'NEXUS': 'nex', 'PHYLIP': 'ph', 'PIR': 'pir', 'GDE': 'gde', 'GCE': 'gce'}
-    ext = extension_map[clustalw_params.output]
-    # do something similar for outfile
-    gl_outfile_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'alignments', alignment_id, 'outfiles', f'aligned.{ext}'), makedirs=True)
-    clustalw_params.outfile = gl_outfile_path.local
+        # attach extension for output file depending on user's choice
+        ext = extension_map[clustalw_params.output]
+        # do something similar for outfile
+        gl_outfile_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'alignments', clustalw_params.id, 'outfiles', f'aligned.{ext}'), makedirs=True)
+        clustalw_params.outfile = gl_outfile_path.local
 
-    # define new ClustalwJob schema from params
-    new_clustalw_query = schemas.ClustalwJobs(
-        **clustalw_params.model_dump(exclude_none=True, exclude=['status', 'jobTitle'])
-    )
+        # Send job to Celery, Celery ID will be the same as ID in databases
+        worker.clustalw.apply_async((
+            clustalw_params.model_dump(exclude_none=True, exclude=['status', 'jobTitle', 'id']), clustalw_params.id), task_id=clustalw_params.id)
 
-    # define new AlignmentJob schema (stores non-algorithm specific data)
-    new_alignment_job = schemas.AlignmentJobs(
-        id=clustalw_params.id, 
-        jobTitle=clustalw_params.jobTitle.replace(' ', '_'), 
-        filepath=gl_outfile_path.minio, 
-        created_at=clustalw_params.created_at,
-        status=clustalw_params.status,
-        algorithm='clustalw'
-    )
+        id = await add_jobs_to_db(
+            params=clustalw_params,
+            session=session, 
+            schema=schemas.ClustalwJobs,
+            algorithm='clustalw',
+            output=clustalw_params.outfile
+        )
 
-    # Send job to Celery, Celery ID will be the same as ID in databases
-    worker.clustalw.apply_async((
-        clustalw_params.model_dump(exclude_none=True, exclude=['status', 'jobTitle', 'id']), alignment_id), task_id=alignment_id)
+        return Response(id, status_code=200)
+    
+    except Exception as e:
 
-    # write to databases using async context manager
-    async with session.begin():
-        session.add(new_alignment_job)
-        await session.commit()
+        return Response(e, status_code=500)
 
-    async with session.begin():
-        await session.refresh(new_alignment_job)
 
-    async with session.begin():
-        session.add(new_clustalw_query)
-        await session.commit()
+# Execute new Muscle alignment
+@router.post("/muscle")
+async def muscle(
+    data: Annotated[str, Form()], 
+    infile: Union[UploadFile, None] = None, 
+    session: Session = Depends(get_db)
+    ):
 
-    return Response("success", status_code=200)
+    try:
+
+        if not infile:
+            return Response(content="No infile", status_code=400)
+        
+        # convert raw params to dict and validate the model
+        model_dict = json.loads(data)
+        muscle_params = MuscleParams.model_validate(model_dict)
+
+        alignment_id = uuid()
+        muscle_params.id = alignment_id
+        muscle_params.status = CeleryStatus.STARTED.value
+        
+        # set infile path to be stored in database, then save to tmp directory
+        gl_infile_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'alignments', alignment_id, 'infiles', infile.filename), makedirs=True)
+        muscle_params.input = gl_infile_path.local
+        # if worker is running on a different machine to the api, we must upload to filestore
+        if os.getenv('SEPARATE_WORKER_API_VOLUME') == 'true':
+            gl_infile_path.upload_to_filestore(file=infile.file) 
+        else:
+            gl_infile_path.save_locally(file=infile)
+
+        # attach extension for output file depending on user's choice
+        ext = extension_map[muscle_params.outformat]
+        # do something similar for outfile
+        gl_outfile_path = GLPath(path=os.path.join(os.getenv('VOLUME_DIR'), 'alignments', muscle_params.id, 'outfiles', f'aligned.{ext}'), makedirs=True)
+        muscle_params.out = gl_outfile_path.local
+
+        # Send job to Celery, Celery ID will be the same as ID in databases
+        worker.muscle.apply_async((
+            muscle_params.model_dump(exclude_none=True, exclude=['status', 'jobTitle', 'id', 'outformat']), muscle_params.id), task_id=muscle_params.id)
+
+        id = await add_jobs_to_db(
+            params=muscle_params,
+            session=session, 
+            schema=schemas.MuscleJobs,
+            algorithm='muscle',
+            output=muscle_params.out
+        )
+
+        return Response(id, status_code=200)
+    
+    except Exception as e:
+
+        return Response(e, status_code=500)
 
 
 # Fetch all current jobs, or specific job if ID is supplied
@@ -102,7 +145,7 @@ async def blastn(req: Request, session: Session = Depends(get_db)) -> List[Align
     return [AlignmentJobs(
         id=item.id,
         jobTitle=item.jobTitle, 
-        algorithm='clustalw', 
+        algorithm=item.algorithm, 
         status=item.status, 
         created_at=item.created_at
     ) for item in alignment_jobs]

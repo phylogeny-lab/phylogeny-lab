@@ -168,7 +168,7 @@ export default function NextTable({ title }: Props) {
       case "organism_name":
         return (
           <div className="flex items-center gap-4">
-            <GenomeAvatar database={database} genus={genus} species={species} />
+            <GenomeAvatar small={true} database={database} genus={genus} species={species} />
             <p className="cursor-text">{database.organism_name}</p>
           </div>
         );
