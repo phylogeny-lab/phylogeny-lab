@@ -27,6 +27,8 @@ function BlastQuery() {
     const [dbInput, setDbInput] = useState(false)
     const [searchSensitivity, setSearchSensitivity] = useState("Normal")
 
+    const [formik, setFormik] = useState<any>(null)
+
     const validationSchema = yup.object({
         jobTitle: yup.string().required('Job title is required'),
         querySequence: yup.string().when('queryFile', ([], schema) => {
@@ -95,6 +97,7 @@ function BlastQuery() {
         
         <Card className='dark' style={{padding: '1rem', background: 'var(--bg-primary)', marginLeft: '10rem', marginRight: '10rem', paddingTop: '2rem' }}>
             <MultiStepForm
+                setFormikState={setFormik}
                 initialValues={{
                     jobTitle: '',
                     algorithm: 'blastn',

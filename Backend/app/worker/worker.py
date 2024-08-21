@@ -258,4 +258,7 @@ def dim_reduction(alg, file, kmers, batch_size, task_id):
         raise Exception(e)
 
     
+@celery.task(name="mrbayes")
+def mr_bayes(file, task_id):
 
+    pass

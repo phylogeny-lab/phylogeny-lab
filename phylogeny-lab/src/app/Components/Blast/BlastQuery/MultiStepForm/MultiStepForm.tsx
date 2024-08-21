@@ -1,15 +1,16 @@
 "use client";
 
-import { Form, Formik, FormikConfig, FormikHelpers, FormikValues } from 'formik';
-import React, { useState } from 'react'
+import { Form, Formik, FormikConfig, FormikHelpers, FormikProps, FormikValues } from 'formik';
+import React, { SetStateAction, useState } from 'react'
 import FormNavigation from '../FormNavigation/FormNavigation';
 import { StepLabel, Stepper, Step } from '@mui/material';
 
 interface Props extends FormikConfig<FormikValues> {
     children: React.ReactNode;
+    setFormikState: React.Dispatch<SetStateAction<any>>
 }
 
-function MultiStepForm({ children, initialValues, onSubmit }: Props) {
+function MultiStepForm({ children, initialValues, onSubmit, setFormikState }: Props) {
 
     const [stepNumber, setStepNumber] = useState(0);
     const steps = React.Children.toArray(children) as React.ReactElement[]
@@ -46,23 +47,28 @@ function MultiStepForm({ children, initialValues, onSubmit }: Props) {
     return (
         <div className='w-full'>
             <Formik initialValues={snapshot} onSubmit={handleSubmit} validationSchema={step.props.validationSchema}>
-                {(formik) => <Form onSubmit={formik.handleSubmit}>
-                    
-                    <Stepper activeStep={stepNumber}>
-                        {steps.map(currentStep => {
-                            const label = currentStep.props.stepName;
-                            return <Step key={label}>
-                                <StepLabel>{label}</StepLabel>
-                            </Step>
-                        })}
-                    </Stepper>
-                    {step}
-                    <FormNavigation 
-                        isLastStep={isLastStep} 
-                        hasPrevious={stepNumber > 0} 
-                        onBackClick={() => previous(formik.values)} 
-                    />
-                </Form>}
+                {(formik) => {
+                    setFormikState(formik.values);
+                    return (
+                        <Form onSubmit={formik.handleSubmit}>
+
+                            <Stepper activeStep={stepNumber}>
+                                {steps.map(currentStep => {
+                                    const label = currentStep.props.stepName;
+                                    return <Step key={label}>
+                                        <StepLabel>{label}</StepLabel>
+                                    </Step>
+                                })}
+                            </Stepper>
+                            {step}
+                            <FormNavigation
+                                isLastStep={isLastStep}
+                                hasPrevious={stepNumber > 0}
+                                onBackClick={() => previous(formik.values)}
+                            />
+                        </Form>
+                    )
+                }}
             </Formik>
         </div>
     )
@@ -70,4 +76,4 @@ function MultiStepForm({ children, initialValues, onSubmit }: Props) {
 
 export default MultiStepForm
 
-export const FormStep = ({stepName = '', children}: any) => children;
+export const FormStep = ({ stepName = '', children }: any) => children;
