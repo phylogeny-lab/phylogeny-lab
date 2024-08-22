@@ -7,10 +7,10 @@ import { StepLabel, Stepper, Step } from '@mui/material';
 
 interface Props extends FormikConfig<FormikValues> {
     children: React.ReactNode;
-    setFormikState: React.Dispatch<SetStateAction<any>>
+    setFormikValues: React.Dispatch<SetStateAction<any>>
 }
 
-function MultiStepForm({ children, initialValues, onSubmit, setFormikState }: Props) {
+function MultiStepForm({ children, initialValues, onSubmit, setFormikValues }: Props) {
 
     const [stepNumber, setStepNumber] = useState(0);
     const steps = React.Children.toArray(children) as React.ReactElement[]
@@ -48,7 +48,7 @@ function MultiStepForm({ children, initialValues, onSubmit, setFormikState }: Pr
         <div className='w-full'>
             <Formik initialValues={snapshot} onSubmit={handleSubmit} validationSchema={step.props.validationSchema}>
                 {(formik) => {
-                    setFormikState(formik.values);
+                    setFormikValues(formik.values);
                     return (
                         <Form onSubmit={formik.handleSubmit}>
 

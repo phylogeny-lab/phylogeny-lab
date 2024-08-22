@@ -19,7 +19,7 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
-function FormFileUpload(props: FieldHookConfig<any> & { label: string, icon: React.ReactElement, disabled?: boolean, setInput?: any }) {
+function FormFileUpload(props: FieldHookConfig<any> & { label: string, icon: React.ReactElement, disabled?: boolean }) {
 
   const { values, touched, setFieldValue } = useFormikContext()
   const [field, meta] = useField(props);
@@ -38,7 +38,6 @@ function FormFileUpload(props: FieldHookConfig<any> & { label: string, icon: Rea
     setUploaded(false)
     setFilename("")
     setFieldValue(props.name, "")
-    props.setInput && props.setInput(false)
   }
 
   return (

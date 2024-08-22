@@ -17,29 +17,22 @@ import { Card } from '@nextui-org/react';
 
 function BlastQuery() {
 
-    // flags to disable other input type
-    const [querySequenceInput, setQuerySequenceInput] = useState(false)
-    const [queryFileInput, setQueryFileInput] = useState(false)
-
-    const [subjectSequenceInput, setSubjectSequenceInput] = useState(false)
-    const [subjectFileInput, setSubjectFileInput] = useState(false)
-
     const [dbInput, setDbInput] = useState(false)
     const [searchSensitivity, setSearchSensitivity] = useState("Normal")
 
-    const [formik, setFormik] = useState<any>(null)
+    const [formikValues, setFormikValues] = useState<any>(null)
 
     const validationSchema = yup.object({
         jobTitle: yup.string().required('Job title is required'),
-        querySequence: yup.string().when('queryFile', ([], schema) => {
-            return queryFileInput ? schema.notRequired() : schema.required("Query sequence required if query file not provided.");
-        }),
+        // querySequence: yup.string().when('queryFile', ([], schema) => {
+        //     return queryFileInput ? schema.notRequired() : schema.required("Query sequence required if query file not provided.");
+        // }),
     })
 
     const validationSchema2 = yup.object({
-        subjectSequence: yup.string().when('subjectFile', ([], schema) => {
-            return subjectFileInput ? schema.notRequired() : schema.required("Either subject or database required.")
-        })
+        // subjectSequence: yup.string().when('subjectFile', ([], schema) => {
+        //     return subjectFileInput ? schema.notRequired() : schema.required("Either subject or database required.")
+        // })
     })
 
     const BASE_URL = process.env.NEXT_PUBLIC_FASTAPI_ENDPOINT
@@ -97,7 +90,7 @@ function BlastQuery() {
         
         <Card className='dark' style={{padding: '1rem', background: 'var(--bg-primary)', marginLeft: '10rem', marginRight: '10rem', paddingTop: '2rem' }}>
             <MultiStepForm
-                setFormikState={setFormik}
+                setFormikValues={setFormikValues}
                 initialValues={{
                     jobTitle: '',
                     algorithm: 'blastn',
@@ -153,18 +146,16 @@ function BlastQuery() {
                                 name="querySequence"
                                 multiline={true}
                                 rows={10}
-                                onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setQuerySequenceInput(true) : setQuerySequenceInput(false)}
+                                disabled={typeof(formikValues?.queryFile) === "object"} //need to fix!
                             />
                         </div>
 
                         <div className='mt-6'>
                             <h1 className='font-semibold text-gray-400  mb-2'>Or upload a file</h1>
                             <FormFileUpload
-                                disabled={querySequenceInput}
-                                onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setQueryFileInput(true) : setQueryFileInput(false)}
+                                disabled={formikValues?.querySequence}
                                 label='Upload'
                                 name='queryFile'
-                                setInput={setQueryFileInput}
                                 icon={<CloudUploadIcon />}>
                                 Upload
                             </FormFileUpload>
@@ -189,8 +180,7 @@ function BlastQuery() {
                                         name='db'
                                         fullWidth={true}
                                         id='databases_combo'
-                                        onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setDbInput(true) : setDbInput(false)}
-                                        disabled={subjectFileInput || subjectSequenceInput}
+                                        disabled={formikValues?.subjectSequence || formikValues?.subjectFile}
                                         options={Array.from(installedDatabases)}
                                     /> : <p>No databases found</p>}
 
@@ -201,18 +191,16 @@ function BlastQuery() {
                                     <FormTextField
                                         label="FASTA file"
                                         name="subjectSequence"
-                                        onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setSubjectSequenceInput(true) : setSubjectSequenceInput(false)}
+                                        disabled={formikValues?.subjectFile || formikValues?.db}
                                         multiline={true}
                                         rows={11}
                                     />
 
                                     <h1 className='font-semibold text-gray-400  mb-4 mt-6'>Or upload a file</h1>
                                     <FormFileUpload
-                                        disabled={querySequenceInput}
-                                        onInput={(e: React.ChangeEvent<HTMLInputElement>) => e.target.value ? setSubjectFileInput(true) : setSubjectFileInput(false)}
+                                        disabled={formikValues?.db || formikValues?.subjectSequence}
                                         label='Upload'
                                         name='subjectFile'
-                                        setInput={setSubjectFileInput}
                                         icon={<CloudUploadIcon />} >
                                         Sequence file
                                     </FormFileUpload>
