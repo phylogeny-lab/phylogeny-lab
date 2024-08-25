@@ -8,11 +8,12 @@ interface Props {
     hasPrevious?: boolean;
     onBackClick: (values: FormikValues) => void;
     isLastStep: boolean;
+    finalStep: string;
 }
 
 function FormNavigation(props: Props) {
   return (
-    <div className='flex mt-8 content-between justify-between items-center'>
+    <div className='flex mt-8 content-between justify-between items-center mx-6'>
         {props.hasPrevious ? 
             <Button variant="contained" type="button" className=' bg-gray-400' onClick={props.onBackClick}>
                 Back
@@ -22,7 +23,7 @@ function FormNavigation(props: Props) {
         }
 
         <Button type="submit" color="primary" variant="contained">
-            {props.isLastStep ? 'Run Blast' : 'Next'}
+            {props.isLastStep ? props.finalStep : 'Next'}
         </Button>
     </div>
   )

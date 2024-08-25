@@ -90,6 +90,7 @@ function BlastQuery() {
         
         <Card className='dark' style={{padding: '1rem', background: 'var(--bg-primary)', marginLeft: '10rem', marginRight: '10rem', paddingTop: '2rem' }}>
             <MultiStepForm
+                finalStep='Run Blast'
                 setFormikValues={setFormikValues}
                 initialValues={{
                     jobTitle: '',
