@@ -19,10 +19,26 @@ RUN bash ncbi_blast.download.sh $BLAST_VERSION && rm ncbi_blast.download.sh
 ENV PATH=/ncbi-blast-$BLAST_VERSION+/bin:$PATH
 ENV BLASTDB=blastdb
 # install mr Bayes
+WORKDIR /tmp
 RUN git clone --depth=1 https://github.com/NBISweden/MrBayes.git && cd MrBayes
-WORKDIR /mrbayes
+WORKDIR /bin/mrbayes
 RUN /tmp/MrBayes/configure
 RUN make && make install
+# install RAxML
+WORKDIR /tmp
+RUN git clone https://github.com/stamatak/standard-RAxML.git
+WORKDIR /tmp/standard-RAxML
+RUN rm -dr WindowsExecutables*
+RUN make -f Makefile.gcc
+RUN rm *.o
+RUN make -f Makefile.SSE3.gcc
+RUN rm *.o
+RUN make -f Makefile.PTHREADS.gcc
+RUN rm *.o
+RUN make -f Makefile.SSE3.PTHREADS.gcc
+RUN rm *.o
+RUN cp raxmlHPC* /bin/
+# Executable can be run with raxmlHPC
 # copy scripts
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*.sh
