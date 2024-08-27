@@ -1,26 +1,28 @@
 FROM debian:bullseye-slim
 EXPOSE 500 5555
 RUN apt-get update && apt-get install -y wget libgomp1 zip unzip automake autoconf pkg-config autoconf-archive git build-essential
-# setup miniconda
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV BLAST_VERSION=2.15.0
+ENV MRBAYES_VERSION=3.2.7
+ENV RAxML_VERSION=8.2.13
+ENV EXECUTABLES_DIR=/code/app/worker
 ENV CONDA_DIR /opt/conda
+# setup miniconda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py310_24.5.0-0-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda
 ENV PATH=$CONDA_DIR/bin:$PATH
 COPY requirements.txt /code/requirements.txt
 RUN conda install -y --file /code/requirements.txt -c bioconda -c conda-forge
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
 # install blast+
 WORKDIR /tmp
-ENV BLAST_VERSION=2.15.0
 COPY ncbi_blast.download.sh .
 RUN bash ncbi_blast.download.sh $BLAST_VERSION && rm ncbi_blast.download.sh
 ENV PATH=/ncbi-blast-$BLAST_VERSION+/bin:$PATH
 ENV BLASTDB=blastdb
 # install mr Bayes
 WORKDIR /tmp
-ENV MRBAYES_VERSION=3.2.7
 RUN wget https://github.com/NBISweden/MrBayes/archive/refs/tags/v${MRBAYES_VERSION}.tar.gz
 RUN tar -xvzf v${MRBAYES_VERSION}.tar.gz
 WORKDIR /bin/mrbayes
@@ -28,7 +30,6 @@ RUN /tmp/MrBayes-${MRBAYES_VERSION}/configure
 RUN make && make install
 # install RAxML
 WORKDIR /tmp
-ENV RAxML_VERSION=8.2.13
 RUN wget https://github.com/stamatak/standard-RAxML/archive/refs/tags/v${RAxML_VERSION}.tar.gz
 RUN tar -xvzf v${RAxML_VERSION}.tar.gz
 WORKDIR /tmp/standard-RAxML-${RAxML_VERSION}
@@ -52,6 +53,5 @@ COPY . .
 # chmod start script which won't be in scripts directory
 RUN chmod +x start-celery.sh
 # compile tools
-ENV EXECUTABLES_DIR=/code/app/worker
 RUN g++ /code/app/worker/tools/feature_selection/vectorize/vectorize.cpp -o ${EXECUTABLES_DIR}/vectorize -fopenmp --std=c++17
 ENV PATH=${EXECUTABLES_DIR}:$PATH
