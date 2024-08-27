@@ -20,14 +20,18 @@ ENV PATH=/ncbi-blast-$BLAST_VERSION+/bin:$PATH
 ENV BLASTDB=blastdb
 # install mr Bayes
 WORKDIR /tmp
-RUN git clone --depth=1 https://github.com/NBISweden/MrBayes.git && cd MrBayes
+ENV MRBAYES_VERSION=3.2.7
+RUN wget https://github.com/NBISweden/MrBayes/archive/refs/tags/v${MRBAYES_VERSION}.tar.gz
+RUN tar -xvzf v${MRBAYES_VERSION}.tar.gz
 WORKDIR /bin/mrbayes
-RUN /tmp/MrBayes/configure
+RUN /tmp/MrBayes-${MRBAYES_VERSION}/configure
 RUN make && make install
 # install RAxML
 WORKDIR /tmp
-RUN git clone https://github.com/stamatak/standard-RAxML.git
-WORKDIR /tmp/standard-RAxML
+ENV RAxML_VERSION=8.2.13
+RUN wget https://github.com/stamatak/standard-RAxML/archive/refs/tags/v${RAxML_VERSION}.tar.gz
+RUN tar -xvzf v${RAxML_VERSION}.tar.gz
+WORKDIR /tmp/standard-RAxML-${RAxML_VERSION}
 RUN rm -dr WindowsExecutables*
 RUN make -f Makefile.gcc
 RUN rm *.o
