@@ -9,7 +9,7 @@ ENV MRBAYES_VERSION=3.2.7
 ENV RAxML_VERSION=8.2.13
 ENV EXECUTABLES_DIR=/code/app/worker
 ENV CONDA_DIR /opt/conda
-# setup miniconda
+# setup miniconda & install dependencies
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-py310_24.5.0-0-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda
 ENV PATH=$CONDA_DIR/bin:$PATH
@@ -23,14 +23,15 @@ ENV PATH=/ncbi-blast-$BLAST_VERSION+/bin:$PATH
 ENV BLASTDB=blastdb
 # install mr Bayes
 WORKDIR /tmp
-RUN wget https://github.com/NBISweden/MrBayes/archive/refs/tags/v${MRBAYES_VERSION}.tar.gz
+RUN wget --quiet https://github.com/NBISweden/MrBayes/archive/refs/tags/v${MRBAYES_VERSION}.tar.gz
 RUN tar -xvzf v${MRBAYES_VERSION}.tar.gz
 WORKDIR /bin/mrbayes
 RUN /tmp/MrBayes-${MRBAYES_VERSION}/configure
-RUN make && make install
+RUN make 
+RUN make install
 # install RAxML
 WORKDIR /tmp
-RUN wget https://github.com/stamatak/standard-RAxML/archive/refs/tags/v${RAxML_VERSION}.tar.gz
+RUN wget --quiet https://github.com/stamatak/standard-RAxML/archive/refs/tags/v${RAxML_VERSION}.tar.gz
 RUN tar -xvzf v${RAxML_VERSION}.tar.gz
 WORKDIR /tmp/standard-RAxML-${RAxML_VERSION}
 RUN rm -dr WindowsExecutables*
@@ -43,7 +44,15 @@ RUN rm *.o
 RUN make -f Makefile.SSE3.PTHREADS.gcc
 RUN rm *.o
 RUN cp raxmlHPC* /bin/
-# Executable can be run with raxmlHPC
+# install Treepuzzle
+WORKDIR /tmp
+RUN wget --quiet http://www.tree-puzzle.de/tree-puzzle-5.3.rc16.tar.gz
+RUN tar -xvzf tree-puzzle-5.3.rc16.tar.gz
+WORKDIR /tmp/tree-puzzle-5.3.rc16
+RUN ./configure
+RUN make
+RUN make install
+RUN make clean
 # copy scripts
 COPY ./scripts /scripts
 RUN chmod +x /scripts/*.sh
@@ -52,6 +61,6 @@ WORKDIR /code/app/worker
 COPY . .
 # chmod start script which won't be in scripts directory
 RUN chmod +x start-celery.sh
-# compile tools
+# compile other scripts
 RUN g++ /code/app/worker/tools/feature_selection/vectorize/vectorize.cpp -o ${EXECUTABLES_DIR}/vectorize -fopenmp --std=c++17
 ENV PATH=${EXECUTABLES_DIR}:$PATH
