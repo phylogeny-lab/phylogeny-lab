@@ -18,8 +18,13 @@ RUN conda install -y --file /code/requirements.txt -c bioconda -c conda-forge
 # install blast+
 WORKDIR /tmp
 COPY ncbi_blast.download.sh .
-# Windows uses a different newline character which causes an error on non-Unix based platforms. So convert to Unix format here
+# copy scripts
+COPY ./scripts /scripts
+RUN chmod +x /scripts/*.sh
+# Windows uses an extra newline character '\r' which causes an error when copying scripts on a Windows platform. So convert to Unix format here
 RUN dos2unix ncbi_blast.download.sh
+RUN dos2unix /scripts/ncbi_database.install.sh
+# Install blast
 RUN bash ncbi_blast.download.sh $BLAST_VERSION && rm ncbi_blast.download.sh
 ENV PATH=/ncbi-blast-$BLAST_VERSION+/bin:$PATH
 ENV BLASTDB=blastdb
@@ -55,17 +60,16 @@ RUN ./configure
 RUN make
 RUN make install
 RUN make clean
-# copy scripts
-COPY ./scripts /scripts
-RUN chmod +x /scripts/*.sh
 # setup app & run server
 WORKDIR /code/app/worker
 COPY . .
+# Windows uses an extra newline character '\r' which causes an error when copying scripts on a Windows platform. So convert to Unix format here
+RUN dos2unix /code/app/worker/entrypoint.sh
 # compile other scripts
 RUN g++ /code/app/worker/tools/feature_selection/vectorize/vectorize.cpp -o ${EXECUTABLES_DIR}/vectorize -fopenmp --std=c++17
 ENV PATH=${EXECUTABLES_DIR}:$PATH
 # chmod start script which won't be in scripts directory
 RUN chmod +x entrypoint.sh
-# Windows uses a different newline character which causes an error on non-Unix based platforms. So convert to Unix format here, then remove tool
-RUN dos2unix entrypoint.sh && apt-get --purge remove -y dos2unix && rm -rf /var/lib/apt/lists/*
+# Remove dos2unix tools
+RUN apt-get --purge remove -y dos2unix && rm -rf /var/lib/apt/lists/*
 ENTRYPOINT ["entrypoint.sh"]

@@ -114,14 +114,12 @@ async def customdb(req: Request, session: Session = Depends(get_db)) -> List[Bla
 @router.get("/ncbi")
 async def ncbidb(req: Request, session: Session = Depends(get_db)):
     
-    with open('/data/metazoa.json') as f:
+    with open(f"{os.getenv('NCBI_METADATA_DIR')}/eumetazoa.json") as f:
         metazoa = json.load(f)
-
-    with open('/data/vir.json') as f:
-        vir = json.load(f)
     
     
-    total = metazoa['reports'] + vir['reports']
+    #total = metazoa['reports'] + vir['reports']
+    total = metazoa['reports']
 
     # fetched installed NCBI databases
     stmt = select(schemas.BlastDB).where(schemas.BlastDB.ncbidb)
