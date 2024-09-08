@@ -1,6 +1,5 @@
-worker.dockerfile
+worker.Dockerfile
 .dockerignore
 __pycache__
 logs
-ncbi_blast.download.sh
 requirements.txt

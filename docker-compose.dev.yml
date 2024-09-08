@@ -50,7 +50,6 @@ services:
     build:
       context: ./Backend/app/worker
       dockerfile: worker.Dockerfile
-    command: /code/app/worker/start-celery.sh
     volumes:
       - ./Backend/app/worker/logs/celery.log:/code/worker/logs/celery.log
       - shared_tmp_volume:/filestore

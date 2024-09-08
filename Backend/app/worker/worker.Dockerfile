@@ -1,6 +1,6 @@
 FROM debian:bullseye-slim
 EXPOSE 500 5555
-RUN apt-get update && apt-get install -y wget libgomp1 zip unzip automake autoconf pkg-config autoconf-archive git build-essential
+RUN apt-get update && apt-get install -y wget libgomp1 zip unzip automake autoconf pkg-config autoconf-archive git build-essential dos2unix
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -18,6 +18,8 @@ RUN conda install -y --file /code/requirements.txt -c bioconda -c conda-forge
 # install blast+
 WORKDIR /tmp
 COPY ncbi_blast.download.sh .
+# Windows uses a different newline character which causes an error on non-Unix based platforms. So convert to Unix format here
+RUN dos2unix ncbi_blast.download.sh
 RUN bash ncbi_blast.download.sh $BLAST_VERSION && rm ncbi_blast.download.sh
 ENV PATH=/ncbi-blast-$BLAST_VERSION+/bin:$PATH
 ENV BLASTDB=blastdb
@@ -59,8 +61,11 @@ RUN chmod +x /scripts/*.sh
 # setup app & run server
 WORKDIR /code/app/worker
 COPY . .
-# chmod start script which won't be in scripts directory
-RUN chmod +x start-celery.sh
 # compile other scripts
 RUN g++ /code/app/worker/tools/feature_selection/vectorize/vectorize.cpp -o ${EXECUTABLES_DIR}/vectorize -fopenmp --std=c++17
 ENV PATH=${EXECUTABLES_DIR}:$PATH
+# chmod start script which won't be in scripts directory
+RUN chmod +x entrypoint.sh
+# Windows uses a different newline character which causes an error on non-Unix based platforms. So convert to Unix format here, then remove tool
+RUN dos2unix entrypoint.sh && apt-get --purge remove -y dos2unix && rm -rf /var/lib/apt/lists/*
+ENTRYPOINT ["entrypoint.sh"]
