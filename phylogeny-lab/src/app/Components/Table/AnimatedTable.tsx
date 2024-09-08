@@ -12,16 +12,15 @@ interface Props {
   tableRows: any;
   title: string;
   new_job_page: string;
-  fullHeight?: boolean;
   height?: string;
 }
 
-function AnimatedTable({ isLoading, tableRows, title, new_job_page, height, fullHeight = false }: Props) {
+function AnimatedTable({ isLoading, tableRows, title, new_job_page, height }: Props) {
 
   const router = useRouter()
 
   return (
-    <div className={`bg-[var(--bg-primary)] border-gray-500 border-opacity-20 border-1 rounded-lg grow ${fullHeight && 'h-[var(--main-height)]'}`}>
+    <div className={`bg-[var(--bg-primary)] border-gray-500 border-opacity-20 border-1 rounded-lg grow`}>
       <div className="flex justify-between w-full border-b-gray-500 border-opacity-50 border-b-[1px] p-4">
 
         <div className="flex gap-2 items-center">

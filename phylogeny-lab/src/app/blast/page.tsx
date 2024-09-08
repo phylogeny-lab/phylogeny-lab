@@ -14,11 +14,13 @@ const BASE_URL = process.env.NEXT_PUBLIC_FASTAPI_ENDPOINT
 function blastPage() {
 
   return (
-    <main className='flex flex-col justify-between gap-8 w-full flex-wrap' style={{height: 'var(--main-height)'}}>
+    <main className='flex flex-col-reverse justify-between gap-8 w-full flex-wrap' style={{height: 'var(--main-height)'}}>
 
-      <BlastQueries />
 
       <NextTable title="Databases" />
+      <BlastQueries />
+
+      
 
     </main>
   )

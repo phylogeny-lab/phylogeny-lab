@@ -149,7 +149,7 @@ const AlignmentPage = () => {
   }, [jobs])
 
   return (
-    <AnimatedTable height={'calc(var(--main-height) - 7rem)'} fullHeight={true} new_job_page="/alignment/new" title="Alignment Jobs" isLoading={isLoading} tableRows={tableRows}  />
+    <AnimatedTable height={'calc(var(--main-height) - 7rem)'} new_job_page="/alignment/new" title="Alignment Jobs" isLoading={isLoading} tableRows={tableRows}  />
   );
 };
 
