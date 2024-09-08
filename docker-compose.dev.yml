@@ -51,7 +51,7 @@ services:
       context: ./Backend/app/worker
       dockerfile: worker.Dockerfile
     volumes:
-      - ./Backend/app/worker/logs/celery.log:/code/worker/logs/celery.log
+      - ./Backend/app/worker/logs:/code/worker/logs
       - shared_tmp_volume:/filestore
       - ncbi_databases:/volume/ncbi_databases
     env_file:
