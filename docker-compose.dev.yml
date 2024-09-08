@@ -33,7 +33,7 @@ services:
     tty: true
     stdin_open: true
     ports:
-      - "5000:5000"
+      - 5000:5000
     env_file:
       - ./Backend/.env
     volumes:
